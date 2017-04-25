@@ -1,6 +1,10 @@
 -module(hello).
--export([start/0]).
+-export([start/0, input/0]).
 
 start() ->
-	io:format("Hello world~n").
+    F = input(),
+	io:format("Hello, World.~n~ts",[F]).
+
+input() ->
+	io:get_line("").
 
