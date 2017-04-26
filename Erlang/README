@@ -1,0 +1,12 @@
+README
+
+Note for some cases.
+ 
+1. Avoid output ok after a func
+   Sample:
+       [hbu@hbu Erlang]$ erl -compile hello
+       [hbu@hbu Erlang]$ erl -noshell -s  hello start -s init stop
+       nihao
+       Hello, World.
+       nihao
+
