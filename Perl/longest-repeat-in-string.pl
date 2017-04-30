@@ -11,7 +11,7 @@ my ($matrix ,$lat,$lon,$value)=([],0,0,0);
 print "Length of the string ".length($s)."\n";
 for (my $i=0;$i<@a;$i++){
     my $c1 = $a[$i];
-    for (my $j=0;$j<@a;$j++){
+    for (my $j=0;$j<=$i;$j++){
         my $c2 = $a[$j];
         if ($i>0 && $j>0){
            my $p = $matrix->[$i-1]->[$j-1];
@@ -20,7 +20,7 @@ for (my $i=0;$i<@a;$i++){
            $matrix->[$i]->[$j]=edge_alignment($a[$i],$a[$j]);
         }
 
-        if ($i<$j){
+        if ($j<$i){
             if ($matrix->[$i]->[$j]>$value){
                 $value = $matrix->[$i]->[$j];
                 $lat = $i;
