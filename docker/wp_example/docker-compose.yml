@@ -1,0 +1,16 @@
+version: "3"
+services:
+  wordpress:
+    image: wordpress:4.2.2
+    links:
+       - db:mysql
+    ports:
+       - 8080:80
+    environment:
+       WORDPRESS_DB_PASSWORD: example
+       WORDPRESS_DB_HOST: mysql:3306 
+  
+  db:
+    image: mariadb
+    environment:
+       MYSQL_ROOT_PASSWORD: example
