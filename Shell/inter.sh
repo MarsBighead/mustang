@@ -27,3 +27,6 @@ sort -t $',' -k 1 -u data.txt | awk -F "," '{print $1,$2}' | uniq -w 6
 #azx y
 #azx z
 
+#uniq by column 1, with out considering character width
+sort -t $"," -k1 data.txt | awk -F "," '{if (!keys[$1]) print $0; keys[$1] = 1;}'
+
