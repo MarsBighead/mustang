@@ -5,7 +5,7 @@ services:
     links:
        - db:mysql
     ports:
-       - 8080:80
+       - 8001:80
     environment:
        WORDPRESS_DB_PASSWORD: example
        WORDPRESS_DB_HOST: mysql:3306 
