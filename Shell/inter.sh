@@ -20,7 +20,7 @@ sort -t $',' -k 1 -u data.txt | awk -F "," '{print $1,$2}' | uniq -w 3
 #2 3
 #a x
 #azx y
-sort -t $',' -k 1 -u data.txt | awk -F "," '{print $1,$2}' | uniq -w 6
+sort -t $',' -k 1 -u data.txt | awk -F "," 'BEGINE{print $1,$2} END{print "lines: "NR}' | uniq -w 6
 #1 2
 #2 3
 #a x
