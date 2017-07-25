@@ -30,3 +30,23 @@ sort -t $',' -k 1 -u data.txt | awk -F "," 'BEGINE{print $1,$2} END{print "lines
 #uniq by column 1, with out considering character width
 sort -t $"," -k1 data.txt | awk -F "," '{if (!keys[$1]) print $0; keys[$1] = 1;}'
 
+paste  col1 col2 -d ","
+#[hbu@hbu Shell]$ paste  col1 col2 -d ","
+#duan,24
+#annan,31
+#nil,78
+#onecloud,23
+paste  col1 col2 -d " "
+#[hbu@hbu Shell]$ paste  col1 col2 -d " "
+#duan 24
+#annan 31
+#nil 78
+#onecloud 23
+#Default connect with "\t"
+paste  col1 col2 -d "\t"
+#[hbu@hbu Shell]$ paste  col1 col2 -d "\t"
+#duan	24
+#annan	31
+#nil	78
+#onecloud	23
+
