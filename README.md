@@ -17,3 +17,21 @@ docker run --rm \
    -w "$(pwd)" golang:1.8.1 \
    go build -v
 ```
+
+- 2 ls SELinux parameter
+ SELinux options:
+
+       --lcontext
+              Display security context.   Enable -l. Lines will probably be too wide for most displays.
+
+       -Z, --context
+              Display security context so it fits on most displays.  Displays only mode, user, group, security context and file name.
+
+       --scontext
+              Display only security context and file name.
+
+       --help display this help and exit
+
+       --version
+              output version information and exit
+

@@ -43,6 +43,14 @@ paste  col1 col2 -d " "
 #nil 78
 #onecloud 23
 #Default connect with "\t"
+
+cut -f2,3 -d " " data.sort.txt 
+#[hbu@hbu Shell]$ cut -f2,3 -d " " data.sort.txt 
+#mac 2000
+#2 winxp
+#bsd 1000
+#linux 1000
+
 paste  col1 col2 -d "\t"
 #[hbu@hbu Shell]$ paste  col1 col2 -d "\t"
 #duan	24
