@@ -5,3 +5,4 @@ inc/
 *.o
 *.bs
 *.pyc
+*.csv
