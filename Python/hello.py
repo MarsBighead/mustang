@@ -13,3 +13,12 @@ numbers.extend(tmp)
 print numbers
 str = "Pi with three decimals"
 # tmp = map(str,tmp)
+array=[
+	  [1,2,3],
+	  [2,3,4],
+]
+for a in array:
+    print "Two-dimensional array",type(a)
+    for e in a:
+        print e,
+    print 
