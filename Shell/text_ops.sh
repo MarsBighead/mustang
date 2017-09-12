@@ -1,4 +1,8 @@
 #!/bin/bash
+echo $0
+name=$(basename $0)
+echo "Name is $name"
+
 var="This is a line of text"
 echo ${var/line/REPLACED/}
 
