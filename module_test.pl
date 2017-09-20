@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 use Mars::Mustang;
+use ExtUtils::Installed;  
 
 my $status_code=mg_toger();
 print "$status_code\n";
@@ -17,3 +18,12 @@ my $h = {
 print Dumper($h);
 print "type \$h ".ref($h)."\n";
 print "type \$h->{num} ".ref($h->{"num"})."\n";
+  
+my $inst = ExtUtils::Installed->new();  
+  
+my @modules = $inst->modules();  
+  
+foreach  (@modules) { 
+    my  $ver = $inst->version($_) || "???";  
+    printf("%-22s -Version- %-22s\n", $_, $ver);
+} 
