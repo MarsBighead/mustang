@@ -18,8 +18,8 @@ docker run --rm \
    go build -v
 ```
 
-- 2 ls SELinux parameter
- SELinux options:
+- 3 list SELinux parameter with `ls`     
+SELinux options:
 
        --lcontext
               Display security context.   Enable -l. Lines will probably be too wide for most displays.
