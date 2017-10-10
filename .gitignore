@@ -7,3 +7,4 @@ inc/
 *.pyc
 *.csv
 number.txt
+.DS_Store

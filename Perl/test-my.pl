@@ -10,3 +10,12 @@ sub Subroutine{
 &Subroutine;                     #输出3  
 &Subroutine;                     #输出3   
 print $Scalar."\n";              #输出1
+
+my $step=9;
+my $j=2;
+my $sql="";
+calculate_test($sql, $step*$j);
+sub calculate_test{
+    my ($template , $num)=@_;
+    print "\$num is $num\n";
+}
