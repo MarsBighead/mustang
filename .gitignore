@@ -1,4 +1,6 @@
 _build/
+.vstags
+.vscode
 cover_db/
 inc/
 !Build/
