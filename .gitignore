@@ -10,3 +10,4 @@ inc/
 *.csv
 number.txt
 .DS_Store
+*.beam
