@@ -2,31 +2,37 @@
 
 package Reporter;
 use Data::Dumper;
+use Text::CSV;
 
 sub new
 {
     my $class = shift;
-    my $self = {
-        _data => shift,
-        _type  => shift,
-        _op       => shift,
-    };
+    my $self = {};
     # Print all the values just for clarification.
-    print Dumper($self->{_data}); 
-    print "Last Name is $self->{_type}\n";
-    print "SSN is $self->{_op}\n";
     bless $self, $class;
     return $self;
 }
-sub setOp {
-    my ( $self, $rhash ) = @_;
-    print Dumper($rhash);
-    $self->{_data} = $rhash if defined($rhash);
-    return $self->{_op};
+sub export {
+    my ($self, $output, $type) = @_;
+    my $csv = Text::CSV->new({binary => 1});
+    $csv->eol ("\r\n");
+    print Dumper($self->{_data});
+    open my $fh, ">:encoding(utf8)", $output or die "$output: $!";
+    $csv->print ($fh,  $self->{_header});
+    $csv->print ($fh, $_) for (@{$self->{_data}});
+    close $fh;
+    return $output;
+}
+sub set {
+    my ($self, $rhash) = @_;
+    $self->{_data} = $rhash->{_data} if defined($rhash);
+    $self->{_header} = $rhash->{_header} if defined($rhash);
 }
 
-sub getOp {
-    my( $self ) = @_;
-    return $self->{_op};
+sub load {
+    my($self,$tablename,$pghash) = @_;
+}
+sub export {
+    
 }
 1;
