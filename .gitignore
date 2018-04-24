@@ -11,3 +11,4 @@ inc/
 number.txt
 .DS_Store
 *.beam
+*.class
