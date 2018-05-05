@@ -12,3 +12,4 @@ number.txt
 .DS_Store
 *.beam
 *.class
+*.out

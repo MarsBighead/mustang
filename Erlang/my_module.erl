@@ -1,5 +1,5 @@
 -module(my_module).
--export([pie/0, print/1, either_or_both/2, area/1]).
+-export([pie/0, print/1, either_or_both/2, area/1, sign/1, yesno/1]).
 
 pie() ->
     3.14.
@@ -22,4 +22,18 @@ area(Shape)->
             Side * Side;
         {rectange, Hight, Width} ->
             Hight * Width
+end.
+
+sign(N) when is_number(N) ->
+    if
+        N > 0 -> positive;
+        N < 0 -> negative;
+        true ->zero
+end.
+
+%% F=fun either_or_both/2
+yesno(F) ->
+    case F of
+        true -> io:format("yes~n");
+        false-> io:format("no~n")
 end.
