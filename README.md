@@ -1,24 +1,31 @@
-**mustang**
+# mustang
+
 ------------
 Partly exercise code of  mine, inlude but not limit Golang, Perl, PHP, Python, Nodejs, etc.
 
-- 1 Generics    
-use C++ after C++99 version   
+1.Generics
 
-```
+use C++ after C++99 version
+
+```shell
 - g++ -std=c++0x generics.cpp -o generics
 ```
 
-- 2 Docker    
+2.Docker
+
 Build application with docker
-```
+
+```docker
 docker run --rm \
    -v "$(pwd)":/home/hbu/mustang/docker/hello \ 
    -w "$(pwd)" golang:1.8.1 \
    go build -v
 ```
 
-- 3 list SELinux parameter with `ls`     
+3.list SELinux parameter with `ls`
+
+```shell
+man ls
 SELinux options:
 
        --lcontext
@@ -34,4 +41,5 @@ SELinux options:
 
        --version
               output version information and exit
+```
 
