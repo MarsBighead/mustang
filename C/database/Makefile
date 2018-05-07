@@ -7,8 +7,10 @@ MAKEFILE      = Makefile
 
 #CC = /usr/bin/gcc
 CC = /usr/bin/g++
-LDFLAGS += -I/usr/local/opt/postgresql/include
-HEADER_DIR = -L/usr/local/opt/postgresql/lib \
+#LDFLAGS += -I/usr/local/opt/postgresql/include
+LDFLAGS += -I `pg_config --includedir`
+#HEADER_DIR = -L/usr/local/opt/postgresql/lib
+HEADER_DIR = -L`pg_config --libdir`\
 
 LIBS+=      -lpq
 OBJS =      ping.cpp
