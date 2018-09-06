@@ -1,3 +1,4 @@
+using TimeZones
 function read_and_capitalize(f::IOStream)
     ss = uppercase(read(f, String))
     println(ss)
@@ -9,3 +10,5 @@ close(f)
 f = open("hello.txt")
 read_and_capitalize(f)
 close(f)
+d = DateTime(2018)
+println(d)
