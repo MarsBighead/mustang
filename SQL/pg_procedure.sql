@@ -36,3 +36,20 @@ LANGUAGE SQL
 AS $$
 select a+b;
 $$;
+
+CREATE PROCEDURE instest()
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    FOR i IN 0..9 LOOP
+        INSERT INTO test (id) VALUES (i);
+        IF i % 2 = 0 THEN
+            COMMIT;
+        ELSE
+            ROLLBACK;
+        END IF;
+    END LOOP;
+END
+$$;
+
+CALL instest();
