@@ -18,3 +18,12 @@ if ($ip=~/^(?:(?:0\.){3}0)|((?:25[0-5]|2[0-4]\d|((1\d{2})|[1-9]))((?:\.)(?:25[0-
 if ($x=~/^([1-9])$/){
   print "0-9 $x\n";
 }
+
+my $api="http://reviewboard.eng.vmware.com/api/review-requests/1456719/";
+
+if ($api=~/^http(?:s)?:\/\/(?:(?:\w+\.)+)\w+\/api\/review-requests\/([1-9]\d+)\//){
+   print "API https or http: $api\n$1\n";
+} else{
+   print "Unmatch\n";
+}
+
