@@ -9,9 +9,9 @@ def checker(numbers, n):
         if numbers[i] == i+1:
             pass
         else:
-            temp = numbers[i];
-            numbers[i] = numbers[temp-1];
-            numbers[temp-1] = temp;
+            temp = numbers[i]
+            numbers[i] = numbers[temp-1]
+            numbers[temp-1] = temp
     print numbers,n
     for i in range(0, n):
         if numbers[i] != i+1:

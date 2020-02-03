@@ -8,3 +8,7 @@ for ($start..$end){
 }
 my @a=(split //, 0 x $end);
 print "\n@a\n";
+
+my $arr=\@a;
+print scalar(@$arr)." n\n";
+print $#{$arr}." n\n";

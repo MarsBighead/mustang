@@ -12,3 +12,5 @@ logger.addHandler(ch)
 words =['this','is','an','ex','parrot']
 for word in words:
     logger.debug(word) 
+for id  in range (1,13):
+    print (id);
