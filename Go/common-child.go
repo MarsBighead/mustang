@@ -21,7 +21,6 @@ func commonChild(s1 string, s2 string) int32 {
 	//matrix[length][length] = 0
 	for i := 0; i <= length; i++ {
 		matrix[i] = make([]int32, length+1)
-
 	}
 	a := []byte(s1)
 	b := []byte(s2)
