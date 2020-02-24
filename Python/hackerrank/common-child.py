@@ -51,3 +51,7 @@ if __name__ == '__main__':
     
     result = commonChild(s1, s2)
     print(result)
+    m=[[0]*10]*10
+    print("matrix=",len(m))
+    for  v  in m:
+        print(v)
