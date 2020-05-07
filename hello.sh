@@ -7,3 +7,6 @@ echo 'Hello, World.'
 
 # Write the second line of output
 echo $inputString
+
+
+ssh  ubuntu@localhost /bin/bash -c 'echo "">/home/ubuntu/.bash_history'
