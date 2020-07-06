@@ -37,7 +37,8 @@ services:
 volumes:
     jenkins-data:
       external: true
-    jenkins-docker-certs: {}
+    jenkins-docker-certs: 
+      external: true
 
 networks: 
   jenkins:
