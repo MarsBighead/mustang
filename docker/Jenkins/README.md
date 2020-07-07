@@ -90,6 +90,28 @@ Network jenkins is external, skipping
 
 The destroy process will skip `Network` stage since `Network` is  extenal source. Please vist docker official document to find more information.
 
+## Jenkins Configure Plugin mirror
+
+Configure orginal configure file from container and modify it as file `hudson.model.UpdateCenter.xml` under the smae folder.
+
+```shell
+# copy configure file from source
+docker cp jenkins-blueocean:/var/jenkins_home/hudson.model.UpdateCenter.xml hudson.model.UpdateCenter.xml
+# copy the modified one to container
+docker cp  hudson.model.UpdateCenter.xml jenkins-blueocean:/var/jenkins_home/hudson.model.UpdateCenter.xml
+
+
+```
+
+## Jenkins service status
+
+Jenkins container IPAddress
+
+```shell
+docker inspect --format='{{.NetworkSettings.Networks.jenkins.IPAddress}}'  jenkins-blueocean
+```
+
 ## Reference
+
 1. [Downloading and running jenkins in docker](https://www.jenkins.io/doc/book/installing/#downloading-and-running-jenkins-in-docker)
 2. [Docker compose reference and guidelines](https://docs.docker.com/compose/compose-file/#external)
