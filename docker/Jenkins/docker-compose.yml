@@ -4,10 +4,10 @@ services:
   jenkins-docker:
     image: docker:dind
     container_name: jenkins-bocker
+    #restart: always
     volumes:
       - jenkins-docker-certs:/certs/client 
       - jenkins-data:/var/jenkins_home
-    #restart: always
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: /certs
@@ -20,6 +20,7 @@ services:
   jenkins:
     image: jenkinsci/blueocean
     container_name: 'jenkins-blueocean'
+    #restart: always
     volumes:
       - jenkins-data:/var/jenkins_home
       - jenkins-docker-certs:/certs/client:ro
