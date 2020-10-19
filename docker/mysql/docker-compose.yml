@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql80
+    environment:
+      MYSQL_ROOT_PASSWORD: togerme
+      MYSQL_DATABASE: test
+      MYSQL_USER: hbu
+      MYSQL_PASSWORD: togerme
+    ports:
+      - "3307:3306"
+      - "9104:9104"
+    networks:
+      - prometheus
+  mysqld-exporter:
+    depends_on:
+      - db
+    image: prom/mysqld-exporter:latest
+    container_name: mysqld-exporter 
+    network_mode: "container:mysql80"
+    environment:
+      DATA_SOURCE_NAME: root:togerme@(mysql80:3306)/
+      #DATA_SOURCE_NAME: root:togerme@(192.168.198.152:3307)/
+
+networks: 
+  prometheus:
+    external:
+      name: mysql_default 

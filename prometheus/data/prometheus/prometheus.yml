@@ -1,0 +1,29 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: cadvisor
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+        - 192.168.198.152:8080
+  - job_name: node
+    static_configs:
+      - targets: 
+        - 192.168.198.152:9100
+        - 192.168.198.152:8081
+        - 192.168.198.152:8082
+  - job_name: MySQL
+    static_configs:
+      - targets: ['192.168.198.152:9104']
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - 192.168.198.152:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  - "rules/*.yml"
