@@ -4,8 +4,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     restart: always
-    ports:
-    - 9090:9090
+    network_mode: host
     command:
     - --config.file=/etc/prometheus/prometheus.yml
     volumes:
@@ -14,6 +13,16 @@ services:
     depends_on:
     - cadvisor
     - node
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    restart: always
+    #ports: 
+    #  - 9093:9093
+    network_mode: host
+    volumes: 
+      - ./data/alertmanager:/etc/alertmanager
+      - ./data/alertmanager/storage:/alertmanager
   node:
      image: prom/node-exporter:latest
      restart: always
