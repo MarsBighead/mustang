@@ -1,0 +1,23 @@
+---
+# vars file for challenge
+
+# version
+nginx_version: 1.19.1
+libunwind_version: 1.1
+gperftools_version: 2.2.1
+mod_strip_version: 0.1
+echo_nginx_module_version: 0.58
+#set_misc_nginx_module_version: 0.29
+
+# system 
+sys_user: root
+sys_group: root
+nginx_user: root
+
+download_url: 'http://nginx.org/download/nginx-1.19.1.tar.gz'    # local download path
+download_path: '/home/hbu/nginx-ansible/files'    # local download path
+#download_path: '/home/vagrant/nginx'    # local download path
+download_dir: /tmp                       # remote download_dir
+challenge_dir: "{{download_dir}}/challenge"
+install_dir: /opt                       # install dir
+

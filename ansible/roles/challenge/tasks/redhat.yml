@@ -1,0 +1,18 @@
+---
+- name: Install pcre-devel
+  yum: name=pcre-devel state=present
+
+- name: Install zlib-devel
+  yum: name=zlib-devel state=present
+
+- name: Install openssl-devel
+  yum: name=openssl-devel state=present
+
+- name: Install gcc,g++
+  yum: name=gcc-c++ state=present
+
+- name: Install unzip
+  yum: name=unzip state=present
+
+- name: Install patch
+  yum: name=patch state=present

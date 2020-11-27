@@ -1,0 +1,27 @@
+---
+# defaults file for challenge
+# nginx config list, add your new mod into list
+nginx_dir: /opt/nginx
+config_list:
+    - "--prefix={{nginx_dir}}"
+    - "--with-stream"
+    - "--with-http_realip_module"
+    - "--with-pcre"
+    - "--with-http_ssl_module"
+    - "--with-http_gzip_static_module"
+    - "--with-http_stub_status_module"
+# nginx config path
+http_conf_path: "http_conf.d"
+tcp_conf_path: "tcp_conf.d"
+
+#nginx.config
+worker_processes: 8
+
+# create path
+create_path:
+    - "{{nginx_dir}}"
+    - "{{challenge_dir}}"
+
+# firewall port
+firewall_ports:
+    - "80"
