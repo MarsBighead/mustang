@@ -1,0 +1,28 @@
+---
+- name: Install pcre-devel
+  apt: 
+    pkg:
+      - "libpcre3"
+      - "libpcre3-dev"
+    state: present
+
+- name: Install zlib-devel
+  apt: name=zlib1g-dev state=present
+
+- name: Install openssl-devel
+  apt: name=libssl-dev state=present
+  
+- name: Install gcc,g++
+  apt:
+    pkg:
+      - gcc
+      - g++
+      - dpkg-dev
+    state: present
+  #apt: name=build-essential state=present  
+
+- name: Install unzip
+  apt: name=unzip state=present
+
+- name: Install patch
+  apt: name=patch state=present

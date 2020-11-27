@@ -1,0 +1,17 @@
+---
+- hosts: all
+  user: vagrant 
+  become: yes
+  become_method: sudo
+  become_user: root
+  vars:
+    install_mod_concat: true       # install concat mode
+    install_mod_gperftools: true   # install gperftools mode
+    install_mod_libunwind: true    # install libunwind
+    install_mod_strip: true        # install mod_strip
+    install_mod_jvm_route: true    # install mode  jvm route
+    open_firewall: true            # open firewall
+  vars_files:
+    - roles/challenge/vars/main.yml
+  roles:
+    - challenge

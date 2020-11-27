@@ -1,0 +1,28 @@
+---
+# tasks file for configure nginx 
+- name: Create project dir
+  file:  path={{item}} state=directory
+  with_items:
+    - "{{ create_path }}"
+    
+- name: create fragment dir
+  file: path={{nginx_dir}}/conf/{{item}} state=directory
+  with_items:
+    - "{{ http_conf_path }}"
+    - "{{ tcp_conf_path }}"
+
+- name: Copy default http config files to http_conf.d directory
+  template: src=nginx_http_default.conf dest={{nginx_dir}}/conf/{{ http_conf_path }}
+
+- name: Copy Nginx config file
+  template: src=nginx.conf dest={{nginx_dir}}/conf/nginx.conf
+
+- name: Export Path
+  template: src=nginx_path.sh dest=/etc/profile.d/nginx_path.sh mode="u=rwx,g=rx,o=rx"
+
+# China mainland ubuntu mirror
+#- name: Upload Ubuntu source.list from Aliyun 
+#  template: src=source.18.04.list dest=source.18.04.list
+#- name: Replace Ubuntu resources
+#  shell: cp cp  /etc/apt/sources.list  /etc/apt/sources.list.bak && mv /etc/apt/source.18.04.list /etc/apt/source.list && apt-get clean all
+
