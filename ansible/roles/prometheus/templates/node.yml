@@ -1,0 +1,5 @@
+---
+- targets:
+{% for h in groups['prometheus'] %}
+  - {{h}}:9100
+{% endfor %}

@@ -1,0 +1,11 @@
+---
+#The task file is used to creating alermanager user group and user 
+- name: Create user group {{ alertmanager_user_group }} for alertmanager
+  group: name={{ alertmanager_user_group }} system=yes state=present
+  when: alertmanager_user_group!="root"
+
+- name: Create user {{ alertmanager_user }} for alertmanager
+  user: name={{ alertmanager_user }} group={{ alertmanager_user_group }} create_home=no system=yes shell="/usr/sbin/nologin" state=present
+  become: true
+  become_method: sudo  
+  when: alertmanager_user!="root"
