@@ -1,0 +1,26 @@
+#Create directory for configure Prometheus 
+- name: Create project dir
+  file:  path={{item}} state=directory
+  with_items:
+    - "{{ create_path }}"
+  
+#- name: Create docker-compose.yml file for Prometheus docker
+#    template: src=docker-compose.yml dest={{prometheus_download_dir}}/docker-compose.yml
+- name: Copy docker-compose.yml to "{{prometheus_download_dir}}"
+  template: 
+    src: docker-compose.yml 
+    dest: "{{ prometheus_download_dir }}"
+
+- name: Copy prometheus.yml to  {{prometheus_dir}} 
+  template: 
+    src: prometheus.yml 
+    dest: "{{prometheus_volumes}}"
+    mode: 0644
+
+- name: Copy node.yml to  {{prometheus_dir}} 
+  template: 
+    src: node.yml 
+    dest: "{{prometheus_volumes}}"
+    mode: 0644
+     
+  

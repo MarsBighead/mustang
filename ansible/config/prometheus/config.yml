@@ -1,0 +1,20 @@
+#Docker compose prometheus configure
+prometheus_download_dir: /tmp/prometheus
+
+prometheus_volumes: /opt/prometheus 
+prometheus_dir: /etc/prometheus 
+prometheus_data_dir: /etc/prometheus/data 
+prometheus_data_volumes: /opt/prometheus/data 
+
+#alertmanager configure
+alertmanager_volumes: /opt/alertmanager 
+alertmanager_storage_volumes: /opt/alertmanager/storage 
+
+# create path
+create_path:
+  - "{{prometheus_download_dir}}"
+  - "{{prometheus_volumes}}"
+  - "{{prometheus_data_volumes}}"
+  - "{{alertmanager_volumes}}"
+  - "{{alertmanager_storage_volumes}}"
+    

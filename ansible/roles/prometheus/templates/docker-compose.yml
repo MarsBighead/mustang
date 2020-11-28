@@ -1,0 +1,50 @@
+version: '3.2'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: always
+    network_mode: host
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+    - {{prometheus_volumes}}:/etc/prometheus 
+    - {{prometheus_data_volumes}}:/prometheus
+    depends_on:
+    - cadvisor
+    - node
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    restart: always
+    #ports: 
+    #  - 9093:9093
+    network_mode: host
+    volumes: 
+      - {{alertmanager_volumes}}:/etc/alertmanager
+      - {{alertmanager_storage_volumes}}:/alertmanager
+  node:
+     image: prom/node-exporter:latest
+     restart: always
+     container_name: node-exporter
+     ports: 
+      - 9100:9100
+  cadvisor:
+    image: google/cadvisor:latest
+    restart: always
+    container_name: cadvisor
+    ports:
+    - 8080:8080
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    depends_on:
+    - redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+    - 6379:6379
