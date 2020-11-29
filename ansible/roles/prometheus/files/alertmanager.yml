@@ -24,8 +24,8 @@ route:
 receivers:
 - name: 'mail' #警报名称
   email_configs:
-  - to: '\{\{ template "email.to" . \}\}'  #接收警报的email
-    html: '\{\{ template "email.to.html" . \}\}' # 模板
+  - to: '{{ template "email.to" . }}'  #接收警报的email
+    html: '{{ template "email.to.html" . }}' # 模板
     send_resolved: true
 
 # 告警抑制
