@@ -23,12 +23,14 @@ scrape_configs:
     static_configs:
       - targets: ['192.168.198.152:9104']
 # Alertmanager configuration
-#alerting:
-#  alertmanagers:
-#  - static_configs:
-#    - targets:
-#      - 192.168.198.152:9093
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+{% for h in groups['prometheus'] %}
+      - {{h}}:9093
+{% endfor %}
 #
 ## Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-#rule_files:
-#  - "rules/*.yml"
+rule_files:
+  - "rules/*.yml"
