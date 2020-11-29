@@ -32,7 +32,7 @@
     mode: 0644
      
 - name: Copy alertmanager.yml to {{alertmanager_volumes}}
-  template: 
+  copy: 
     src: alertmanager.yml 
     dest: "{{alertmanager_volumes}}"
     mode: 0644
