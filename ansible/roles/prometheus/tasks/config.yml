@@ -17,10 +17,29 @@
     dest: "{{prometheus_volumes}}"
     mode: 0644
 
+- name: Copy rule_files to {{prometheus_rules_volumes}}
+  copy: 
+    src: "{{item}}"
+    dest: "{{prometheus_rules_volumes}}"
+    mode: 0644
+  with_items:
+    - "{{rule_files}}"
+
 - name: Copy node.yml to  {{prometheus_dir}} 
   template: 
     src: node.yml 
     dest: "{{prometheus_volumes}}"
     mode: 0644
      
+- name: Copy alertmanager.yml to {{alertmanager_volumes}}
+  template: 
+    src: alertmanager.yml 
+    dest: "{{alertmanager_volumes}}"
+    mode: 0644
+
+- name: Copy email.tmpl to {{alertmanager_template_volumes}}
+  copy: 
+    src: email.tmpl 
+    dest: "{{alertmanager_template_volumes}}"
+    mode: 0644
   

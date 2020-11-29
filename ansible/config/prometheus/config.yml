@@ -5,16 +5,25 @@ prometheus_volumes: /opt/prometheus
 prometheus_dir: /etc/prometheus 
 prometheus_data_dir: /etc/prometheus/data 
 prometheus_data_volumes: /opt/prometheus/data 
+prometheus_rules_volumes: /opt/prometheus/rules 
 
 #alertmanager configure
 alertmanager_volumes: /opt/alertmanager 
+alertmanager_dir: /etc/alertmanager 
 alertmanager_storage_volumes: /opt/alertmanager/storage 
+alertmanager_storage_dir: /alertmanager 
+alertmanager_template_volumes: /opt/alertmanager/template
 
 # create path
 create_path:
   - "{{prometheus_download_dir}}"
   - "{{prometheus_volumes}}"
   - "{{prometheus_data_volumes}}"
+  - "{{prometheus_rules_volumes}}"
   - "{{alertmanager_volumes}}"
+  - "{{alertmanager_template_volumes}}"
   - "{{alertmanager_storage_volumes}}"
     
+rule_files:
+  - node_down.yml
+  - memory_over.yml
