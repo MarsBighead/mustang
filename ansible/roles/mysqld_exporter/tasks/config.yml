@@ -1,0 +1,17 @@
+#Create directory for configure Prometheus 
+- name: Create project dir
+  file:  path={{item}} state=directory
+  with_items:
+    - "{{ create_path }}"
+  
+#Extract mysql_exporter archive
+- name: Extract mysqld_exporter  archive
+  unarchive: src={{mysqld_exporter_archive}} dest=/opt creates=/opt/{{ mysqld_exporter_archive.replace(".tar.gz", '') }}
+
+#- name: Create docker-compose.yml file for Prometheus docker
+#    template: src=docker-compose.yml dest={{prometheus_download_dir}}/docker-compose.yml
+- name: Copy mysqld_exporter.service to "{{mysqld_exporter_download_dir}}"
+  template: 
+    src: mysqld_exporter.service 
+    dest: "{{ mysqld_exporter_download_dir }}"
+

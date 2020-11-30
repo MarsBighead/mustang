@@ -11,6 +11,10 @@
     src: docker-compose.yml 
     dest: "{{ prometheus_download_dir }}"
 
+#Extract mysql_exporter archive
+- name: Extract mysqld_exporter  archive
+  unarchive: src={{mysqld_exporter_archive}} dest={{prometheus_download_dir}} creates={{prometheus_download_dir}}/{{ mysqld_exporter_archive.replace(".tar.gz", '') }}
+
 - name: Copy prometheus.yml to  {{prometheus_dir}} 
   template: 
     src: prometheus.yml 
