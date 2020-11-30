@@ -1,0 +1,24 @@
+#mysqld_exporter
+mysqld_exporter_version: 0.10.0+percona.4 
+mysqld_exporter_archive: "mysqld_exporter-{{mysqld_exporter_version}}.linux-amd64.tar.gz"
+mysqld_exporter_user: mysqldexporter 
+mysqld_exporter_user_group: mysqldexporter 
+
+mysqld_exporter_install_dir: /opt/mysqld_exporter 
+
+mysqld_exporter_download_dir: /tmp/mysqld_exporter
+mysqld_exporter_collect: 
+  - global_variables
+  - global_status
+  - slave_status
+  - info_schema.innodb_cmp
+  - info_schema.innodb_cmpmem
+  - info_schema.query_response_time
+  - standard.go
+  - standard.process
+  - custom_query: { hr.directory: '$HOME/mysqld_exporter/conf.d' }
+
+# create path
+create_path:
+  - "{{mysqld_exporter_download_dir}}"
+  - "{{mysqld_exporter_install_dir}}"

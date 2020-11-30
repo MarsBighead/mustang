@@ -1,0 +1,12 @@
+ExecStart={{ mysqld_exporter_install_dir }}/mysqld_exporter \
+{% for c in  mysqld_exporter_collect  %}
+{%   if not c is mapping  %}
+    --collect.{{c}} \
+{%   else %}
+{%     set name,opt = (c.items()| list)[0] %}
+{%     for k,v in opt.items() %}
+    --collect.{{name}}.{{k}}={{v}} \
+{%     endfor %}
+{%   endif %}
+{% endfor %}
+

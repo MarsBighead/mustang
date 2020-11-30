@@ -7,6 +7,9 @@ prometheus_data_dir: /etc/prometheus/data
 prometheus_data_volumes: /opt/prometheus/data 
 prometheus_rules_volumes: /opt/prometheus/rules 
 
+#mysqld_exporter
+mysqld_exporter_version: 0.10.0+percona.4 
+mysqld_exporter_archive: "mysqld_exporter-{{mysqld_exporter_version}}.linux-amd64.tar.gz"
 #alertmanager configure
 alertmanager_volumes: /opt/alertmanager 
 alertmanager_dir: /etc/alertmanager 

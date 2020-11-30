@@ -1,0 +1,4 @@
+---
+# tasks file for prometheus
+
+- include: config.yml

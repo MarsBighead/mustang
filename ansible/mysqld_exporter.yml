@@ -1,0 +1,12 @@
+---
+# install alertmanager
+- hosts: mysqld_exporter 
+  remote_user: ccbft
+  become: yes
+  become_method: sudo
+  vars_files:
+    - config/mysqld_exporter/config.yml
+      
+  roles: 
+    - mysqld_exporter 
+
