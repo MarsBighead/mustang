@@ -1,7 +1,7 @@
 ---
 # install alertmanager
 - hosts: alertmanager
-  remote_user: ccbft
+  remote_user: "{{ lookup('env','USER') }}"
   become: yes
   become_method: sudo
   vars_files:
@@ -10,7 +10,7 @@
     - alertmanager
 
 - hosts: prometheus
-  remote_user: ccbft
+  remote_user: "{{ lookup('env','USER') }}"
   become: yes
   become_method: sudo
   vars_files:
