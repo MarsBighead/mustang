@@ -1,0 +1,12 @@
+---
+# install alertmanager
+- hosts: filebeat 
+  remote_user: ccbft
+  become: yes
+  become_method: sudo
+  vars_files:
+    - config/filebeat/config.yml
+      
+  roles: 
+    - filebeat 
+
