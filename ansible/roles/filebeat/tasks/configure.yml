@@ -1,0 +1,15 @@
+---
+#Install filebeat configure file 
+- name: Copy filebeat configure file 
+  template: 
+    src: filebeat.yml
+    force: true
+    dest: /tmp/filebeat.yml
+    owner: root
+    group: root
+    mode: 600
+
+- name: Remove filebeat rpm package 
+  file: 
+    path: /tmp/{{filebeat_package}} 
+    state: absent

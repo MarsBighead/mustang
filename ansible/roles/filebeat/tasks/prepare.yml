@@ -1,0 +1,12 @@
+---
+
+# Copy filebeat rpm package
+- name: Copy filebeat configure file 
+  copy: 
+    src: "{{filebeat_package}}"
+    force: yes
+    dest: /tmp/{{filebeat_package}}
+    owner: root
+    group: root
+    mode: 664
+

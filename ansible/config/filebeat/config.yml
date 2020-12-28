@@ -1,0 +1,6 @@
+#filebeat
+filebeat_version: 6.8.13
+filebeat_package: "filebeat-{{filebeat_version}}-x86_64.rpm"
+
+filebeat_configure_dir: /etc/filebeat 
+

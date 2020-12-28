@@ -1,0 +1,11 @@
+---
+
+#Install filebeat rpm package 
+- name: Install filebeat rpm package
+  yum:
+    name: /tmp/{{filebeat_package}} 
+    state: present
+  ignore_errors: yes
+
+- name: Enable filebeat MySQL module
+  shell: filebeat modules enable mysql
