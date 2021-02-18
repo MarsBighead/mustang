@@ -8,5 +8,4 @@
     - config/filebeat/config.yml
       
   roles: 
-    - filebeat 
-
+    - filebeat

@@ -1,0 +1,10 @@
+---
+# install alertmanager
+- hosts: mgr 
+  remote_user: ccbft
+  become: yes
+  become_method: sudo
+  vars_files:
+    - config/mgr.yml
+  roles: 
+    - mgr
