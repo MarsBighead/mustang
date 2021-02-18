@@ -1,0 +1,21 @@
+#mysql group replication
+mysql_version: 8.0.22 
+mysql_user: mysql 
+mysql_user_group: mysql 
+
+mgr_base_dir: /home/ccbft 
+
+instances:
+  - port: 24901
+    mysqlx_port: 2491
+    group_port: 24801
+    server_id: 1 
+  - port: 24902
+    mysqlx_port: 2492
+    group_port: 24802
+    server_id: 2 
+  - port: 24903
+    mysqlx_port: 2493
+    group_port: 24803
+    server_id: 3 
+group_ports: [24801, 24802, 24803]

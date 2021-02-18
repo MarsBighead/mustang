@@ -1,0 +1,9 @@
+#Create directory for configure Prometheus 
+- name: Create data dir for MGR instances
+  file:  path={{mgr_base_dir}}/{{item.port}}/data state=directory
+  loop: "{{instances}}"
+  
+- name: Copy my.cnf to instance home dir 
+  template: src="my.cnf" dest="{{mgr_base_dir}}/{{item.port}}/my.cnf" 
+  loop: "{{instances}}"
+#- include: config.yml

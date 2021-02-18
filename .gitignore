@@ -21,3 +21,7 @@ mysql-varibles
 
 *.tar.gz
 *.tgz
+*.rpm
+*.deb
+
+*.swp
