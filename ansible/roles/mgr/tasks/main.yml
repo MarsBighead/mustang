@@ -1,11 +1,11 @@
 ---
 # tasks file for prometheus
-- name: Configure instances
-  debug:
-    msg:
-      - "Port is {{item.port}}"
-      - "mysqlx port is {{item.mysqlx_port}}"
-  loop: "{{instances}}"
+#- name: Configure instances
+#  debug:
+#    msg:
+#      - "Port is {{item.port}}"
+#      - "mysqlx port is {{item.mysqlx_port}}"
+#  loop: "{{instances}}"
 
 - name: Configure
   include_tasks:
