@@ -1,0 +1,4 @@
+---
+- name: Remove data file
+  file:  path={{mgr_base_dir}}/{{item.port}} state=absent
+  loop: "{{instances}}"

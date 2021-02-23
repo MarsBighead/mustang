@@ -3,7 +3,7 @@ mysql_version: 8.0.22
 mysql_user: mysql 
 mysql_user_group: mysql 
 
-mgr_base_dir: /home/ccbft 
+mgr_base_dir: /home/mgr 
 
 instances:
   - port: 24901
