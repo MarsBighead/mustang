@@ -1,4 +1,26 @@
 ---
+- name: Stop MySQL instances service 
+  systemd: name=mysqld-{{item.port}} state=stopped
+  loop: "{{instances}}"
+
 - name: Remove data file
   file:  path={{mgr_base_dir}}/{{item.port}} state=absent
   loop: "{{instances}}"
+
+- name: Remove Selinux Port policies
+  shell: semanage port -d -t mysqld_port_t -p tcp {{item}} 
+  with_items:
+    - 24901-24903
+    - 24801-24803
+    - 2491-2493
+  ignore_errors: true 
+ 
+- name: Remove basedir with context mysqld_log_t 
+  shell: semanage fcontext -d -t mysqld_log_t '/opt/mgr/{{item.port}}/log(/.*)?'
+  loop: "{{instances}}"
+  ignore_errors: true 
+
+- name: Remove basedir with context mysqld_db_t 
+  shell: semanage fcontext -d -t mysqld_db_t '/opt/mgr/{{item.port}}(/.*)?'
+  loop: "{{instances}}"
+  ignore_errors: true 

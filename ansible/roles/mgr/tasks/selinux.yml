@@ -1,0 +1,23 @@
+---
+- name: Open MGR Selinux Port Policy 24901-24903   
+  shell: semanage port -a -t mysqld_port_t -p tcp {{item}} 
+  with_items:
+    - 24901-24903
+    - 24801-24803
+    - 2491-2493
+  ignore_errors: true
+
+- name: Set basedir with context mysqld_db_t 
+  shell: semanage fcontext -a -t mysqld_db_t '/opt/mgr/{{item.port}}(/.*)?'
+  loop: "{{instances}}"
+  ignore_errors: true
+
+- name: Set basedir with context mysqld_log_t 
+  shell: semanage fcontext -a -t mysqld_log_t '/opt/mgr/{{item.port}}/log(/.*)?'
+  loop: "{{instances}}"
+  ignore_errors: true
+ 
+- name: Enable Selinux permission for directory
+  shell: restorecon -Rv  /opt/mgr/{{item.port}} 
+  loop: "{{instances}}"
+  ignore_errors: true
