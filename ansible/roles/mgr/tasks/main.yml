@@ -20,9 +20,22 @@
   include_tasks:
     file: initialize.yml
   loop: "{{instances}}"
-- name: Change Owner to mysql
-  file: dest={{mgr_base_dir}}/{{item.port}} owner=mysql group=mysql recurse=yes
+
+- name: Change datadir Owner to mysql
+  file: dest={{mgr_base_dir}}/{{item.port}}/data owner=mysql group=mysql recurse=yes
   loop: "{{instances}}"
+
+- name: Change logdir Owner to mysql
+  file: dest={{mgr_base_dir}}/{{item.port}}/log owner=mysql group=mysql recurse=yes
+  loop: "{{instances}}"
+
+- name: Set Selinux policies 
+  include_tasks:
+    file: selinux.yml 
+    apply:
+      tags:
+        - selinux
+  tags: always
 - name: Boot MySQL instances
   include_tasks:
     file: boot.yml 

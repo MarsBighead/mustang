@@ -5,6 +5,7 @@
   register: datadir_status
 
 - name: Initialize MySQL instance port={{item.port}} 
-  shell:  mysqld --defaults-file={{mgr_base_dir}}/{{item.port}}/my.cnf --datadir={{mgr_base_dir}}/{{item.port}}/data --initialize-insecure 
+  shell:  mysqld --defaults-file={{mgr_base_dir}}/{{item.port}}/my.cnf --user=mysql --lower-case-table-names=1 --initialize-insecure  --basedir={{mgr_base_dir}}/{{item.port}} 
+  #shell:  mysqld --defaults-file={{mgr_base_dir}}/{{item.port}}/my.cnf --user=mysql --lower-case-table-names=1 --basedir={{mgr_base_dir}}/{{item.port}} --initialize-insecure 
   when:  not datadir_status.stat.exists
 
