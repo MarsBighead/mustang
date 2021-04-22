@@ -39,3 +39,11 @@
 - name: Boot MySQL instances
   include_tasks:
     file: boot.yml 
+ 
+- name: Copy init-cluster.sql to instance 
+  template: src="init-cluster.sql" dest="{{mgr_base_dir}}/{{item.port}}/init-cluster.sql" 
+  loop: "{{instances}}"
+
+- name:  Initialize MGR Cluster 
+  shell: mysql -S {{mgr_base_dir}}/{{item.port}}/mysql.sock -uroot < "{{mgr_base_dir}}/{{item.port}}/init-cluster.sql" 
+  loop: "{{instances}}"

@@ -10,6 +10,7 @@ instances:
     mysqlx_port: 2491
     group_port: 24801
     server_id: 1 
+    isPrimary: true 
   - port: 24902
     mysqlx_port: 2492
     group_port: 24802
