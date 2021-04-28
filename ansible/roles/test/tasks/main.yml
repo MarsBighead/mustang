@@ -1,0 +1,7 @@
+---
+- name: Copy slave SQL
+  template: src="slave.sql" dest="/tmp/{{inventory_hostname}}-slave.sql" 
+  when: isPrimary is not defined
+
+ #- name: Check Variables SQL
+ #  template: src="hostvars.json" dest="hostvars.json" 

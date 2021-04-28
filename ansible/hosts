@@ -12,3 +12,9 @@
 192.168.56.101
 [mgr]
 192.168.200.128
+[semi1]
+localhost isPrimary=true
+192.168.200.128 
+[semi2]
+192.168.200.128 isPrimary=true
+127.0.0.1
