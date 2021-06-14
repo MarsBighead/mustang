@@ -1,0 +1,15 @@
+---
+- name: Create user orch for orchestrator 
+  user:
+    name: orch
+    group: wheel 
+    create_home: yes
+    state: present
+
+- name: Delete user orch of orchestrator 
+  user:
+    name: orch
+    group: wheel 
+    create_home: yes
+    state: absent 
+    remove: yes
