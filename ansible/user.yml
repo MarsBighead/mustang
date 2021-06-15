@@ -1,0 +1,11 @@
+---
+# install alertmanager
+- hosts: orchestrator  
+  remote_user: "root"
+  become: yes
+  become_method: sudo
+  vars:
+     username: rocket
+     password: pass!23 
+  roles: 
+    - user 

@@ -1,0 +1,27 @@
+---
+- name: Create user {{username}} on OS 
+  user:
+    name: "{{username}}"
+    group: wheel 
+    password: "{{password | password_hash('sha512')}}"
+    create_home: yes
+    state: present
+
+- name: ssh-copy "{{ lookup('env', 'HOME')}}/.ssh/id_rsa.pub"
+  authorized_key: 
+    user: "{{username}}" 
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    state: present
+  tags:
+    - keypair 
+ 
+- name: Delete user {{username}} from OS 
+  user:
+    name: "{{username}}" 
+    group: wheel 
+    create_home: yes
+    state: absent 
+    remove: yes
+  tags:
+    - never
+    - del
