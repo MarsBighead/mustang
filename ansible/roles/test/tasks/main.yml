@@ -1,0 +1,21 @@
+---
+- name: Copy slave SQL {{ inventory_hostname.split(".")[-2]}}{{inventory_hostname.split(".")[-1] }}
+  template: src="slave.sql" dest="/tmp/{{inventory_hostname}}-slave.sql" 
+  when: isPrimary is not defined
+
+ #- name: Check Variables SQL
+ #  template: src="hostvars.json" dest="hostvars.json" 
+- name: Generate token
+  shell: "echo hello>/tmp/token"
+
+- name: Fetch token from remote host {{inventory_hostname}} vs {{groups['mgr'][0]}}
+  fetch:
+    src: /tmp/token
+    dest: ./token.tmp 
+    flat: yes
+  when: inventory_hostname == groups['mgr'][0]
+
+- name: Copy local token to target host 
+  copy: src="token.tmp" dest=/tmp/keypair force=yes 
+#- name: Copy local token to target host 
+#  copy: src="{{item}}/tmp/token" dest=/tmp/keypair 

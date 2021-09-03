@@ -1,0 +1,8 @@
+---
+# install alertmanager
+- hosts: mgr
+  remote_user: "{{ lookup('env','USER') }}"
+  become: yes
+  become_method: sudo
+  roles: 
+    - test
