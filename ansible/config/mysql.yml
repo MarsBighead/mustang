@@ -1,0 +1,8 @@
+replication_user:
+  name: replicator
+  host: '%'
+  password: '_strong_password_'
+root_user:
+  name: root
+  host: '%'
+  password: '_strong_password_'

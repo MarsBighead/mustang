@@ -1,0 +1,3 @@
+#- include: server.yml
+- name: Slave check
+  shell: echo "I am a slave node"

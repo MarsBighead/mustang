@@ -1,0 +1,18 @@
+---
+- name: Stop Inception service 
+  systemd: name=inception state=stopped
+
+- name: Remove Inception program 
+  file: dest={{inception_install_dir}}/{{ inception_archive.replace(".tar.gz", '') }} state=absent
+  
+- name: Remove systemd config file
+  file: dest=/usr/lib/systemd/system/inception.service state=absent
+
+- name: Stop goInception service 
+  systemd: name=goInception state=stopped
+
+- name: Remove Inception program 
+  file: dest={{goInception_install_dir}}/{{ goInception_archive.replace(".tar.gz", '') }} state=absent
+  
+- name: Remove systemd config file
+  file: dest=/usr/lib/systemd/system/goInception.service state=absent

@@ -1,0 +1,25 @@
+[Unit]
+Description=Inception Service
+After=network-online.target
+After=syslog.target
+
+[Service]
+Type=simple
+
+WorkingDirectory={{inception_install_dir}}/inception
+
+
+# Start main service
+ExecStart={{inception_install_dir}}/inception/bin/inception --defaults-file={{inception_install_dir}}/inception/inc.cnf
+
+
+# Sets open_files_limit
+LimitNOFILE = 60000
+
+Restart=on-failure
+
+PrivateUsers=false
+#RestartPreventExitStatus=1
+
+[Install]
+WantedBy=multi-user.target

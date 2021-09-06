@@ -1,0 +1,58 @@
+- name: Install mysql necessary packages
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - mysql-server
+
+- name: Initial mysql configuration
+  lineinfile: >
+    dest="{{ mysql_config }}"
+    regexp="{{ item.regexp }}"
+    insertafter="{{ item.after }}"
+    line="{{ item.line }}"
+    state=present
+    backup=yes
+  with_items:
+    - { regexp: '^#?\s*bind-address', line: "bind-address = 0.0.0.0", after: "" }
+    - { regexp: '^#?\s*server-id', line: "server-id = {{ groups.mysql.index(inventory_hostname) + 1 }}", after: "" }
+    - { regexp: '^#?\s*report-host', line: "report-host = {{ inventory_hostname }}", after: "" }
+    - { regexp: '^#?\s*log_bin', line: "log_bin = /var/log/mysql/mysql-bin.log", after: "" }
+    - { regexp: '^#?\s*relay-log', line: "relay-log = /var/log/mysql/mysql-relay-bin.log", after: '^#?\s*log_bin' }
+#    - { regexp: '^#?\s*binlog-format', line: "binlog-format = ROW", after: "" }
+    - { regexp: '^#?\s*log-slave-updates', line: "log-slave-updates = true", after: "" }
+    - { regexp: '^#?\s*gtid-mode', line: "gtid-mode = on", after: "" }
+    - { regexp: '^#?\s*enforce-gtid-consistency', line: "enforce-gtid-consistency = true", after: "" }
+    - { regexp: '^#?\s*master-info-repository', line: "master-info-repository = TABLE", after: "" }
+    - { regexp: '^#?\s*relay-log-info-repository', line: "relay-log-info-repository = TABLE", after: "" }
+    - { regexp: '^#?\s*sync-master-info', line: "sync-master-info = 1", after: "" }
+    - { regexp: '^#?\s*slave-skip-errors', line: "slave-skip-errors = all", after: "" }
+    - { regexp: '^#?\s*read-only', line: "read-only = 1", after: "" }
+  notify: restart mysql
+
+- name: Force restart mysql
+  meta: flush_handlers
+
+- name: Ensure root user exists on all instances
+  mysql_user:
+    name: "{{ root_user.name }}"
+    host: "localhost"
+    password: "{{ root_user.password }}"
+    priv: "{{ root_user.priv | default('*.*:ALL,GRANT') }}"
+    state: present
+    login_port: "{{ mysql_port }}"
+  ignore_errors: yes
+
+- name: Create backup directory
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0770
+
+- name: Mysqldump backup
+  cron:
+    name: "daily backup of all mysql databases"
+    minute: "{{ backup_minute }}"
+    hour: "{{ backup_hour }}"
+    job: "/usr/bin/mysqldump -h 127.0.0.1 -P {{ frontend_mysql_slave_port }} -A -R -E --triggers --single-transaction --add-drop-database --flush-privileges | /bin/gzip > {{ backup_dir }}/mysql_dump_`date +%Y-%m-%d`.sql.gz"
+    user: "root"

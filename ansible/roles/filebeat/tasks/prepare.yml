@@ -8,5 +8,5 @@
     dest: /tmp/{{filebeat_package}}
     owner: root
     group: root
-    mode: 664
+    mode: 0664
 

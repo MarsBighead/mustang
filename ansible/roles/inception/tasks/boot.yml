@@ -1,0 +1,9 @@
+---
+# Need to adjust when enable on another environment
+- name: Create systemd config file
+  template: src=mysqld.service dest=/usr/lib/systemd/system/mysqld-{{item.port}}.service
+  loop: "{{instances}}"
+
+- name: Start MySQL instances service and configure them startup on boot
+  systemd: name=mysqld-{{item.port}} state=started daemon_reload=yes enabled=yes
+  loop: "{{instances}}"

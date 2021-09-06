@@ -6,7 +6,7 @@
 
 [alertmanager]
 192.168.56.101
-#192.168.56.103
+192.168.56.102
 
 [prometheus]
 192.168.56.101
@@ -15,6 +15,3 @@
 [semi1]
 localhost isPrimary=true
 192.168.200.128 
-[semi2]
-192.168.200.128 isPrimary=true
-127.0.0.1

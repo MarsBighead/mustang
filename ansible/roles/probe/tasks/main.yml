@@ -1,0 +1,20 @@
+---
+# tasks file for Redis probe
+
+- name: Extract probe archive
+  unarchive: src={{probe_archive}}  dest=/tmp 
+
+- name: Copy config.yml to /tmp 
+  template: 
+    src: config.yaml 
+    dest: "/tmp/config.yaml"
+    mode: 0644
+
+- name: Execute Redis probe process
+  shell: /tmp/probe -config /tmp/config.yaml > /tmp/probe.log
+
+- name: Remove Probe files
+  file: path=/tmp/{{item}} state=absent
+  with_items:
+    - probe
+    - config.yaml

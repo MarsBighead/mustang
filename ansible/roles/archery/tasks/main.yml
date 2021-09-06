@@ -1,0 +1,18 @@
+---
+- name: Install redis for Archery
+  include_tasks:
+    file: redis.yml
+
+- name: Prepare env for Archery
+  include_tasks:
+    file: archery.yml
+
+- name: Uninstall Inception
+  include_tasks:
+    file: uninstall.yml
+    apply:
+      tags: 
+        - uninstall
+  tags:
+    - never
+    - uninstall

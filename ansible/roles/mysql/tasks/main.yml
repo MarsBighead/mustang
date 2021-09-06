@@ -1,0 +1,20 @@
+---
+#- name: Install mysql for OS 7.x && DB 5.7.x 
+#  when: "(ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7')"
+#  unarchive: src={{mysql57_archive}} dest={{db_install_dir}} creates={{db_install_dir}}/{{db_dir}} owner=ccbft group=ccbft
+
+- name: Copy init-cluster.sql for initialize cluster
+  template:  src="init-cluster.sql" dest="/tmp/init-cluster.sql" owner=mysql group=mysql mode=0644
+
+- name: Register master IP {{inventory_hostname}}
+  shell: "echo {{inventory_hostname}}"
+  register: master_host 
+
+- name: Register master {{master_host}}
+  shell: "echo {{inventory_hostname}}"
+
+- include: master.yml
+  when: isPrimary is defined and isPrimary == 'true'
+
+- include: slave.yml
+  when: isPrimary is not defined

@@ -1,0 +1,14 @@
+#- include: server.yml
+
+- name: Uninstall Archery dependency 
+  yum: 
+    name:
+      - libffi-devel 
+      - zlib-devel
+      - openssl-devel 
+      - ncurses-devel 
+      - openldap-devel
+      - unixODBC-devel
+      - gettext 
+    state: absent 
+

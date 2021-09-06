@@ -1,0 +1,28 @@
+---
+- name: Install Archery dependency 
+  yum: 
+    name:
+      - libffi-devel 
+      - zlib-devel
+      - openssl-devel 
+      - ncurses-devel 
+      - openldap-devel
+      - unixODBC-devel
+      - gettext 
+    state: present
+
+- name: Copy requirement for Archery
+  copy: src=requirements.txt dest=/opt/requirements.txt force=yes mode=0660
+
+- name: Copy install python3 package script
+  template: src=pip3-env.sh dest=/opt/pip3-env.sh force=yes mode=0660
+
+- name: Install python3 package for Archery
+  shell: "/bin/bash /opt/pip3-env.sh" 
+
+- name: Extract Archery archive
+  unarchive: src={{archery_archive}} dest={{archery_install_dir}} 
+
+- name: Symlink Inception directory
+  file: src={{archery_install_dir}}/{{ archery_unarchive_dir }} path={{archery_home_link_dir}} state=link force=yes
+

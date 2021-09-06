@@ -1,0 +1,5 @@
+- name: restart inception 
+  service: name=inception state=restarted enabled=yes
+
+- name: restart goInception 
+  service: name=goInception state=restarted enabled=yes
