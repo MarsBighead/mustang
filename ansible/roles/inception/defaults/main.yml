@@ -1,0 +1,8 @@
+inception_verison: 2.1.52.2
+inception_archive: inception-linux-{{inception_verison}}.tar.gz
+
+goInception_verison: 1.2.4
+goInception_archive: goInception-linux-v{{goInception_verison}}.tar.gz  
+
+inception_install_dir: /opt
+goInception_install_dir: /opt

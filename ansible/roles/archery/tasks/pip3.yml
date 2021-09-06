@@ -1,0 +1,15 @@
+---
+#Install Archery based Python3 virtualenv
+
+- name: Install Python3 virtualenv
+  pip:
+    name: virtualenv 
+    extra_args: -i https://pypi.mirrors.ustc.edu.cn/simple/  --trusted-host pypi.mirrors.ustc.edu.cn
+
+# Depend on mysql-devel
+- name: Install Archery Python3 requirements in virtualenv
+  pip:
+    requirements: /opt/requirements.txt
+    virtualenv: /opt/venv4archery
+    virtualenv_command: /usr/local/bin/virtualenv
+    extra_args: -i https://pypi.mirrors.ustc.edu.cn/simple/  --trusted-host pypi.mirrors.ustc.edu.cn

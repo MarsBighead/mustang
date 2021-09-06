@@ -1,0 +1,14 @@
+---
+- name: Copy redis package
+  copy: src={{redis_package}} dest=/tmp/{{redis_package}} force=yes mode=0660
+
+
+- name: Install redis version=v{{redis_version}} 
+  yum: 
+    name:
+      - /tmp/{{redis_package}}
+    state: present 
+
+
+- name: Start redis service and configure them startup on boot
+  systemd: name=redis state=started daemon_reload=yes enabled=yes

@@ -1,0 +1,10 @@
+---
+# install alertmanager
+- hosts: redis 
+  remote_user: "{{ lookup('env','USER') }}"
+  become: yes
+  become_method: sudo
+  vars:
+    probe_archive: probe.tar.gz
+  roles: 
+    - probe 

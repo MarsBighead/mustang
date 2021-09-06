@@ -1,0 +1,5 @@
+base_dir: /usr/local
+data_dir: /opt/data
+
+db_install_dir: "{{base_dir}}"
+db_dir: "mysql-{{mysql_verison}}"

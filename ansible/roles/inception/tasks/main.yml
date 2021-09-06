@@ -1,0 +1,17 @@
+---
+#- name: Install mysql for OS 7.x && DB 5.7.x 
+#  when: "(ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7')"
+#  unarchive: src={{mysql57_archive}} dest={{db_install_dir}} creates={{db_install_dir}}/{{db_dir}} owner=ccbft group=ccbft
+
+- include: inception.yml
+- include: goInception.yml
+
+- name: Uninstall Inception
+  include_tasks:
+    file: uninstall.yml
+    apply:
+      tags: 
+        - uninstall
+  tags:
+    - never
+    - uninstall

@@ -1,0 +1,8 @@
+redis:
+  host: 192.168.56.101 
+  port: 6379
+  db: 0
+content:
+  - key: {{inventory_hostname}} 
+    value: host-{{100| random(start=10)}}
+  

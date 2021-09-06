@@ -1,0 +1,18 @@
+archery_version: 1.8.1
+archery_archive: v{{archery_version}}.tar.gz
+archery_unarchive_dir: Archery-{{archery_version}} 
+
+pypi_mirrors: "https://pypi.mirrors.ustc.edu.cn/simple/"
+pypi_trusted_host: "pypi.mirrors.ustc.edu.cn"
+
+venv4archery_dir: /opt/venv4archery
+archery_install_dir: /opt
+archery_home_link_dir: /opt/archery
+
+redis_version: 6.2.5 
+redis_package: redis-{{redis_version}}-1.el7.remi.x86_64.rpm
+
+#Plugins
+archery_plugin_dir: {{archery_install_dir}}/{{archery_unarchive_dir}}/src 
+soar_archive: soar-linux.tar.gz
+binlog2sql_archive: binlog2sql.tar.gz

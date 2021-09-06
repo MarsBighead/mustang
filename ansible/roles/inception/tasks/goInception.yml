@@ -1,0 +1,12 @@
+# Extract goInception archive
+- name: Extract goInception archive
+  unarchive: src={{goInception_archive}} dest={{goInception_install_dir}} creates=/opt/{{ goInception_archive.replace(".tar.gz", '') }}
+
+- name: Symlink goInception directory
+  file: src={{inception_install_dir}}/{{ goInception_archive.replace(".tar.gz", '') }} path={{goInception_install_dir}}/goInception state=link force=yes
+
+- name: Create systemd config file
+  template: src=goInception.service.j2 dest=/usr/lib/systemd/system/goInception.service
+
+- name: Start goInception service and configure them startup on boot
+  systemd: name=goInception state=started daemon_reload=yes enabled=yes

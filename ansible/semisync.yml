@@ -1,0 +1,11 @@
+---
+# install alertmanager
+- hosts: semisync 
+  remote_user: "{{ lookup('env','USER') }}"
+  become: yes
+  become_method: sudo
+  vars_files:
+    - config/base.yml
+    - config/mysql.yml
+  roles: 
+    - mysql 

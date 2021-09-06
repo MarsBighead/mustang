@@ -1,0 +1,13 @@
+---
+#Extract inception archive
+- name: Extract inception archive
+  unarchive: src={{inception_archive}} dest={{inception_install_dir}} creates=/opt/{{ inception_archive.replace(".tar.gz", '') }}
+
+- name: Symlink Inception directory
+  file: src={{inception_install_dir}}/{{ inception_archive.replace(".tar.gz", '') }} path={{inception_install_dir}}/inception state=link force=yes
+
+- name: Create systemd config file
+  template: src=inception.service.j2 dest=/usr/lib/systemd/system/inception.service
+
+- name: Start Inception service and configure them startup on boot
+  systemd: name=inception state=started daemon_reload=yes enabled=yes

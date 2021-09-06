@@ -6,6 +6,6 @@
   become_method: sudo
   vars:
      username: rocket
-     password: pass!23 
+     _password: ca$hc0w 
   roles: 
     - user 
