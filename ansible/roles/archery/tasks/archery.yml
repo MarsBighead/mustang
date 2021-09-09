@@ -23,6 +23,15 @@
 - name: Extract Archery archive
   unarchive: src={{archery_archive}} dest={{archery_install_dir}} 
 
-- name: Symlink Inception directory
+- name: Symlink Archery directory
   file: src={{archery_install_dir}}/{{ archery_unarchive_dir }} path={{archery_home_link_dir}} state=link force=yes
 
+- name: Copy Archery admin script admin.sh
+  template: src={{item}} dest={{archery_install_dir}}/{{archery_unarchive_dir}}/{{item}} force=yes mode=0775
+  with_items:
+    - "admin.sh"
+
+- name: Copy Archery Django configure file settings.py 
+  template: src={{item}}.j2 dest={{archery_install_dir}}/{{archery_unarchive_dir}}/archery/{{item}} force=yes mode=0664
+  with_items:
+    - "settings.py"
