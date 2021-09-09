@@ -1,17 +1,7 @@
-[nginx]
-192.168.0.42
-
-[mysqld_exporter]
-192.168.56.101
-
-[alertmanager]
-192.168.56.101
-192.168.56.102
-
-[prometheus]
-192.168.56.101
 [mgr]
 192.168.200.128
 [semi1]
 localhost isPrimary=true
 192.168.200.128 
+[archery]
+192.168.200.128
