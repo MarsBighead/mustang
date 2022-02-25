@@ -1,29 +1,5 @@
 ---
 - hosts: localhost
   gather_facts: false
-
-  tasks:
-    - block:
-
-        - name: I am a task that can fail
-          debug:
-            msg: "I {{ gen_fail | default(false) | bool | ternary('failed', 'succeeded') }}"
-          failed_when: gen_fail | default(false) | bool
-
-        - name: I am a task that will never fail
-          debug:
-            msg: I succeeded
-          tags: conf
-
-      rescue:
-
-        - name: I am a task in a block played when a failure happens
-          debug:
-            msg: rescue task
-
-      always:
-
-        - name: I am a task always played whatever happens
-          debug:
-            msg: always task
-          tags: end
+  roles: 
+    - radish
