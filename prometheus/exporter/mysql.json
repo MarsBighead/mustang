@@ -1,0 +1,15 @@
+{
+  "id": "mysql",
+  "name": "mysqld-exporter",
+  "address": "mysqld-exporter",
+  "port": 9104,
+  "tags": [
+    "mysqld_exporter"
+  ],
+  "checks": [
+    {
+      "http": "http://mysqld-exporter:9104",
+      "interval": "5s"
+    }
+  ]
+}

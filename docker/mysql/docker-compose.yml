@@ -21,7 +21,7 @@ services:
     container_name: mysqld-exporter 
     #network_mode: "container:mysql80"
     environment:
-      DATA_SOURCE_NAME: root:togerme@(mysql80:3306)/
+      DATA_SOURCE_NAME: hbu:togerme@(mysql80:3306)/
       #DATA_SOURCE_NAME: root:togerme@(192.168.198.152:3307)/
 
 networks: 

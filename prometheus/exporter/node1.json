@@ -1,0 +1,15 @@
+{
+  "id": "node1",
+  "name": "node-exporter",
+  "address": "node-exporter1",
+  "port": 9100,
+  "tags": [
+    "node_exporter"
+  ],
+  "checks": [
+    {
+      "http": "http://node-exporter1:9100/",
+      "interval": "5s"
+    }
+  ]
+}

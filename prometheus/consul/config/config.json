@@ -1,0 +1,11 @@
+{
+	"datacenter": "dc1",
+	"primary_datacenter": "dc1",
+	"encrypt": "2VAya1sHYgjB9DGIx66qy+NpyQ20CrNNpIXAcpQ4bww=",
+	"enable_local_script_checks": true,
+	"log_level": "info",
+	"ui_config":{
+        "enabled": true
+    },
+	"client_addr": "0.0.0.0"
+}
