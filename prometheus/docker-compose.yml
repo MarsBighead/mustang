@@ -16,6 +16,14 @@ services:
     - consul1
     - consul2
     - consul3 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports: 
+      - 3000:3000
+    depends_on:
+    - prometheus 
   alertmanager:
     image: prom/alertmanager
     container_name: alertmanager

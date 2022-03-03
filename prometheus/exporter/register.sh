@@ -15,3 +15,7 @@ curl http://localhost:8500/v1/catalog/service/node-exporter | jq .
 
 #删除指定服务 redis为要删除服务的id
 #curl -X PUT  http://localhost:8500/v1/agent/service/deregister/redis
+
+((node_memory_SwapTotal_bytes{instance="node-exporter1:9100",job="consul-register"} -
+ node_memory_SwapFree_bytes{instance="node-exporter1:9100",job="consul-register"}) / 
+(node_memory_SwapTotal_bytes{instance="node-exporter1:9100",job="consul-register"} )) * 100
