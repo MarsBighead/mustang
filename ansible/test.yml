@@ -1,8 +1,7 @@
 ---
 # install alertmanager
-- hosts: mgr
-  remote_user: "{{ lookup('env','USER') }}"
-  become: yes
-  become_method: sudo
-  roles: 
-    - test
+- hosts: all 
+  tasks:
+    - name: Search Interface
+      debug:
+        msg:  "ineterfaces {{ansible_interfaces}}"
