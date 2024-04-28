@@ -5,6 +5,14 @@ import (
 	"testing"
 )
 
+func TestReverseBetween(t *testing.T) {
+	nums := []int{3, 5}
+	head := ArrayToList(nums)
+	PrintList(head)
+	head = reverseBetween(head, 1, 2)
+	PrintList(head)
+}
+
 func TestReverse(t *testing.T) {
 	head := []int{1, 2, 3, 4, 5}
 	ln := ArrayToList(head)

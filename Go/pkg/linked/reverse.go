@@ -9,6 +9,54 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// https://leetcode.cn/problems/reverse-linked-list-ii/description/
+func reverseBetween(head *ListNode, left int, right int) *ListNode {
+	if left == right {
+		return head
+	}
+	var (
+		prev       = new(ListNode)
+		start, end *ListNode
+		i, j       int
+	)
+	current := head
+	for current != nil {
+		i += 1
+		if i > right {
+			end = current
+			break
+		}
+		if i < left {
+			start = current
+		}
+		next := current.Next
+		if i >= left && i <= right {
+			current.Next = prev
+			prev = current
+		}
+		current = next
+	}
+
+	if start != nil {
+		start.Next = prev
+	} else {
+		head = prev
+	}
+
+	current = head
+
+	for current != nil {
+		j += 1
+		if j == right {
+			current.Next = end
+			break
+		}
+		current = current.Next
+	}
+
+	return head
+}
+
 func reverseList(head *ListNode) *ListNode {
 	var cur *ListNode
 	return reverse(cur, head)
