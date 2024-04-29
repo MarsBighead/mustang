@@ -110,9 +110,7 @@ func PrintList(head *ListNode) {
 		fmt.Println()
 		return
 	}
-	if head != nil {
-		fmt.Print(head.Val, " ")
-	}
+	fmt.Print(head.Val, " ")
 	for head.Next != nil {
 		head = head.Next
 		fmt.Print(head.Val, " ")
