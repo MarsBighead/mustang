@@ -48,3 +48,11 @@ func TestDeleteAllDuplicates(t *testing.T) {
 	fmt.Printf("after: %d\n", head.Val)
 	PrintList(head)
 }
+
+func TestRemoveElements(t *testing.T) {
+	nums := []int{1, 2, 3, 4, 5, 6}
+	head := ArrayToList(nums)
+	PrintList(head)
+	head = removeElements(head, 6)
+	PrintList(head)
+}
