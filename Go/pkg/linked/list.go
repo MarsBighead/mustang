@@ -129,3 +129,40 @@ func isPalindrome3(head *ListNode) bool {
 	}
 	return true
 }
+
+func rotateRight(head *ListNode, k int) *ListNode {
+	if k == 0 || head == nil || head.Next == nil {
+		return head
+	}
+	var (
+		length, i int
+		current   = head
+		rotate    *ListNode
+		tail      *ListNode
+	)
+	for current != nil {
+		length += 1
+		if current.Next == nil {
+			tail = current
+		}
+		current = current.Next
+	}
+	//tail = current
+	r := k % length
+	if r == 0 {
+		return head
+	}
+	current = head
+	for current != nil {
+		i += 1
+		if i == length-r {
+			rotate = current.Next
+			current.Next = nil
+			break
+		}
+		current = current.Next
+	}
+	tail.Next = head
+	return rotate
+}
+

@@ -21,3 +21,12 @@ func TestIsPalindrome(t *testing.T) {
 	PrintList(head)
 	fmt.Println("ok=", ok)
 }
+
+func TestRotateRight(t *testing.T) {
+	nums := []int{1, 2, 3, 4, 5}
+	head := ArrayToList(nums)
+	PrintList(head)
+	head = rotateRight(head, 2)
+	PrintList(head)
+
+}
