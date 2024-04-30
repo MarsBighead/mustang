@@ -1,10 +1,25 @@
 package bsearch
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type ListNode struct {
 	Val  int
 	Next *ListNode
+}
+
+func mergeKLists(lists []*ListNode) *ListNode {
+	switch len(lists) {
+	case 0:
+		return nil
+	case 1:
+		return lists[0]
+	case 2:
+		return mergeTwoLists(lists[0], lists[1])
+	}
+	n := len(lists)
+	return mergeTwoLists(mergeKLists(lists[0:n/2]), mergeKLists(lists[n/2:]))
 }
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
@@ -23,12 +38,13 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	//current = &ListNode{Val: list1.Val}
 	for first != nil && second != nil {
 		if first.Val > second.Val {
-			current.Next = &ListNode{Val: second.Val}
+			current.Next = second
 			second = second.Next
 		} else {
-			current.Next = &ListNode{Val: first.Val}
+			current.Next = first
 			first = first.Next
 		}
+
 		current = current.Next
 	}
 	if first != nil {
@@ -72,33 +88,74 @@ func PrintList(head *ListNode) {
 	fmt.Println()
 }
 
+// https://leetcode.cn/problems/sort-list/description/
+// 归并排序
+func mergeSort(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	var (
+		slow, fast = head, head
+		prev       *ListNode
+	)
+	for fast != nil && fast.Next != nil {
+		prev = slow
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	left, right := head, slow
+	prev.Next = nil
+	PrintList(left)
+	PrintList(right)
+
+	return merge(mergeSort(left), mergeSort(right))
+}
+
+func merge(left, right *ListNode) *ListNode {
+	result := &ListNode{}
+	current := result
+	for left != nil && right != nil {
+		if left.Val <= right.Val {
+			current.Next = left
+			left = left.Next
+		} else {
+			current.Next = right
+			right = right.Next
+		}
+		current = current.Next
+	}
+	if left != nil {
+		current.Next = left
+	}
+	if right != nil {
+		current.Next = right
+	}
+	return result.Next
+
+}
+
+// https://leetcode.cn/problems/sort-list/description/
+// 冒泡法
 func sortList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-
 	var (
-		current            = head
-		prev, result, back *ListNode
+		out  = head
+		tail *ListNode
 	)
-	prev = &ListNode{Val: head.Val}
-	result = prev
-	for current != nil {
-		back = current
-		prev = current
-		for current != nil {
-			if prev.Val > current.Val {
-				prev = &ListNode{Val: current.Val}
-				back = back.Next
-				current = back.Next
+	for out != nil {
+		in := head
+		for in != nil && in.Next != tail {
+			if in.Val > in.Next.Val {
+				in.Val, in.Next.Val = in.Next.Val, in.Val
 			}
-			current = current.Next
+			in = in.Next
 		}
-		prev = prev.Next
-		current = back.Next
+		tail = in
+		out = out.Next
 	}
-
-	return result
+	return head
 }
 
 // https://leetcode.cn/problems/linked-list-cycle/
@@ -118,11 +175,45 @@ func hasCycle(head *ListNode) bool {
 		if slow == fast {
 			return true
 		}
-
 	}
 
 	PrintList(slow)
 	PrintList(fast)
 	return false
 
+}
+
+func mergeKListsV2(lists []*ListNode) *ListNode {
+	switch len(lists) {
+	case 0:
+		return nil
+	case 1:
+		return lists[0]
+	case 2:
+		return mergeTwoLists(lists[0], lists[1])
+	}
+	var (
+		head   = lists[0]
+		length = len(lists)
+		tail   *ListNode
+	)
+
+	for i := 0; i < length-1; i++ {
+		if head == nil {
+			head = lists[i]
+		}
+		current := lists[i]
+		for current != nil {
+			if current.Next == nil {
+				tail = current
+			}
+			current = current.Next
+		}
+		if tail != nil {
+			tail.Next = lists[i+1]
+		}
+	}
+	PrintList(head)
+	mergeSort(head)
+	return head
 }
