@@ -1,6 +1,7 @@
 package bsearch
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -14,4 +15,12 @@ func TestMergeTwoLists(t *testing.T) {
 	head := mergeTwoLists(l1, l2)
 	PrintList(head)
 
+}
+
+func TestHasCycle(t *testing.T) {
+	nums := []int{1, 2}
+	head := array2List(nums)
+	PrintList(head)
+	ok := hasCycle(head)
+	fmt.Println(ok)
 }

@@ -45,16 +45,15 @@ func array2List(nums []int) *ListNode {
 		return nil
 	}
 	var (
-		head    = new(ListNode)
+		//head    = new(ListNode)
+		head    = &ListNode{Val: nums[0]}
 		current = head
 	)
-	head.Val = nums[0]
 	for i := 1; i < len(nums); i++ {
-		current.Next = &ListNode{
-			Val: nums[i],
-		}
+		current.Next = &ListNode{Val: nums[i]}
 		current = current.Next
 	}
+	//current = nil
 	return head
 }
 
@@ -71,4 +70,59 @@ func PrintList(head *ListNode) {
 		current = current.Next
 	}
 	fmt.Println()
+}
+
+func sortList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	var (
+		current            = head
+		prev, result, back *ListNode
+	)
+	prev = &ListNode{Val: head.Val}
+	result = prev
+	for current != nil {
+		back = current
+		prev = current
+		for current != nil {
+			if prev.Val > current.Val {
+				prev = &ListNode{Val: current.Val}
+				back = back.Next
+				current = back.Next
+			}
+			current = current.Next
+		}
+		prev = prev.Next
+		current = back.Next
+	}
+
+	return result
+}
+
+// https://leetcode.cn/problems/linked-list-cycle/
+func hasCycle(head *ListNode) bool {
+	if head == nil || head.Next == nil {
+		return false
+	}
+	if head.Next == head {
+		return true
+	}
+
+	slow, fast := head, head
+	PrintList(fast)
+	for slow != nil && fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if slow == fast {
+			return true
+		}
+
+	}
+
+	PrintList(slow)
+	PrintList(fast)
+	return false
+
 }
