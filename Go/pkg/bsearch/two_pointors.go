@@ -121,3 +121,47 @@ func detectCycle2(head *ListNode) *ListNode {
 	return nil
 
 }
+
+// https://leetcode.cn/problems/intersection-of-two-linked-lists/
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	if headA == nil || headB == nil {
+		return nil
+	}
+	if headA == headB {
+		return headA
+	}
+	var (
+		a    = headA
+		b    = headB
+		x, y int
+	)
+	for a != nil {
+		x += 1
+		a = a.Next
+	}
+	for b != nil {
+		y += 1
+		b = b.Next
+	}
+	a = headA
+	b = headB
+	if x < y {
+		a, b = b, a
+		x, y = y, x
+	}
+	gap := x - y
+	for gap > 0 {
+		a = a.Next
+	}
+	if a == b {
+		return a
+	}
+	for a != b {
+		a = a.Next
+		b = b.Next
+		if a == b {
+			return a
+		}
+	}
+	return nil
+}
