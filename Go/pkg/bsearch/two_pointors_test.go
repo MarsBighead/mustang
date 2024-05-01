@@ -32,3 +32,12 @@ func TestDetectCycle(t *testing.T) {
 	//PrintList(head)
 
 }
+
+func TestReorderList(t *testing.T) {
+
+	nums := []int{1, 2, 3, 4, 5}
+	head := array2List(nums)
+	PrintList(head)
+	//head = removeNthFromEnd(head, 1)
+	reorderList(head)
+}

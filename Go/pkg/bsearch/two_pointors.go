@@ -165,3 +165,55 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	}
 	return nil
 }
+
+// https://leetcode.cn/problems/reorder-list/description/
+func reorderList(head *ListNode) {
+	if head.Next == nil || head.Next.Next == nil {
+		return
+	}
+	slow, fast := head, head
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	fast = slow.Next
+	slow.Next = nil
+
+	fast = reverse(fast)
+	slow = head
+	PrintList(fast)
+	PrintList(head)
+	for fast != nil && slow != nil {
+		tmp := slow.Next
+		slow.Next = fast
+		slow = tmp
+		tmp = fast.Next
+		fast.Next = slow
+		fast = tmp
+	}
+	PrintList(head)
+
+}
+
+func reverse(head *ListNode) *ListNode {
+	if head.Next == nil {
+		return head
+	}
+	var (
+		prev    *ListNode
+		current = head
+	)
+	for current != nil {
+		// 真正列表的next内容
+		next := current.Next
+
+		// 反转next指向prev
+		current.Next = prev
+		// prev反转增加current节点
+		prev = current
+
+		// current指向下一个节点
+		current = next
+	}
+	return prev
+}
