@@ -217,3 +217,82 @@ func reverse(head *ListNode) *ListNode {
 	}
 	return prev
 }
+
+// https://leetcode.cn/problems/add-two-numbers/description/
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	var (
+		tail, head *ListNode
+		carry      int
+	)
+	for l1 != nil || l2 != nil {
+		var (
+			n, m int
+		)
+		if l1 != nil {
+			n = l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			m = l2.Val
+			l2 = l2.Next
+		}
+		sum := n + m + carry
+		sum, carry = sum%10, sum/10
+		if head == nil {
+			head = &ListNode{Val: sum}
+			tail = head
+		} else {
+			tail.Next = &ListNode{Val: sum}
+			tail = tail.Next
+		}
+	}
+	if carry > 0 {
+		tail.Next = &ListNode{Val: carry}
+	}
+
+	return head
+}
+
+func addTwoNumbersv2(l1 *ListNode, l2 *ListNode) *ListNode {
+	z, len, carry := 0, 0, 0
+	var (
+		x, y []*ListNode
+	)
+	n, m := l1, l2
+	for n != nil {
+		z += 1
+		x = append(x, n)
+		n = n.Next
+	}
+	len = z
+	for m != nil {
+		z -= 1
+		y = append(y, m)
+		m = m.Next
+	}
+	fmt.Println("short:", z, len)
+	if z < 0 {
+		l1 = l2
+		x, y = y, x
+		len, z = len-z, len
+	} else {
+		z = len - z
+	}
+	result := &ListNode{Next: l1}
+
+	for i := 0; i < len; i++ {
+		sum := x[len-i-1].Val + carry
+		if z-i-1 >= 0 {
+			sum = sum + y[z-i-1].Val
+		}
+		sum, carry = sum%10, sum/10
+		x[len-i-1].Val = sum
+	}
+
+	if carry > 0 {
+		result.Val = carry
+		return result
+	}
+
+	return result.Next
+}
