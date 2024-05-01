@@ -73,6 +73,33 @@ func array2List(nums []int) *ListNode {
 	return head
 }
 
+func AddCycle2List(head *ListNode, n int) *ListNode {
+	if n == -1 || head == nil {
+		return head
+	}
+
+	var (
+		i       int
+		current = head
+		tail    *ListNode
+	)
+	for current.Next != nil {
+		current = current.Next
+	}
+	tail = current
+	current = head
+
+	for current != nil {
+		if i == n {
+			tail.Next = current
+			break
+		}
+		i += 1
+		current = current.Next
+	}
+	return head
+}
+
 func PrintList(head *ListNode) {
 	if head == nil {
 		fmt.Println()

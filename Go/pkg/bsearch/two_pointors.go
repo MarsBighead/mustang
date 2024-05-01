@@ -70,3 +70,54 @@ func removeNthFromEnd2(head *ListNode, n int) *ListNode {
 	slow.Next = slow.Next.Next
 	return dummy.Next
 }
+
+func detectCycle(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return nil
+	}
+	if head.Next == head {
+		return head
+	}
+	hash := make(map[*ListNode]struct{})
+	current := head
+	for current != nil {
+		if _, ok := hash[current]; ok {
+			return current
+		} else {
+			hash[current] = struct{}{}
+		}
+		current = current.Next
+	}
+
+	return nil
+
+}
+
+func detectCycle2(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return nil
+	}
+	if head.Next == head {
+		return head
+	}
+	var (
+		slow, fast = head, head
+	)
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+		if slow == fast {
+			node := head
+			for node != slow {
+				node = node.Next
+				slow = slow.Next
+			}
+			return node
+
+		}
+
+	}
+
+	return nil
+
+}
