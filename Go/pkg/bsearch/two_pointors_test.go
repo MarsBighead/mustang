@@ -41,3 +41,14 @@ func TestReorderList(t *testing.T) {
 	//head = removeNthFromEnd(head, 1)
 	reorderList(head)
 }
+
+func TestAddTwoNumbersv2(t *testing.T) {
+
+	nums1 := []int{9, 9, 9}
+	nums2 := []int{1}
+	l1 := array2List(nums1)
+	l2 := array2List(nums2)
+	l1 = addTwoNumbersv2(l1, l2)
+	PrintList(l1)
+	//head = removeNthFromEnd(head, 1)
+}
