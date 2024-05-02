@@ -107,7 +107,7 @@ func isPalindrome3(head *ListNode) bool {
 	// 快慢指针
 	slow, fast := head, head
 	// 找到链表中点, slow移动一个节点，fast移动两个节点，因此fast完成时，slow指向链表后半段
-	for fast != nil && fast != nil && fast.Next != nil {
+	for fast != nil && fast.Next != nil {
 		slow = slow.Next
 		fast = fast.Next.Next
 	}
