@@ -1,5 +1,7 @@
 package gstack
 
+import "fmt"
+
 type MinStack struct {
 	Stack []int
 	// Diff=Min-PrevMin
@@ -74,4 +76,54 @@ func removeDuplicates(s string) string {
 	}
 
 	return string(stack)
+}
+
+// https://leetcode.cn/problems/valid-parentheses/description/
+func isValid(s string) bool {
+
+	n := len(s)
+	if n%2 == 1 {
+		return false
+	}
+	var (
+		stack = []byte(s)
+		top   = stack[n-1]
+		tmp   = []byte{top}
+	)
+
+	var valid bool
+	//fmt.Println(string(stack))
+	stack = stack[:n-1]
+
+	for i := n - 2; i >= 0; i-- {
+		current := stack[len(stack)-1]
+		if len(tmp) > 0 {
+			top = tmp[len(tmp)-1]
+			tmp = tmp[:len(tmp)-1]
+			stack = stack[:len(stack)-1]
+		} else {
+			if len(stack) > 1 {
+				top = current
+				stack = stack[:len(stack)-1]
+				current = stack[len(stack)-1]
+				stack = stack[:len(stack)-1]
+				i--
+			} else {
+				break
+			}
+		}
+		fmt.Println("stack", string(stack), "tmp:", string(tmp))
+		p := string([]byte{current, top})
+		fmt.Printf("n=%d, %v, %v, pair: %s\n", i, string(stack), string(tmp), p)
+		if !(p == "()" || p == "{}" || p == "[]") {
+			tmp = append(tmp, top, current)
+		}
+
+	}
+	fmt.Println("End:", string(stack), "tmp:", string(tmp))
+	if len(tmp) == 0 && len(stack) == 0 {
+		valid = true
+	}
+	return valid
+
 }
