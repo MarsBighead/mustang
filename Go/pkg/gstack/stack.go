@@ -278,3 +278,48 @@ func dailyTemperatures(temperatures []int) []int {
 	}
 	return ans
 }
+
+func nextGreaterElement(nums1 []int, nums2 []int) []int {
+	hash := make(map[int]int)
+	stack := []int{}
+	for i := len(nums2) - 1; i >= 0; i-- {
+		num := nums2[i]
+		for len(stack) > 0 && num >= stack[len(stack)-1] {
+			stack = stack[:len(stack)-1]
+		}
+		if len(stack) > 0 {
+			hash[num] = stack[len(stack)-1]
+		} else {
+			hash[num] = -1
+		}
+
+		stack = append(stack, num)
+	}
+	for i, num := range nums1 {
+		nums1[i] = hash[num]
+	}
+	return nums1
+}
+
+func nextGreaterElementv2(nums1 []int, nums2 []int) []int {
+	hash := make(map[int]int)
+	for i := 0; i < len(nums2); i++ {
+		hash[nums2[i]] = i
+	}
+	for i, num := range nums1 {
+		index := hash[num]
+		found := false
+		for j := index + 1; j < len(nums2); j++ {
+			if nums2[j] > nums1[i] {
+				nums1[i] = nums2[j]
+				found = true
+				break
+			}
+		}
+		if !found {
+			nums1[i] = -1
+		}
+
+	}
+	return nums1
+}
