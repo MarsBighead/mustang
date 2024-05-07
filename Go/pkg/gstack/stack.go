@@ -540,3 +540,40 @@ func isPalindrome(s string) bool {
 	}
 	return ok
 }
+
+func isPalindromev2(s string) bool {
+	length := len(s)
+	if length <= 1 {
+		return true
+	}
+	i, j := 0, length-1
+	for i <= j {
+		for i < j && !isAlphanumeric(s[i]) {
+			i++
+		}
+		for j >= i && !isAlphanumeric(s[j]) {
+			j--
+		}
+		if i >= j {
+			return true
+		}
+
+		if toLower(s[i]) != toLower(s[j]) {
+			return false
+		}
+		i++
+		j--
+	}
+	return true
+}
+
+func toLower(r byte) byte {
+	if r >= 'A' && r <= 'Z' {
+		return r + 32
+	}
+	return r
+}
+
+func isAlphanumeric(r byte) bool {
+	return (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') || (r >= '0' && r <= '9')
+}
