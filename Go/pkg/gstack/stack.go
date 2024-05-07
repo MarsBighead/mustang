@@ -386,3 +386,29 @@ func lcp(str1, str2 string) string {
 	}
 	return str1[:index]
 }
+
+func addStrings(num1 string, num2 string) string {
+	length := len(num1)
+	if len(num2) < length {
+		length = len(num2)
+		num1, num2 = num2, num1
+	}
+	count := len(num2)
+	carry := 0
+	stack := make([]string, count)
+	for i := 0; i < length; i++ {
+		sum := int(num1[length-i-1]) + int(num2[count-i-1]) + carry
+		sum, carry = sum%10, sum/10
+		stack[count-i-1] = fmt.Sprintf("%d", sum)
+	}
+	for i := 0; i < count-length; i++ {
+		sum := int(num2[count-length-i-1]) + carry
+		sum, carry = sum%10, sum/10
+		stack[count-length-i-1] = fmt.Sprintf("%d", sum)
+	}
+	suffix := strings.Join(stack, "")
+	if carry == 0 {
+		return suffix
+	}
+	return fmt.Sprintf("%d", carry) + suffix
+}
