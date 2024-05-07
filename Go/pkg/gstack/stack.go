@@ -338,3 +338,23 @@ func simplifyPath(path string) string {
 	}
 	return "/" + strings.Join(stack, "/")
 }
+
+func reverseWords(s string) string {
+	if len(s) <= 1 {
+		return s
+	}
+	words := strings.Split(s, " ")
+	//fmt.Println(words)
+	for j, word := range words {
+		length := len(word)
+		stack := []byte(word)
+		for i := 0; i < length/2; i++ {
+			stack[i], stack[length-i-1] = stack[length-i-1], stack[i]
+		}
+		//fmt.Println(string(stack))
+		words[j] = string(stack)
+
+	}
+
+	return strings.Join(words, " ")
+}
