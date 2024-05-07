@@ -45,3 +45,9 @@ func TestMultiply(t *testing.T) {
 	ans := multiply(num1, num2)
 	fmt.Println(ans)
 }
+
+func TestIsPalindrome(t *testing.T) {
+	s := "A man, a plan, a canal: Panama"
+	ans := isPalindrome(s)
+	fmt.Println(ans)
+}

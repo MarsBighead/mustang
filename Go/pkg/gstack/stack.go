@@ -516,3 +516,27 @@ func max(x, y int) int {
 	}
 	return x
 }
+
+func isPalindrome(s string) bool {
+	stack := []rune{}
+	for _, ch := range s {
+		fmt.Println(string(ch), ch, byte('a'))
+		if ch >= 'A' && ch <= 'Z' {
+			ch = ch + 32
+			stack = append(stack, ch)
+		} else if ch >= 'a' && ch <= 'z' {
+			stack = append(stack, ch)
+		} else if ch >= '0' && ch <= '9' {
+			stack = append(stack, ch)
+		}
+	}
+	length := len(stack)
+	ok := true
+	for i := 0; i < length/2; i++ {
+		if stack[i] != stack[length-i-1] {
+			ok = false
+			break
+		}
+	}
+	return ok
+}
