@@ -38,3 +38,10 @@ func TestDailyTemperatures(t *testing.T) {
 	ans := dailyTemperatures(temperatures)
 	fmt.Println(ans)
 }
+
+func TestMultiply(t *testing.T) {
+	num1 := "123"
+	num2 := "456"
+	ans := multiply(num1, num2)
+	fmt.Println(ans)
+}
