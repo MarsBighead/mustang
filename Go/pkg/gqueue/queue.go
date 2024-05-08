@@ -1,6 +1,9 @@
 package gqueue
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 // 定义一个简单的循环队列
 type MyCircularQueue struct {
@@ -68,4 +71,65 @@ func (this *MyCircularQueue) IsFull() bool {
 // 队列是否为空
 func (this *MyCircularQueue) IsEmpty() bool {
 	return this.head == this.tail
+}
+
+// https://leetcode.cn/problems/kth-largest-element-in-a-stream/description/
+// 703. 数据流中的第 K 大元素
+type KthLargest struct {
+	k    int
+	nums []int
+}
+
+func KConstructor(k int, nums []int) KthLargest {
+	length := len(nums)
+	sort.Ints(nums)
+	if length >= k {
+		nums = nums[length-k:]
+	}
+
+	return KthLargest{
+		k,
+		nums,
+	}
+
+}
+
+// add insert sort
+func (this *KthLargest) Add(val int) int {
+	length := len(this.nums)
+	if length == this.k {
+		if val > this.nums[0] {
+			this.nums[0] = val
+			for i := 1; i < length; i++ {
+				if this.nums[i] < this.nums[i-1] {
+					this.nums[i], this.nums[i-1] = this.nums[i-1], this.nums[i]
+				} else {
+					break
+				}
+			}
+		}
+
+	} else if length < this.k {
+		this.nums = append(this.nums, val)
+		length = len(this.nums)
+		for i := length - 2; i >= 0; i-- {
+			if this.nums[i+1] < this.nums[i] {
+				this.nums[i+1], this.nums[i] = this.nums[i], this.nums[i+1]
+			} else {
+				break
+			}
+		}
+	}
+	//sort.Ints(this.nums)
+	fmt.Println(this.nums)
+
+	if len(this.nums) > this.k {
+		this.nums = this.nums[len(this.nums)-this.k:]
+		return this.nums[0]
+	} else if len(this.nums) == this.k {
+		return this.nums[0]
+	} else {
+		return 0
+	}
+
 }

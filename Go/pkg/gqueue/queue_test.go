@@ -22,3 +22,15 @@ func TestConstructor(t *testing.T) {
 	val := this.Rear()
 	fmt.Println("value=", val)
 }
+
+func TestKConstructor(t *testing.T) {
+	nums := []int{5, -1}
+	k := 3
+	kl := KConstructor(k, nums)
+	result := []int{}
+	result = append(result, kl.Add(2))
+	result = append(result, kl.Add(1))
+	result = append(result, kl.Add(3))
+	result = append(result, kl.Add(4))
+	fmt.Println("result=", result)
+}
