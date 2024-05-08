@@ -13,9 +13,10 @@ func TestDecodeString(t *testing.T) {
 }
 func TestGetLargerButLessThanK(t *testing.T) {
 
-	//nums := []int{1, 2, 9}
-	nums := []int{2, 8, 7, 9}
+	//nums := []int{1, 2,8,9}
+	nums := []int{2, 8, 1, 9}
+	fmt.Println(nums[:0], nums[1:])
 	k := 2533
 	n := getLargerButLessThanK(nums, k)
-	fmt.Println(n)
+	fmt.Println("result=", n)
 }
