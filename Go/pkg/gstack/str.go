@@ -71,6 +71,11 @@ func getLargerButLessThanK(nums []int, k int) int {
 	} else {
 		length := len(ks)
 		top := ks[length-1]
+		// 逻辑设计有缺陷
+		// 排序，暴力算法，滑动窗口，从两端部向中间逼近算法
+		// step.1 判断能够到不超过最高位的最大值，记录位置，找不到就会简单
+		// step.2 找到了，拼接最小值，判断是否小于K
+		// step.3 小于递进拼接（迭代），大于降位最大值开始
 		for i := 0; i < length-1; i++ {
 			if top > 10 {
 				top = top + ks[length-i-1]*10
@@ -81,15 +86,19 @@ func getLargerButLessThanK(nums []int, k int) int {
 			max := nums[0]
 			for j := 0; j < len(nums); j++ {
 				if nums[j] > top {
-					nums = nums[j:]
+					if j > 0 {
+						nums = append(nums[:j-1], nums[j:]...)
+					} else {
+						nums = nums[j:]
+					}
 					break
 				} else {
 					max = nums[j]
 				}
 			}
-			fmt.Println(i, ks, max, top)
+			fmt.Println(i, nums, ks, max, top)
 			if max > top {
-				ks = nums[len(nums)-length+1:]
+				ks = nums[len(nums)-i+1:]
 				break
 			} else {
 				if top > 10 {
