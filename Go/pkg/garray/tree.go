@@ -166,3 +166,76 @@ func levelOrder(root *TreeNode) [][]int {
 	level(root, n)
 	return result
 }
+
+// https://leetcode.cn/problems/binary-tree-zigzag-level-order-traversal/description/
+// 二叉树的锯齿形层序遍历
+func zigzagLevelOrder(root *TreeNode) [][]int {
+	if root == nil {
+		return nil
+	}
+	var (
+		result      = make([][]int, 0)
+		zigzagLevel func(*TreeNode, int)
+		n           = 1
+	)
+	zigzagLevel = func(node *TreeNode, n int) {
+		if len(result) < n {
+			tmp := make([]int, 0)
+			result = append(result, tmp)
+		}
+		result[n-1] = append(result[n-1], node.Val)
+		n += 1
+
+		if node.Left != nil {
+			zigzagLevel(node.Left, n)
+		}
+		if node.Right != nil {
+			zigzagLevel(node.Right, n)
+		}
+
+	}
+	zigzagLevel(root, n)
+	for i := 0; i < len(result); i++ {
+		if i%2 == 1 {
+			for j, n := 0, len(result[i]); j < n/2; j++ {
+				result[i][j], result[i][n-1-j] = result[i][n-1-j], result[i][j]
+			}
+		}
+	}
+	return result
+}
+
+// https://leetcode.cn/problems/binary-tree-level-order-traversal-ii/description/
+// 二叉树 自底向上的层序遍历
+func levelOrderBottom(root *TreeNode) [][]int {
+	if root == nil {
+		return nil
+	}
+	var (
+		result     = make([][]int, 0)
+		levelOrder func(*TreeNode, int)
+		n          = 1
+	)
+	levelOrder = func(node *TreeNode, n int) {
+		if len(result) < n {
+			tmp := make([]int, 0)
+			result = append(result, tmp)
+		}
+		result[n-1] = append(result[n-1], node.Val)
+		n += 1
+
+		if node.Left != nil {
+			levelOrder(node.Left, n)
+		}
+		if node.Right != nil {
+			levelOrder(node.Right, n)
+		}
+
+	}
+	levelOrder(root, n)
+	length := len(result)
+	for i := 0; i < length/2; i++ {
+		result[i], result[length-i-1] = result[length-i-1], result[i]
+	}
+	return result
+}
