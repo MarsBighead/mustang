@@ -277,3 +277,34 @@ func min(x, y int) int {
 	}
 	return y
 }
+
+// https://leetcode.cn/problems/binary-tree-maximum-path-sum/description/
+func maxPathSum(root *TreeNode) int {
+	maxSum := -1 << 32
+	var maxGain func(*TreeNode) int
+	maxGain = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		//可以不贡献路径
+		leftGain := max(maxGain(node.Left), 0)
+		rightGain := max(maxGain(node.Right), 0)
+		priceNewPath := node.Val + leftGain + rightGain
+
+		// 更新答案
+		maxSum = max(maxSum, priceNewPath)
+
+		// 返回节点的最大贡献值
+		return node.Val + max(leftGain, rightGain)
+	}
+	maxGain(root)
+	return maxSum
+
+}
+
+func max(x, y int) int {
+	if x < y {
+		return y
+	}
+	return x
+}
