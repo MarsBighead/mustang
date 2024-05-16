@@ -251,3 +251,29 @@ func maxDepth(root *TreeNode) int {
 	}
 	return right + 1
 }
+
+// https://leetcode.cn/problems/minimum-depth-of-binary-tree/
+func minDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	if root.Left == nil && root.Right == nil {
+		return 1
+	}
+	result := 1 << 31
+	if root.Left != nil {
+		result = min(minDepth(root.Left), result)
+	}
+	if root.Right != nil {
+		result = min(minDepth(root.Right), result)
+	}
+	return result + 1
+
+}
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
