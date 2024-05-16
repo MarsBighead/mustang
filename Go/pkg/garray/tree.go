@@ -308,3 +308,19 @@ func max(x, y int) int {
 	}
 	return x
 }
+
+// https://leetcode.cn/problems/symmetric-tree/description/
+func isSymmetric(root *TreeNode) bool {
+	var check func(*TreeNode, *TreeNode) bool
+	check = func(p, q *TreeNode) bool {
+		if p == nil && q == nil {
+			return true
+		}
+		if p == nil || q == nil {
+			return false
+		}
+		return p.Val == q.Val && check(p.Left, q.Right) && check(p.Right, q.Left)
+
+	}
+	return check(root, root)
+}
