@@ -239,3 +239,15 @@ func levelOrderBottom(root *TreeNode) [][]int {
 	}
 	return result
 }
+
+// https://leetcode.cn/problems/maximum-depth-of-binary-tree/
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	left, right := maxDepth(root.Left), maxDepth(root.Right)
+	if left > right {
+		return left + 1
+	}
+	return right + 1
+}
