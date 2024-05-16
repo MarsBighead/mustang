@@ -17,3 +17,12 @@ func findDuplicates(nums []int) []int {
 	}
 	return nums
 }
+
+func findDuplicatesv2(nums []int) []int {
+
+	mask := 1 << 61
+	n := 15
+	mask = mask ^ n
+	//fmt.Println(mask << 61)
+	return nums
+}

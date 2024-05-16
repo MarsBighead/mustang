@@ -1,6 +1,8 @@
 package garray
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type TreeNode struct {
 	Val   int
@@ -39,4 +41,128 @@ func printTree(root *TreeNode) {
 	printTree(root.Left)
 	printTree(root.Right)
 	fmt.Println()
+}
+
+// https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/
+// 二叉树展开为链表
+func flatten(root *TreeNode) {
+	if root == nil {
+		return
+	}
+	list := preorderTraversal(root)
+	for i := 1; i < len(list); i++ {
+		list[i-1].Left, list[i-1].Right = nil, list[i]
+	}
+	return
+
+}
+
+func preorderTraversal(root *TreeNode) []*TreeNode {
+	list := []*TreeNode{}
+	if root != nil {
+		list = append(list, root)
+		list = append(list, preorderTraversal(root.Left)...)
+		list = append(list, preorderTraversal(root.Right)...)
+	}
+	return list
+}
+
+func preorderTraversalv2(root *TreeNode) []int {
+
+	if root == nil {
+		return nil
+	}
+	var (
+		vals     []int
+		preorder func(*TreeNode)
+	)
+
+	preorder = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		vals = append(vals, node.Val)
+		preorder(node.Left)
+		preorder(node.Right)
+	}
+	preorder(root)
+	return vals
+}
+
+func inorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	var result []int
+	if root != nil {
+		result = append(result, inorderTraversal(root.Left)...)
+		result = append(result, root.Val)
+		result = append(result, inorderTraversal(root.Right)...)
+	}
+	return result
+}
+
+func inorderTraversalv2(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	var result []int
+	if root != nil {
+		result = append(result, inorderTraversal(root.Left)...)
+		result = append(result, root.Val)
+		result = append(result, inorderTraversal(root.Right)...)
+	}
+	return result
+}
+
+// https://leetcode.cn/problems/binary-tree-postorder-traversal/description/
+// 二叉树的后序遍历
+func postorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	//fmt.Println("length of head:", len(root))
+	var (
+		result    []int
+		postorder func(*TreeNode)
+	)
+	postorder = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		postorder(node.Left)
+		postorder(node.Right)
+		result = append(result, node.Val)
+	}
+	postorder(root)
+
+	return result
+
+}
+
+func levelOrder(root *TreeNode) [][]int {
+	if root == nil {
+		return nil
+	}
+	var (
+		result = make([][]int, 0)
+		level  func(*TreeNode, int)
+		n      = 1
+	)
+	level = func(node *TreeNode, n int) {
+		if len(result) < n {
+			tmp := make([]int, 0)
+			result = append(result, tmp)
+		}
+		result[n-1] = append(result[n-1], node.Val)
+		n += 1
+		if node.Left != nil {
+			level(node.Left, n)
+		}
+		if node.Right != nil {
+			level(node.Right, n)
+		}
+	}
+	level(root, n)
+	return result
 }
