@@ -322,7 +322,7 @@ func isSymmetric(root *TreeNode) bool {
 		return p.Val == q.Val && check(p.Left, q.Right) && check(p.Right, q.Left)
 
 	}
-	return check(root, root)
+	return check(root, roshaot)
 }
 
 // https://leetcode.cn/problems/path-sum-ii/description/
@@ -351,4 +351,21 @@ func pathSum(root *TreeNode, targetSum int) [][]int {
 	}
 	dfs(root, targetSum)
 	return ans
+}
+
+// https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/description/
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	if root == nil || root.Val == p.Val || root.Val == q.Val {
+		return root
+	}
+	left := lowestCommonAncestor(root.Left, p, q)
+	right := lowestCommonAncestor(root.Right, p, q)
+	if left != nil && right != nil {
+		return root
+	}
+	if right == nil {
+		return left
+	}
+	return right
+
 }
