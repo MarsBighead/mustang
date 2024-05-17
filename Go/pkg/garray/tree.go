@@ -369,3 +369,32 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	return right
 
 }
+
+// https://leetcode.cn/problems/binary-tree-right-side-view/description/
+// 二叉树的右视图
+func rightSideView(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	var (
+		level func(*TreeNode, int)
+	)
+	ans := []int{}
+	n := 1
+	level = func(node *TreeNode, n int) {
+		if len(ans) < n {
+			ans = append(ans, node.Val)
+		}
+		ans[n-1] = node.Val
+		n += 1
+		if node.Left != nil {
+			level(node.Left, n)
+		}
+		if node.Right != nil {
+			level(node.Right, n)
+		}
+	}
+	level(root, n)
+	return ans
+
+}
