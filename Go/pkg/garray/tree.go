@@ -324,3 +324,31 @@ func isSymmetric(root *TreeNode) bool {
 	}
 	return check(root, root)
 }
+
+// https://leetcode.cn/problems/path-sum-ii/description/
+// 路径总和II s s
+func pathSum(root *TreeNode, targetSum int) [][]int {
+
+	path := []int{}
+	var (
+		dfs func(*TreeNode, int)
+		ans = make([][]int, 0)
+	)
+	// left represents for leave
+	dfs = func(node *TreeNode, left int) {
+		if node == nil {
+			return
+		}
+		left -= node.Val
+		path = append(path, node.Val)
+		defer func() { path = path[:len(path)-1] }()
+		if node.Left == nil && node.Right == nil && left == 0 {
+			ans = append(ans, append([]int{}, path...))
+			return
+		}
+		dfs(node.Left, left)
+		dfs(node.Right, left)
+	}
+	dfs(root, targetSum)
+	return ans
+}
