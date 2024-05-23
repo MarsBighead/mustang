@@ -322,7 +322,7 @@ func isSymmetric(root *TreeNode) bool {
 		return p.Val == q.Val && check(p.Left, q.Right) && check(p.Right, q.Left)
 
 	}
-	return check(root, roshaot)
+	return check(root, root)
 }
 
 // https://leetcode.cn/problems/path-sum-ii/description/
@@ -397,4 +397,68 @@ func rightSideView(root *TreeNode) []int {
 	level(root, n)
 	return ans
 
+}
+
+// https://leetcode.cn/problems/invert-binary-tree/description/
+// 反转二叉树
+func invertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	root.Left, root.Right = invertTree(root.Right), invertTree(root.Left)
+	return root
+}
+
+// https://leetcode.cn/problems/subtree-of-another-tree/description/
+func isSubtree(root *TreeNode, subRoot *TreeNode) bool {
+
+	if root == nil {
+		return false
+	}
+	var check func(*TreeNode, *TreeNode) bool
+	check = func(a, b *TreeNode) bool {
+		if a == nil && b == nil {
+			return true
+		}
+		if a == nil || b == nil {
+			return false
+		}
+		if a.Val == b.Val {
+			return check(a.Left, b.Left) && check(a.Right, b.Right)
+		}
+		return false
+	}
+	if check(root, subRoot) {
+		return true
+	}
+	return isSubtree(root.Left, subRoot) || isSubtree(root.Right, subRoot)
+}
+
+// https://leetcode.cn/problems/check-completeness-of-a-binary-tree/
+func isCompleteTree(root *TreeNode) bool {
+	if root == nil {
+		return false
+	}
+	var (
+		recursive func(*TreeNode, int)
+		size      = 0
+		maxIdx    = 0
+	)
+	recursive = func(root *TreeNode, index int) {
+
+		if root == nil {
+			return
+		}
+		size += 1
+		if maxIdx < index {
+			maxIdx = index
+		}
+
+		recursive(root.Left, index*2)
+
+		recursive(root.Right, index*2+1)
+
+	}
+	recursive(root, 1)
+	return size == maxIdx
 }
