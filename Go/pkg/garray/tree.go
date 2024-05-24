@@ -462,3 +462,88 @@ func isCompleteTree(root *TreeNode) bool {
 	recursive(root, 1)
 	return size == maxIdx
 }
+
+// https://leetcode.cn/problems/same-tree/
+func isSameTree(p *TreeNode, q *TreeNode) bool {
+	var check func(*TreeNode, *TreeNode) bool
+	check = func(a, b *TreeNode) bool {
+		if a == nil && b == nil {
+			return true
+		}
+		if a == nil || b == nil {
+			return false
+		}
+		if a.Val == b.Val {
+			return check(a.Left, b.Left) && check(a.Right, b.Right)
+		}
+		return false
+	}
+
+	return check(p, q)
+}
+
+type Node struct {
+	Val   int
+	Left  *Node
+	Right *Node
+	Next  *Node
+}
+
+func connect(root *Node) *Node {
+	if root == nil {
+		return root
+	}
+	var (
+		nodes     [][]*Node
+		recursive func(*Node, int)
+	)
+	//nodes = append(nodes, []*Node{root})
+	recursive = func(node *Node, i int) {
+		//length := len(nodes)
+		if node == nil {
+			return
+		}
+		if len(nodes) < i {
+			nodes = append(nodes, []*Node{node})
+		} else {
+			length := len(nodes[i-1])
+			nodes[i-1][length-1].Next = node
+			nodes[i-1] = append(nodes[i-1], node)
+		}
+		i++
+		recursive(node.Left, i)
+		recursive(node.Right, i)
+	}
+	recursive(root, 1)
+
+	return root
+}
+
+func connectv2(root *Node) *Node {
+	if root == nil {
+		return root
+	}
+	var (
+		nodes     []*Node
+		recursive func(*Node, int)
+	)
+	//nodes = append(nodes, []*Node{root})
+	recursive = func(node *Node, i int) {
+		//length := len(nodes)
+		if node == nil {
+			return
+		}
+		if len(nodes) < i {
+			nodes = append(nodes, node)
+		} else {
+			nodes[i-1].Next = node
+			nodes[i-1] = node
+		}
+		i++
+		recursive(node.Left, i)
+		recursive(node.Right, i)
+	}
+	recursive(root, 1)
+
+	return root
+}
