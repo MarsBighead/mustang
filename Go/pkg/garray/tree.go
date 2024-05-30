@@ -57,6 +57,7 @@ func flatten(root *TreeNode) {
 
 }
 
+// https://leetcode.cn/problems/binary-tree-preorder-traversal/description/
 func preorderTraversal(root *TreeNode) []*TreeNode {
 	list := []*TreeNode{}
 	if root != nil {
@@ -65,6 +66,27 @@ func preorderTraversal(root *TreeNode) []*TreeNode {
 		list = append(list, preorderTraversal(root.Right)...)
 	}
 	return list
+}
+
+func preorderTraversalv1l(root *TreeNode) []*TreeNode {
+	if root == nil {
+		return nil
+	}
+	stack, output := []*TreeNode{root}, []*TreeNode{}
+
+	for len(stack) > 0 {
+		l := len(stack)
+		node := stack[l-1]
+		stack = stack[:l-1]
+		if node != nil {
+			output = append(output, node)
+			stack = append(stack, node.Right)
+			stack = append(stack, node.Left)
+		}
+
+	}
+
+	return output
 }
 
 func preorderTraversalv2(root *TreeNode) []int {
@@ -100,6 +122,28 @@ func inorderTraversal(root *TreeNode) []int {
 		result = append(result, inorderTraversal(root.Right)...)
 	}
 	return result
+}
+func inorderTraversalv1(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	stack, output := []*TreeNode{}, []int{}
+
+	for len(stack) > 0 {
+		for root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		}
+		if len(stack) > 0 {
+			l := len(stack)
+			node := stack[l-1]
+			stack = stack[:l-1]
+			output = append(output, node.Val)
+			root = node.Right
+		}
+	}
+
+	return output
 }
 
 func inorderTraversalv2(root *TreeNode) []int {
@@ -137,6 +181,38 @@ func postorderTraversal(root *TreeNode) []int {
 	postorder(root)
 
 	return result
+
+}
+
+func postorderTraversalv1(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+
+	var (
+		output []int
+		prev   *TreeNode
+		stack  []*TreeNode
+	)
+	for root != nil || len(stack) > 0 {
+		for root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		}
+		root = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if root.Right == nil || root.Right == prev {
+			output = append(output, root.Val)
+			prev = root
+			root = nil
+		} else {
+			stack = append(stack, root)
+			root = root.Right
+		}
+		fmt.Println("xxx", output)
+	}
+
+	return output
 
 }
 
