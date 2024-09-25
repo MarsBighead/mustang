@@ -27,3 +27,9 @@ func TestPostorderTraversal(t *testing.T) {
 	fmt.Printf("ninhao: %#v\n", result)
 
 }
+
+func TestParseBrConifgOptions(t *testing.T) {
+	body := "[--check-requirements=false]"
+	options, err := parseBrConifgOptions(body)
+	fmt.Println(options, err)
+}

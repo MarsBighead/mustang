@@ -325,9 +325,10 @@ func nextGreaterElementv2(nums1 []int, nums2 []int) []int {
 	return nums1
 }
 
+// https://leetcode.cn/problems/simplify-path/description/
 func simplifyPath(path string) string {
 	stack := []string{}
-	for _, dir := range strings.Split(path, "") {
+	for _, dir := range strings.Split(path, "/") {
 		if dir == ".." {
 			if len(stack) > 0 {
 				stack = stack[:len(stack)-1]

@@ -1,6 +1,7 @@
 package garray
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -622,4 +623,14 @@ func connectv2(root *Node) *Node {
 	recursive(root, 1)
 
 	return root
+}
+
+func parseBrConifgOptions(body string) ([]string, error) {
+	var options []string
+	err := json.Unmarshal([]byte(body), &options)
+	if err != nil {
+		return nil, err
+	}
+	return options, nil
+
 }
