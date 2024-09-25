@@ -2,6 +2,7 @@ package gstack
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -50,4 +51,11 @@ func TestIsPalindrome(t *testing.T) {
 	s := "A man, a plan, a canal: Panama"
 	ans := isPalindrome(s)
 	fmt.Println(ans)
+}
+
+func TestSimplifyPath(t *testing.T) {
+	s := "///"
+	fmt.Printf("path: %#v\n", strings.Split(s, "/"))
+	path := simplifyPath(s)
+	fmt.Println(path)
 }

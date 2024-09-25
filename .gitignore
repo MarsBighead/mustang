@@ -25,3 +25,5 @@ mysql-varibles
 *.deb
 
 *.swp
+
+C/go2c/usego

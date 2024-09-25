@@ -11,6 +11,7 @@ type ListNode struct {
 
 // https://leetcode.cn/problems/reverse-linked-list-ii/description/
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
+	// 你可以使用一趟扫描完成反转吗？
 	if left == right {
 		return head
 	}
