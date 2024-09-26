@@ -83,3 +83,51 @@ func CombinationSumV1(candidates []int, target int) (ans [][]int) {
 	//fmt.Println("n=", n)
 	return
 }
+
+// https://leetcode.cn/problems/combination-sum-ii/description/
+// 40. Combination Sum(组合总和)
+
+func CombinationSum2(candidates []int, target int) (ans [][]int) {
+	sort.Ints(candidates)
+	fmt.Println(candidates)
+	var (
+		row []int
+		dfs func(target, idx int)
+	)
+	dfs = func(target, idx int) {
+		if target == 0 {
+			fmt.Println("    idx=", idx, row)
+			ans = append(ans, append([]int(nil), row...))
+			return
+		}
+
+		for i := idx; i < len(candidates) && target > 0; i++ {
+			// 剪枝逻辑
+			if target-candidates[i] < 0 {
+				return
+			}
+			// skip idx=0, i=1, and it will not be put in recursive
+			if i > idx && candidates[i] == candidates[i-1] {
+				fmt.Println("skip", idx, i, row, candidates[i])
+				continue
+			}
+			fmt.Println("pos", idx, i, row, candidates[i])
+			row = append(row, candidates[i])
+
+			dfs(target-candidates[i], i+1)
+			row = row[:len(row)-1]
+			if len(row) == 0 {
+				fmt.Println("empty row", idx, i, row, candidates[i])
+			}
+
+			/*
+				if i > 0 && candidates[i] == candidates[i-1] {
+					continue
+				}
+			*/
+		}
+
+	}
+	dfs(target, 0)
+	return
+}
