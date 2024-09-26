@@ -18,3 +18,12 @@ func TestCombinationSum2(t *testing.T) {
 	ans := CombinationSum2(candidates, target)
 	fmt.Printf("%#v\n", ans)
 }
+
+func TestFirstMissingPositive(t *testing.T) {
+	nums := []int{1, 2, 0}
+	n := FirstMissingPositive(nums)
+	fmt.Printf("output %#v\n", n)
+	nums = []int{3, 4, -1, 1}
+	n = FirstMissingPositiveV1(nums)
+	fmt.Printf("output %#v\n", n)
+}
