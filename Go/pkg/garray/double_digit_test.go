@@ -27,3 +27,19 @@ func TestFirstMissingPositive(t *testing.T) {
 	n = FirstMissingPositiveV1(nums)
 	fmt.Printf("output %#v\n", n)
 }
+
+func TestUniquePaths(t *testing.T) {
+	m, n := 7, 3
+	r := UniquePaths(m, n)
+	fmt.Println("result=", r)
+	r = UniquePathsV1(m, n)
+	fmt.Println("result=", r)
+}
+func TestUniquePathsWithObstacles(t *testing.T) {
+	obstacleGrid := [][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}
+	r := UniquePathsWithObstacles(obstacleGrid)
+	fmt.Println("result=", r)
+	r = UniquePathsWithObstaclesV1(obstacleGrid)
+	fmt.Println("result=", r)
+
+}
