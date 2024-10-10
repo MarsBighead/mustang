@@ -181,3 +181,108 @@ func abs(x int) int {
 	}
 	return x
 }
+
+// https://leetcode.cn/problems/unique-paths/description/
+// 62. 不同路径
+func UniquePaths(m int, n int) int {
+	dp := make([][]int, m)
+	for i := 0; i < m; i++ {
+		dp[i] = make([]int, n)
+		dp[i][0] = 1
+	}
+	for j := 1; j < n; j++ {
+		dp[0][j] = 1
+	}
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			dp[i][j] = dp[i-1][j] + dp[i][j-1]
+		}
+	}
+	fmt.Printf("\n\n###\n\n")
+	for i := 0; i < m; i++ {
+		fmt.Printf("%#v\n", dp[i])
+	}
+	return dp[m-1][n-1]
+}
+
+/*
+思路： 排列组合
+因为机器到底右下角，向下几步，向右几步都是固定的，
+
+比如，m=3, n=2，我们只要向下 1 步，向右 2 步就一定能到达终点。
+所以有
+
+	C^m−1
+	  m+n−2
+*/
+func UniquePathsV1(m int, n int) int {
+	if m > n {
+		n, m = m, n
+	}
+	cn := int64(n + m - 2)
+	cm := int64(m - 1)
+	ans := int64(1)
+	for i := int64(0); i < cm; i++ {
+		ans = ans * (cn - i) / (i + 1)
+	}
+	return int(ans)
+}
+
+// https://leetcode.cn/problems/unique-paths-ii/description/
+// 63. 不同路径 II
+func UniquePathsWithObstacles(obstacleGrid [][]int) int {
+	m, n := len(obstacleGrid), len(obstacleGrid[0])
+
+	idx := make([]int, n)
+	if obstacleGrid[0][0] == 0 {
+		idx[0] = 1
+	}
+
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if obstacleGrid[i][j] == 1 {
+				idx[j] = 0
+				fmt.Printf("%d ", idx[j])
+				continue
+			}
+			if j-1 >= 0 && obstacleGrid[i][j-1] == 0 {
+				idx[j] += idx[j-1]
+			}
+			fmt.Printf("%d ", idx[j])
+		}
+		fmt.Println()
+	}
+
+	fmt.Printf("%v\n", idx)
+	return idx[n-1]
+}
+
+func UniquePathsWithObstaclesV1(obstacleGrid [][]int) int {
+	m, n := len(obstacleGrid), len(obstacleGrid[0])
+	for i := 0; i < m; i++ {
+		if obstacleGrid[i][0] == 0 {
+
+			obstacleGrid[i][0] -= 1
+		}
+	}
+	for j := 1; j < n; j++ {
+		if obstacleGrid[0][j] == 0 {
+			obstacleGrid[0][j] -= 1
+		}
+	}
+	// 需要修改支持低位的数字
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			if obstacleGrid[i][j] == 1 {
+				obstacleGrid[i][j] = 0
+				continue
+			}
+			obstacleGrid[i][j] = obstacleGrid[i-1][j] + obstacleGrid[i][j-1]
+		}
+	}
+	fmt.Printf("###\n\n")
+	for i := 0; i < m; i++ {
+		fmt.Printf("%#v\n", obstacleGrid[i])
+	}
+	return 0 - obstacleGrid[m-1][n-1]
+}
