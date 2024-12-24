@@ -3,12 +3,8 @@
   template: src="slave.sql" dest="/tmp/{{inventory_hostname}}-slave.sql" 
   when: isPrimary is not defined
 
-- name: Save variable to file "{{playbook_dir}}"
-  local_action: copy content="{{ ansible_facts }}" dest="./vars.token" owner="{{ lookup('env','USER') }}" group="{{ lookup('env','USER') }}" mode=0644
- 
-#- name: Check Variables SQL
-#  template: src="hostvars.json" dest="hostvars.json" 
-
+ #- name: Check Variables SQL
+ #  template: src="hostvars.json" dest="hostvars.json" 
 - name: Generate token
   shell: "echo hello>/tmp/token"
 
@@ -21,7 +17,5 @@
 
 - name: Copy local token to target host 
   copy: src="token.tmp" dest=/tmp/keypair force=yes 
-
 #- name: Copy local token to target host 
 #  copy: src="{{item}}/tmp/token" dest=/tmp/keypair 
-
