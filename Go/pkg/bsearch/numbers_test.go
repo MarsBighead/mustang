@@ -20,3 +20,17 @@ func TestMyAtoi(t *testing.T) {
 		fmt.Println(n)
 	}
 }
+
+func TestNumDecodings(t *testing.T) {
+	ss := []string{
+		"12",
+		"226",
+		"06",
+		"42",
+		"250",
+	}
+	for _, s := range ss {
+		n := numDecodings(s)
+		fmt.Println(n)
+	}
+}
