@@ -44,7 +44,7 @@ func max(a, b int32) int32 {
 
 }
 
-func main() {
+func common() {
 
 	s1 := "SHINCHAN"
 
