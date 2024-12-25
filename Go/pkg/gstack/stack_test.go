@@ -59,3 +59,20 @@ func TestSimplifyPath(t *testing.T) {
 	path := simplifyPath(s)
 	fmt.Println(path)
 }
+
+func TestLongestValidParentheses(t *testing.T) {
+	ss := []string{
+		"()(())",
+		"(()())",
+		"(()",
+		"",
+		"()",
+		")()())",
+		"()(()",
+		")()())()()(",
+	}
+	for _, s := range ss {
+		n := longestValidParenthesesv1(s)
+		fmt.Println(n)
+	}
+}
