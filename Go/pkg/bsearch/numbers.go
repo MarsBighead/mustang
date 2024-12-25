@@ -74,3 +74,61 @@ func numDecodings(s string) int {
 	}
 	return c
 }
+
+// 118. 杨辉三角
+// https://leetcode.cn/problems/pascals-triangle/description/
+func generate(numRows int) [][]int {
+	if numRows == 1 {
+		return [][]int{{1}}
+	}
+	var (
+		result = [][]int{{1}, {1, 1}}
+	)
+	if numRows == 2 {
+		return result
+	}
+	for i := 2; i < numRows; i++ {
+		row := generateRow(result[i-1])
+		result = append(result, row)
+	}
+	return result
+}
+
+func generateRow(row []int) []int {
+	n := len(row) + 1
+	var (
+		r   = []int{row[0]}
+		idx = n / 2
+		j   int
+	)
+	for i := 1; i < n; i++ {
+		if i == idx {
+			j = i
+			if n%2 == 0 {
+				j--
+			}
+		}
+		if i <= idx {
+			r = append(r, row[i-1]+row[i])
+		} else {
+			j--
+
+			r = append(r, r[j])
+		}
+	}
+	fmt.Println("row:", r)
+	return r
+}
+
+func generateV2(numRows int) [][]int {
+	ans := make([][]int, numRows)
+	for i := range ans {
+		ans[i] = make([]int, i+1)
+		ans[i][0] = 1
+		ans[i][i] = 1
+		for j := 1; j < i; j++ {
+			ans[i][j] = ans[i-1][j] + ans[i-1][j-1]
+		}
+	}
+	return ans
+}
