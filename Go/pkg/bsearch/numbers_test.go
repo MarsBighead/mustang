@@ -34,3 +34,20 @@ func TestNumDecodings(t *testing.T) {
 		fmt.Println(n)
 	}
 }
+
+func TestGenerate(t *testing.T) {
+	numRows := 6
+	r := generate(numRows)
+	fmt.Println(r)
+	/*rows := [][]int{
+		{1, 1},
+		{1, 2, 1},
+		{1, 3, 3, 1},
+	}
+	for _, row := range rows {
+		fmt.Println(row)
+		result := generateRow(row)
+		fmt.Println(result)
+
+	}*/
+}
