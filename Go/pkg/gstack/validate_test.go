@@ -19,3 +19,20 @@ func TestValidateStackSequences(t *testing.T) {
 		fmt.Println("### ", ok)
 	}
 }
+
+func TestMaximalRectangle(t *testing.T) {
+	matrixes := [][][]byte{
+		{
+			{'1', '0', '1', '0', '0'},
+			{'1', '0', '1', '1', '1'},
+			{'1', '0', '1', '1', '1'},
+			{'1', '1', '1', '1', '1'},
+			{'1', '0', '0', '1', '0'},
+		},
+		{{'0'}},
+	}
+	for _, matrix := range matrixes {
+		n := maximalRectangle(matrix)
+		fmt.Println(n)
+	}
+}
