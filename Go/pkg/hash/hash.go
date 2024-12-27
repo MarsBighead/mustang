@@ -71,3 +71,48 @@ func subdomainVisits(cpdomains []string) []string {
 	return ans
 
 }
+
+// 202. 快乐数
+// https://leetcode.cn/problems/happy-number/description/
+func isHappy(n int) bool {
+	sumSquare := func(num int) int {
+		sum := 0
+		for num > 0 {
+			x := num % 10
+			sum += x * x
+			num = num / 10
+		}
+		return sum
+	}
+	slow, fast := n, sumSquare(n)
+	for slow != fast {
+		slow = sumSquare(slow)
+		fast = sumSquare(fast)
+		fast = sumSquare(fast)
+		//fmt.Println(slow, fast, cnt)
+
+	}
+	return slow == 1
+}
+
+func isHappyv1(n int) bool {
+	sumSquare := func(num int) int {
+		sum := 0
+		for num > 0 {
+			x := num % 10
+			sum += x * x
+			num = num / 10
+		}
+		return sum
+	}
+	hash := make(map[int]int)
+
+	for {
+		n = sumSquare(n)
+		hash[n]++
+		if n == 1 || hash[n] > 1 {
+			break
+		}
+	}
+	return n == 1
+}
