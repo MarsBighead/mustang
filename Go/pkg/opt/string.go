@@ -32,7 +32,7 @@ func reverseWords(s string) string {
 	s = " " + s + " "
 	m, n, idx := 1, 0, len(s)
 	ss := make([]byte, idx)
-	for i := 1; i < len(ss); i++ {
+	for i := 1; i < idx; i++ {
 		if s[i-1] == ' ' && s[i] != ' ' {
 			m = i - 1
 		}
@@ -43,4 +43,34 @@ func reverseWords(s string) string {
 		}
 	}
 	return string(ss[idx+1:])
+}
+
+// 557. 反转字符串中的单词 III
+// https://leetcode.cn/problems/reverse-words-in-a-string-iii/description/
+func reverseWords3(s string) string {
+	if len(s) <= 1 {
+		return s
+	}
+	step, length := 0, len(s)
+	ss := []byte(s)
+	for i := 0; i < length; i++ {
+		if s[i] != ' ' {
+			step++
+		} else {
+			if step > 1 {
+				for left, right := i-step, i-1; left < right; left++ {
+					ss[left], ss[right] = ss[right], ss[left]
+					right--
+				}
+			}
+			step = 0
+		}
+	}
+	if step > 1 {
+		for left, right := length-step, length-1; left < right; left++ {
+			ss[left], ss[right] = ss[right], ss[left]
+			right--
+		}
+	}
+	return string(ss)
 }

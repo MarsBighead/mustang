@@ -27,3 +27,15 @@ func TestReverseWords(t *testing.T) {
 		fmt.Println(len(ans), ans)
 	}
 }
+
+func TestReverseWords3(t *testing.T) {
+	ss := []string{
+		"Let's take LeetCode contest",
+		"I love ux",
+	}
+	for _, s := range ss {
+		//fmt.Println(len(s), s)
+		ans := reverseWords3(s)
+		fmt.Println(len(ans), ans)
+	}
+}
