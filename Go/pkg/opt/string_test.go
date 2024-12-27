@@ -1,0 +1,29 @@
+package opt
+
+import (
+	"fmt"
+	"testing"
+)
+
+func TestGroupAnagrams(t *testing.T) {
+	sstrs := [][]string{
+		{"eat", "tea", "tan", "ate", "nat", "bat"},
+	}
+	for _, strs := range sstrs {
+		ans := groupAnagrams(strs)
+		fmt.Printf("ans=%#v\n\n", ans)
+	}
+}
+
+func TestReverseWords(t *testing.T) {
+	ss := []string{
+		"  hello world  ",
+		"the sky is blue",
+		" asdasd df f",
+	}
+	for _, s := range ss {
+		fmt.Println(len(s), s)
+		ans := reverseWords(s)
+		fmt.Println(len(ans), ans)
+	}
+}
