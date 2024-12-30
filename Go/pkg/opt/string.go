@@ -45,6 +45,39 @@ func reverseWords(s string) string {
 	return string(ss[idx+1:])
 }
 
+func reverseWordsv1(s string) string {
+	n := len(s)
+	if s[0] != ' ' && n == 1 {
+		return s
+	}
+	step, idx := 0, n
+	ss := make([]byte, n)
+	for i := 0; i < n; i++ {
+		if s[i] != ' ' {
+			step++
+		} else {
+			if step > 0 {
+				idx = idx - step
+				copy(ss[idx:], s[i-step:i])
+				idx--
+				ss[idx] = ' '
+			}
+			step = 0
+		}
+		if i == n-1 && step > 0 {
+			//fmt.Printf("%d: idx=%d,step=%d, %s\n", n, idx, step, s[n-step:])
+			// case: "EPY2giL"
+			if idx < n {
+				ss[idx] = ' '
+			}
+			idx = idx - step
+			copy(ss[idx:], s[n-step:])
+			idx--
+		}
+	}
+	return string(ss[idx+1:])
+}
+
 // 557. 反转字符串中的单词 III
 // https://leetcode.cn/problems/reverse-words-in-a-string-iii/description/
 func reverseWords3(s string) string {

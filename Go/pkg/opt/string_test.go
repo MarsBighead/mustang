@@ -19,12 +19,15 @@ func TestReverseWords(t *testing.T) {
 	ss := []string{
 		"  hello world  ",
 		"the sky is blue",
-		" asdasd df f",
+		"  asdasd df f",
+		"EPY2giL",
+		" EPY2giL",
+		"EPY2giL ",
 	}
 	for _, s := range ss {
-		fmt.Println(len(s), s)
-		ans := reverseWords(s)
-		fmt.Println(len(ans), ans)
+		fmt.Printf("org=|%s|\n", s)
+		ans := reverseWordsv1(s)
+		fmt.Printf("ans=|%s|\n###\n\n", ans)
 	}
 }
 
