@@ -26,6 +26,18 @@ func convertToBase7(num int) string {
 	if isNagetive {
 		ans = "-" + ans
 	}
-
 	return ans
+}
+
+func bitwiseComplement(n int) int {
+	high := 0
+	for i := 1; i <= 30; i++ {
+		if n < 1<<i {
+			break
+		}
+		high = i
+	}
+	mask := 1<<(high+1) - 1
+	//fmt.Printf("mask: %b\n", mask)
+	return n ^ mask
 }
