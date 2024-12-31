@@ -59,3 +59,16 @@ func countBits(n int) []int {
 	return bits
 
 }
+
+// 89. 格雷编码
+// https://leetcode.cn/problems/gray-code/description/
+func grayCode(n int) []int {
+	ans := make([]int, 1<<n)
+	for i := range ans {
+		ans[i] = i>>1 ^ i
+		fmt.Printf("%.4b^%.4b=%.4b,%d\n", i>>1, i, ans[i], i)
+	}
+
+	return ans
+
+}
