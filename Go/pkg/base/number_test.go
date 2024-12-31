@@ -17,3 +17,12 @@ func TestConvertToBase7(t *testing.T) {
 		fmt.Printf("base7=%s\n\n", ans)
 	}
 }
+
+func TestBitwiseComplement(t *testing.T) {
+	numbers := []int{5, 7, 10}
+	for _, num := range numbers {
+		fmt.Printf("num=%b\n", num)
+		ans := bitwiseComplement(num)
+		fmt.Printf("bitwise=%d\n\n", ans)
+	}
+}
