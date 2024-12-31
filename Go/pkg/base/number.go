@@ -41,3 +41,21 @@ func bitwiseComplement(n int) int {
 	//fmt.Printf("mask: %b\n", mask)
 	return n ^ mask
 }
+
+/*
+0&0=0;
+0&1=0;
+1&0=0;
+1&1=1;
+*/
+// 338. 比特位计数
+// https://leetcode.cn/problems/counting-bits/description/
+func countBits(n int) []int {
+	bits := make([]int, n+1)
+	for i := 1; i <= n; i++ {
+		bits[i] = bits[i&(i-1)] + 1
+		fmt.Printf("%v\n", i&(i-1))
+	}
+	return bits
+
+}
