@@ -72,3 +72,36 @@ func grayCode(n int) []int {
 	return ans
 
 }
+
+// 191. 位1的个数
+// https://leetcode.cn/problems/number-of-1-bits/description/
+func hammingWeight(n int) int {
+	ones := 0
+	for ; n > 0; n &= n - 1 {
+		ones++
+	}
+	return ones
+}
+
+// 371. 两整数之和
+// 给你两个整数 a 和 b ，不使用 运算符 + 和 - ​​​​​​​，计算并返回两整数之和。-1000 <= a, b <= 1000
+// https://leetcode.cn/problems/sum-of-two-integers/description/
+func getSum(a int, b int) int {
+
+	for b != 0 {
+		carry := a & b << 1
+		a ^= b
+		b = carry
+	}
+	return a
+}
+
+// 190. 颠倒二进制位
+// https://leetcode.cn/problems/reverse-bits/description/
+func reverseBits(n uint32) (rev uint32) {
+	for i := 0; i < 32 && n > 0; i++ {
+		rev |= n & 1 << (31 - i)
+		n >>= 1
+	}
+	return
+}
