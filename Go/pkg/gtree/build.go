@@ -1,5 +1,7 @@
 package gtree
 
+import "fmt"
+
 // 105. 从前序与中序遍历序列构造二叉树
 // https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/
 func buildTree(preorder []int, inorder []int) *TreeNode {
@@ -39,6 +41,35 @@ func buildTreev1(preorder []int, inorder []int) *TreeNode {
 			}
 			node.Right = &TreeNode{preorderVal, nil, nil}
 			stack = append(stack, node.Right)
+		}
+	}
+	return root
+}
+
+// 106. 从中序与后序遍历序列构造二叉树
+// https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/
+func buildTree2(inorder []int, postorder []int) *TreeNode {
+	if len(inorder) == 0 {
+		return nil
+	}
+	idx := len(inorder) - 1
+	root := &TreeNode{Val: postorder[idx]}
+	stack := []*TreeNode{root}
+	for i := len(inorder) - 2; i >= 0; i-- {
+		pval := postorder[i]
+		node := stack[len(stack)-1]
+		fmt.Printf("node: %d, pval: %d, inorder: %d\n", stack[len(stack)-1].Val, pval, inorder[idx])
+		if node.Val != inorder[idx] {
+			node.Right = &TreeNode{Val: pval}
+			stack = append(stack, node.Right)
+		} else {
+			for len(stack) > 0 && stack[len(stack)-1].Val == inorder[idx] {
+				node = stack[len(stack)-1]
+				stack = stack[:len(stack)-1]
+				idx--
+			}
+			node.Left = &TreeNode{Val: pval}
+			stack = append(stack, node.Left)
 		}
 	}
 	return root
