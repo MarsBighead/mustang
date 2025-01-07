@@ -26,3 +26,14 @@ func TestBuildTreev1(t *testing.T) {
 	order := preorderTraversal(root)
 	fmt.Printf("%#v\n", order)
 }
+
+func TestBuildTree2(t *testing.T) {
+	inorder := []int{9, 3, 15, 20, 7}
+	postorder := []int{9, 15, 7, 20, 3}
+	root := buildTree2(inorder, postorder)
+
+	fmt.Printf("%#v\n", inorder)
+	fmt.Printf("%#v\n", postorder)
+	order := preorderTraversal(root)
+	fmt.Printf("%#v\n", order)
+}
