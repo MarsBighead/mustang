@@ -31,3 +31,27 @@ func isValidBST(root *TreeNode) bool {
 	}
 	return true
 }
+
+// 144. 二叉树的前序遍历
+// https://leetcode.cn/problems/binary-tree-preorder-traversal/description/
+func preorderTraversal(root *TreeNode) []int {
+
+	if root == nil {
+		return nil
+	}
+	stack, output := []*TreeNode{root}, []int{}
+
+	for len(stack) > 0 {
+		l := len(stack)
+		node := stack[l-1]
+		stack = stack[:l-1]
+		if node != nil {
+			output = append(output, node.Val)
+			stack = append(stack, node.Right)
+			stack = append(stack, node.Left)
+		}
+
+	}
+
+	return output
+}
