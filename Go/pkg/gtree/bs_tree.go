@@ -11,6 +11,8 @@ type BSTIterator struct {
 	index int
 }
 
+// 173. 二叉搜索树迭代器
+// https://leetcode.cn/problems/binary-search-tree-iterator/
 func Constructor(root *TreeNode) BSTIterator {
 	var (
 		traversal func(*TreeNode)
@@ -42,6 +44,8 @@ func (this *BSTIterator) HasNext() bool {
 	return this.index < len(this.stack)-1
 }
 
+// 700. 二叉搜索树中的搜索
+// https://leetcode.cn/problems/search-in-a-binary-search-tree/description/
 func searchBST(root *TreeNode, val int) *TreeNode {
 	if root == nil {
 		return nil
@@ -56,4 +60,19 @@ func searchBST(root *TreeNode, val int) *TreeNode {
 		return root
 	}
 	return nil
+}
+
+func searchBSTv1(root *TreeNode, val int) *TreeNode {
+	var ans *TreeNode
+	for root != nil {
+		if root.Val == val {
+			ans = root
+			break
+		} else if root.Val > val {
+			root = root.Left
+		} else {
+			root = root.Right
+		}
+	}
+	return ans
 }

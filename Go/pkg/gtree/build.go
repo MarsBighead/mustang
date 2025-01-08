@@ -106,6 +106,7 @@ func constructFromPrePost(preorder []int, postorder []int) *TreeNode {
 	return root
 }
 
+// Go/pkg/garray/tree.go
 // 94. 二叉树的中序遍历
 // https://leetcode.cn/problems/binary-tree-inorder-traversal/description/
 func inorderTraversal(root *TreeNode) []int {
