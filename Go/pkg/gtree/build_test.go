@@ -37,3 +37,30 @@ func TestBuildTree2(t *testing.T) {
 	order := preorderTraversal(root)
 	fmt.Printf("%#v\n", order)
 }
+
+func TestConstructFromPrePost(t *testing.T) {
+	preorder := []int{1, 2, 4, 5, 3, 6, 7}
+	postorder := []int{4, 5, 2, 6, 7, 3, 1}
+	root := constructFromPrePost(preorder, postorder)
+
+	fmt.Printf("%#v\n", preorder)
+	fmt.Printf("%#v\n", postorder)
+	preorder = []int{1, 2}
+	postorder = []int{2, 1}
+	root = constructFromPrePost(preorder, postorder)
+	fmt.Printf("     %#v\nleft %#v\nright %#v\n", root, root.Left, root.Right)
+	order := preorderTraversal(root)
+	fmt.Printf("%#v\n", order)
+}
+
+func TestInorderTraversal(t *testing.T) {
+	root := &TreeNode{
+		Val: 1,
+		Right: &TreeNode{
+			Val:  2,
+			Left: &TreeNode{Val: 3},
+		},
+	}
+	ans := inorderTraversal(root)
+	fmt.Printf("ans=%#v\n", ans)
+}
