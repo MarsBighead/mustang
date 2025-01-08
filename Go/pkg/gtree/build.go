@@ -74,3 +74,56 @@ func buildTree2(inorder []int, postorder []int) *TreeNode {
 	}
 	return root
 }
+
+func constructFromPrePost(preorder []int, postorder []int) *TreeNode {
+	if len(preorder) == 0 {
+		return nil
+	}
+	if len(preorder) == 1 {
+		return &TreeNode{Val: preorder[0]}
+	}
+	idx := 0
+	root := &TreeNode{Val: preorder[0]}
+	stack := []*TreeNode{root}
+	for i := 1; i < len(preorder); i++ {
+		pval := preorder[i]
+		node := stack[len(stack)-1]
+		if node.Val != postorder[idx] {
+			node.Left = &TreeNode{pval, nil, nil}
+			stack = append(stack, node.Left)
+		} else {
+			fmt.Printf("len stack: %d, node: %d, pval: %d, postorder: %d\n", len(stack), stack[len(stack)-1].Val, pval, postorder[idx])
+			for len(stack) != 0 && stack[len(stack)-1].Val == postorder[idx] {
+				node = stack[len(stack)-2]
+				stack = stack[:len(stack)-1]
+				idx++
+			}
+			node.Right = &TreeNode{pval, nil, nil}
+			stack = append(stack, node.Right)
+		}
+	}
+
+	return root
+}
+
+// 94. 二叉树的中序遍历
+// https://leetcode.cn/problems/binary-tree-inorder-traversal/description/
+func inorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	stack, ans := []*TreeNode{}, []int{}
+	for len(stack) > 0 || root != nil {
+		for root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		}
+		if len(stack) > 0 {
+			node := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			ans = append(ans, node.Val)
+			root = node.Right
+		}
+	}
+	return ans
+}
