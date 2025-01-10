@@ -5,6 +5,10 @@ import "fmt"
 type Node struct {
 	value int
 	next  *Node
+	Val   int
+	Prev  *Node
+	Next  *Node
+	Child *Node
 }
 type MyLinkedList struct {
 	len  int

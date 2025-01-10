@@ -511,13 +511,6 @@ func lengthOfLongestSubstring(s string) int {
 	return ans
 }
 
-func max(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
-}
-
 func isPalindrome(s string) bool {
 	stack := []rune{}
 	for _, ch := range s {
@@ -577,4 +570,81 @@ func toLower(r byte) byte {
 
 func isAlphanumeric(r byte) bool {
 	return (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') || (r >= '0' && r <= '9')
+}
+
+// 32. 最长有效括号
+// https://leetcode.cn/problems/longest-valid-parentheses/
+func longestValidParentheses(s string) int {
+	cnt, n := 0, len(s)
+	if n < 2 {
+		return cnt
+	}
+	stack := []int{-1}
+	var max = func(x, y int) int {
+		if x > y {
+			return x
+		}
+		return y
+	}
+	for i := 0; i < n; i++ {
+		if s[i] == '(' {
+			stack = append(stack, i)
+		} else {
+			stack = stack[:len(stack)-1]
+			if len(stack) == 0 {
+				stack = append(stack, i)
+			} else {
+				cnt = max(cnt, i-stack[len(stack)-1])
+			}
+		}
+
+	}
+	return cnt
+}
+
+func longestValidParenthesesv1(s string) int {
+	cnt, n := 0, len(s)
+	if n < 2 {
+		return cnt
+	}
+	var max = func(x, y int) int {
+		if x > y {
+			return x
+		}
+		return y
+	}
+	left, right := 0, 0
+	for _, ch := range s {
+		if ch == '(' {
+			left++
+		} else {
+			right++
+		}
+		if left == right {
+			cnt = max(cnt, 2*left)
+		}
+		if right > left {
+			right, left = 0, 0
+		}
+
+	}
+	fmt.Println("left", cnt)
+	left, right = 0, 0
+	for i := n - 1; i > 0; i-- {
+		ch := s[i]
+		if ch == '(' {
+			left++
+		} else {
+			right++
+		}
+		if left == right {
+			cnt = max(cnt, 2*left)
+		}
+		if right < left {
+			right, left = 0, 0
+		}
+
+	}
+	fmt.Println("right", cnt)
+	return cnt
 }
