@@ -7,6 +7,51 @@ import (
 
 func main() {
 	content := "ABC"
+	sig := make(chan bool)
+	ch := make(chan rune, 3)
+	go func() {
+		for i := 0; i < 10; i++ {
+			for _, c := range content {
+				ch <- c
+			}
+			sig <- true
+		}
+		close(ch)
+	}()
+
+	i, j := 1, 1
+	now := time.Now()
+	/*
+		output: ABC
+		for v := range ch {
+			if i%3 == 0 {
+				<-sig
+				fmt.Printf("%s No.%d\n", string(v), j)
+				j++
+			} else {
+				fmt.Printf("%s", string(v))
+			}
+			i++
+		}
+	*/
+	// output: AB
+	for v := range ch {
+		if i%3 > 0 {
+			fmt.Printf("%s", string(v))
+		} else {
+			fmt.Printf(" No.%d\n", j)
+			<-sig
+			j++
+		}
+		i++
+	}
+	close(sig)
+	d := time.Since(now)
+	fmt.Printf("Running time: %v\n", d)
+}
+
+func first() {
+	content := "ABC"
 	sig := make(chan bool, 10)
 	ch := make(chan rune)
 	// 启动生成数据的协程
