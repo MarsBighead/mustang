@@ -13,6 +13,7 @@ number.txt
 *.beam
 *.class
 *.out
+*.so
 hello.txt
 prometheus/data/alertmanager/storage
 prometheus/data/prometheus/data
