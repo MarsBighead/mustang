@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -45,9 +46,10 @@ func main() {
 		}
 		i++
 	}
-	close(sig)
+	//close(sig)
 	d := time.Since(now)
 	fmt.Printf("Running time: %v\n", d)
+	first()
 }
 
 func first() {
@@ -81,8 +83,12 @@ func first() {
 	}
 	*/
 	sig <- true
+	now := time.Now()
+	var wg sync.WaitGroup
 	for i := 0; i < 10; i++ {
+		wg.Add(1)
 		go func(n int) {
+			defer wg.Done()
 			v := <-sig
 			if v {
 				fmt.Printf("Serial %d: ", n)
@@ -99,5 +105,8 @@ func first() {
 			}
 		}(i)
 	}
+	wg.Wait()
+	d := time.Since(now)
+	fmt.Printf("Running time: %v\n", d)
 	time.Sleep(3 * time.Second)
 }
