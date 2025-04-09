@@ -5,7 +5,9 @@
 #else
 extern char **environ;
 #endif
+# ifndef _GNU_SOURCE 
 #define _GNU_SOURCE
+#endif
 #include <string.h>
 
 void print_environ(void)

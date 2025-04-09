@@ -28,5 +28,9 @@ mysql-varibles
 *.swp
 
 *.o
+*.a
+C/src/us_xfr/xfr_cl
+C/src/us_xfr/xfr_sv
 C/src/books/books
 C/go2c/usego
+*.dSYM
