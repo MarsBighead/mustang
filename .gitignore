@@ -35,4 +35,7 @@ ucase_sv
 ucase_cl
 C/src/books/books
 C/go2c/usego
+
+Go/cmd/conch/conch
+Go/cmd/racecheck/main
 *.dSYM
