@@ -29,7 +29,7 @@ endif
 
 
 COMM_INC = $(PROJECT_SOURCE_DIR)/src/include \
-    $(PROJECT_SOURCE_DIR)/src/include/xfr
+    $(PROJECT_SOURCE_DIR)/src/include/socket
 
 IMPL_CFLAGS = -std=c99 -D_XOPEN_SOURCE=600 \
 		-D_DEFAULT_SOURCE \

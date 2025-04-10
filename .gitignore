@@ -31,6 +31,8 @@ mysql-varibles
 *.a
 C/src/us_xfr/xfr_cl
 C/src/us_xfr/xfr_sv
+C/src/ud_ucase/ucase_sv
+C/src/ud_ucase/ucase_cl
 C/src/books/books
 C/go2c/usego
 *.dSYM
