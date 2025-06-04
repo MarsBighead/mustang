@@ -49,3 +49,60 @@ func maxProfitv2(prices []int) int {
 	}
 	return dp[n-1][0]
 }
+
+// https://leetcode.cn/problems/jump-game/description
+// 55. 跳跃游戏
+func canJump(nums []int) bool {
+	n, right := len(nums), 0
+	if nums[0] == 0 && n > 1 {
+		return false
+	}
+	/*
+		max := func(a, b int) int {
+			if a > b {
+				return a
+			}
+			return b
+		}
+		for i, num := range nums {
+			// i=0，计算right；若nums[0]=0,肯定false
+			if i <= right {
+				right = max(right, i+num)
+				if right >= n-1 {
+					return true
+				}
+			}
+		}
+		return false
+	*/
+
+	for i, num := range nums {
+		if i <= right {
+			if right < i+num {
+				right = i + num
+			}
+		}
+	}
+	return right >= n-1
+}
+
+// https://leetcode.cn/problems/jump-game-ii/description
+// 45. 跳跃游戏 II
+// 正向查找可到达的最大位置，不计算最后一步
+func jump(nums []int) int {
+	var (
+		pos   = 0
+		steps = 0
+		right = 0
+	)
+	for i := 0; i < len(nums)-1; i++ {
+		if pos < i+nums[i] {
+			pos = i + nums[i]
+		}
+		if i == right {
+			right = pos
+			steps++
+		}
+	}
+	return steps
+}
