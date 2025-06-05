@@ -26,3 +26,25 @@ func findDuplicatesv2(nums []int) []int {
 	//fmt.Println(mask << 61)
 	return nums
 }
+
+// https://leetcode.cn/problems/contains-duplicate-ii/description
+// 219. 存在重复元素 II
+func containsNearbyDuplicate(nums []int, k int) bool {
+	if len(nums) <= 1 {
+		return false
+	}
+	if k == 0 {
+		return false
+	}
+	hash := make(map[int]int)
+	for i, num := range nums {
+		if p, ok := hash[num]; ok && i-p <= k {
+			return true
+		} else {
+			hash[num] = i
+		}
+	}
+
+	return false
+
+}
