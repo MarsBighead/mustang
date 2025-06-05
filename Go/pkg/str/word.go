@@ -110,3 +110,24 @@ func isSubsequence(s string, t string) bool {
 	}
 	return m == i
 }
+
+// https://leetcode.cn/problems/valid-anagram/description/?envType=study-plan-v2&envId=top-interview-150
+// 42. 有效的字母异位词
+func isAnagram(s string, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+	//s 和 t 仅包含小写字母
+	hash := [26]int{}
+	for _, a := range s {
+		hash[a-'a']++
+	}
+	for _, a := range t {
+		if hash[a-'a'] == 0 {
+			return false
+		}
+		hash[a-'a']--
+	}
+
+	return true
+}
