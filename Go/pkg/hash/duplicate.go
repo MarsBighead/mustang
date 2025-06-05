@@ -1,5 +1,7 @@
 package hash
 
+import "strings"
+
 // https://leetcode.cn/problems/find-all-duplicates-in-an-array/description/
 // 位图算法
 func findDuplicates(nums []int) []int {
@@ -89,6 +91,33 @@ func canConstructv1(ransomNote string, magazine string) bool {
 		if val > 0 {
 			return false
 		}
+	}
+	return true
+}
+
+// https://leetcode.cn/problems/word-pattern/description/
+// 290. 单词规律
+func wordPattern(pattern string, s string) bool {
+	ss := strings.Split(s, " ")
+	if len(pattern) != len(ss) {
+		return false
+	}
+	hash := make(map[byte]string)
+	phash := make(map[string]byte)
+	for i := 0; i < len(pattern); i++ {
+
+		m, n := pattern[i], ss[i]
+		if _, ok := hash[m]; !ok {
+			hash[m] = n
+		}
+		if _, ok := phash[n]; !ok {
+			phash[n] = m
+		}
+		x, y := phash[n], hash[m]
+		if x != m || y != n {
+			return false
+		}
+
 	}
 	return true
 }
