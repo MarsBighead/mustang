@@ -102,3 +102,74 @@ func insertIntoBST(root *TreeNode, val int) *TreeNode {
 	}
 	return root
 }
+
+// https://leetcode.cn/problems/path-sum/description/?envType=study-plan-v2&envId=top-interview-150
+// 112. 路径总和
+func hasPathSum(root *TreeNode, targetSum int) bool {
+	if root == nil {
+		return false
+	}
+	if root.Left == nil && root.Right == nil {
+		return root.Val == targetSum
+	}
+	nextSum := targetSum - root.Val
+	return hasPathSum(root.Left, nextSum) || hasPathSum(root.Right, nextSum)
+}
+
+func hasPathSumv1(root *TreeNode, targetSum int) bool {
+	if root == nil {
+		return false
+	}
+	nodes := []*TreeNode{root}
+	values := []int{root.Val}
+	for len(nodes) != 0 {
+		node := nodes[0]
+		nodes = nodes[1:]
+		tmp := values[0]
+		values = values[1:]
+		if node.Left == nil && node.Right == nil {
+			if tmp == targetSum {
+				return true
+			}
+			continue
+		}
+		if node.Left != nil {
+			nodes = append(nodes, node.Left)
+			values = append(values, node.Left.Val+tmp)
+		}
+		if node.Right != nil {
+			nodes = append(nodes, node.Right)
+			values = append(values, node.Right.Val+tmp)
+		}
+
+	}
+	return false
+}
+
+// https://leetcode.cn/problems/minimum-absolute-difference-in-bst/description/?envType=study-plan-v2&envId=top-interview-150
+// 530. 二叉搜索树的最小绝对差
+func getMinimumDifference(root *TreeNode) int {
+	if root.Left != nil && root.Right == nil {
+		return root.Val - root.Left.Val
+	}
+	if root.Left == nil && root.Right != nil {
+		return root.Right.Val - root.Val
+	}
+	ans, pre := 100000, -1
+	var dfs func(*TreeNode)
+	dfs = func(n *TreeNode) {
+		if n == nil {
+			return
+		}
+		dfs(n.Left)
+		tmp := n.Val - pre
+		if pre != -1 && tmp < ans {
+			ans = tmp
+		}
+		pre = n.Val
+		dfs(n.Right)
+	}
+
+	dfs(root)
+	return ans
+}
