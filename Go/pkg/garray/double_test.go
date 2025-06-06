@@ -5,6 +5,13 @@ import (
 	"testing"
 )
 
+func TestNextPermutation(t *testing.T) {
+	numbers := [][]int{{1, 2, 3}, {3, 2, 1}, {1, 1, 5}}
+	for _, nums := range numbers {
+		NextPermutation(nums)
+		fmt.Println(nums)
+	}
+}
 func TestCombinationSum(t *testing.T) {
 	candidates := []int{2, 3, 6, 7}
 	target := 7
@@ -34,6 +41,23 @@ func TestUniquePaths(t *testing.T) {
 	fmt.Println("result=", r)
 	r = UniquePathsV1(m, n)
 	fmt.Println("result=", r)
+}
+
+func TestSpiralOrder(t *testing.T) {
+	mx := [][]int{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}}
+	nums := spiralOrder(mx)
+	fmt.Println(nums)
+}
+func TestCanJump(t *testing.T) {
+	mat := [][]int{
+		{2, 3, 1, 1, 4},
+		{2, 3, 1, 1, 0},
+		{3, 2, 1, 0, 4},
+	}
+	for _, nums := range mat {
+		ok := canJump(nums)
+		fmt.Println(ok)
+	}
 }
 func TestUniquePathsWithObstacles(t *testing.T) {
 	obstacleGrid := [][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}

@@ -1,5 +1,27 @@
 package garray
 
+// https://leetcode.cn/problems/h-index/description
+// 274. H 指数
+func hIndex(citations []int) int {
+	n := len(citations)
+	hs := make([]int, n+1)
+	for _, citation := range citations {
+		if citation > n {
+			citation = n
+		}
+		hs[citation] += 1
+	}
+	for i, total := n, 0; i >= 0; i-- {
+		total += hs[i]
+		if total >= i {
+			return i
+		}
+	}
+
+	return 0
+
+}
+
 // https://leetcode.cn/problems/game-of-life/
 // 289. 生命游戏
 func GameOfLife(board [][]int) {

@@ -30,6 +30,31 @@ func maxArea(height []int) int {
 	return ans
 }
 
+// 31. 下一个排列
+// https://leetcode.cn/problems/next-permutation/description/
+func NextPermutation(nums []int) {
+
+	n := len(nums)
+	i := n - 2
+	for i >= 0 && nums[i] >= nums[i+1] {
+		i--
+	}
+	if i >= 0 {
+		j := n - 1
+		for j >= 0 && nums[i] >= nums[j] {
+			j--
+		}
+		nums[i], nums[j] = nums[j], nums[i]
+	}
+	reverse(nums[i+1:])
+}
+
+func reverse(a []int) {
+	for i, n := 0, len(a); i < n/2; i++ {
+		a[i], a[n-1-i] = a[n-1-i], a[i]
+	}
+}
+
 // https://leetcode.cn/problems/combination-sum/
 // 39. Combination Sum(组合总和)
 func CombinationSum(candidates []int, target int) (ans [][]int) {
@@ -207,6 +232,107 @@ func abs(x int) int {
 	return x
 }
 
+// https://leetcode.cn/problems/jump-game-ii/description
+// 45. 跳跃游戏 II
+// 正向查找可到达的最大位置，不计算最后一步
+func jump(nums []int) int {
+	var (
+		pos   = 0
+		steps = 0
+		right = 0
+	)
+	for i := 0; i < len(nums)-1; i++ {
+		if pos < i+nums[i] {
+			pos = i + nums[i]
+		}
+		if i == right {
+			right = pos
+			steps++
+		}
+	}
+	return steps
+}
+
+// 54.螺旋矩阵
+// https://leetcode.cn/problems/spiral-matrix/
+func spiralOrder(matrix [][]int) []int {
+	if len(matrix) == 0 {
+		return []int{}
+	}
+	if len(matrix[0]) == 0 {
+		return []int{}
+	}
+	x, y := len(matrix[0]), len(matrix)
+	r := make([]int, x*y)
+	index := 0
+	left, right, top, bottom := 0, x-1, 0, y-1
+
+	for left <= right && top <= bottom {
+		for i := left; i <= right; i++ {
+			r[index] = matrix[top][i]
+			index++
+		}
+		for j := top + 1; j <= bottom; j++ {
+			r[index] = matrix[j][right]
+			index++
+		}
+		if left < right && top < bottom {
+			for i := right - 1; i > left; i-- {
+				r[index] = matrix[bottom][i]
+				index++
+			}
+			for j := bottom; j > top; j-- {
+				r[index] = matrix[j][left]
+				index++
+			}
+		}
+		left++
+		right--
+		top++
+		bottom--
+
+	}
+	return r
+}
+
+// https://leetcode.cn/problems/jump-game/description
+// 55. 跳跃游戏
+func canJump(nums []int) bool {
+	n, right := len(nums), 0
+	if nums[0] == 0 && n > 1 {
+		return false
+	}
+	/*
+		max := func(a, b int) int {
+			if a > b {
+				return a
+			}
+			return b
+		}
+		for i, num := range nums {
+			// i=0，计算right；若nums[0]=0,肯定false
+			if i <= right {
+				right = max(right, i+num)
+				if right >= n-1 {
+					return true
+				}
+			}
+		}
+		return false
+	*/
+
+	for i, num := range nums {
+		if i <= right {
+			fmt.Println("index:", i, right)
+			if right < i+num {
+				right = i + num
+			}
+			fmt.Println("changed index:", i, right)
+		}
+	}
+	return right >= n-1
+}
+
 // https://leetcode.cn/problems/unique-paths/description/
 // 62. 不同路径
 func UniquePaths(m int, n int) int {
@@ -310,4 +436,31 @@ func UniquePathsWithObstaclesV1(obstacleGrid [][]int) int {
 		fmt.Printf("%#v\n", obstacleGrid[i])
 	}
 	return 0 - obstacleGrid[m-1][n-1]
+}
+
+// https://leetcode.cn/problems/sort-colors/
+// 75. 颜色分类
+// 颜色排序，双指针
+func sortColors(nums []int) {
+	red, white, blue := 0, 0, 0
+	for _, v := range nums {
+		switch v {
+		case 0:
+			red++
+		case 1:
+			white++
+		case 2:
+			blue++
+		}
+	}
+	for i, _ := range nums {
+		if i < red {
+			nums[i] = 0
+		} else if i < red+white {
+			nums[i] = 1
+		} else {
+			nums[i] = 2
+		}
+	}
+
 }
