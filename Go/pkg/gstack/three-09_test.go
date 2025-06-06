@@ -20,19 +20,18 @@ func TestValidateStackSequences(t *testing.T) {
 	}
 }
 
-func TestMaximalRectangle(t *testing.T) {
-	matrixes := [][][]byte{
-		{
-			{'1', '0', '1', '0', '0'},
-			{'1', '0', '1', '1', '1'},
-			{'1', '0', '1', '1', '1'},
-			{'1', '1', '1', '1', '1'},
-			{'1', '0', '0', '1', '0'},
-		},
-		{{'0'}},
+func TestKClosest(t *testing.T) {
+	ks := []int{1}
+	apoints := [][][]int{
+		{{1, 3}, {-2, 2}},
 	}
-	for _, matrix := range matrixes {
-		n := maximalRectangle(matrix)
-		fmt.Println(n)
+	for i, k := range ks {
+		points := apoints[i]
+		ans := kClosestv1(points, k)
+		fmt.Println("result:")
+		for _, point := range ans {
+			fmt.Printf("%v ", point)
+		}
+		fmt.Println()
 	}
 }

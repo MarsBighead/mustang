@@ -5,51 +5,8 @@ import (
 	"sort"
 )
 
-// 973. 最接近原点的 K 个点
-// https://leetcode.cn/problems/k-closest-points-to-origin/description/
-func kClosest(points [][]int, k int) [][]int {
-	if len(points) == 1 && k == 1 {
-		return points
-	}
-	distances := []int{}
-	hash := make(map[int][]int)
-	for idx, point := range points {
-		distance := point[0]*point[0] + point[1]*point[1]
-		if len(hash[distance]) == 0 {
-			hash[distance] = []int{idx}
-			fmt.Println(hash[distance])
-			distances = append(distances, distance)
-		} else {
-			hash[distance] = append(hash[distance], idx)
-		}
-	}
-	fmt.Println(distances, hash, k)
-	sort.Ints(distances)
-	ans := [][]int{}
-	for i := 0; i < k; {
-		for _, idx := range hash[distances[i]] {
-			if len(ans) >= k {
-				break
-			}
-			ans = append(ans, points[idx])
-			i++
-		}
-
-	}
-	return ans[:k]
-}
-
-func kClosestv1(points [][]int, k int) [][]int {
-	if len(points) == 1 && k == 1 {
-		return points
-	}
-	sort.Slice(points, func(i, j int) bool {
-		p, q := points[i], points[j]
-		return p[0]*p[0]+p[1]*p[1] < q[0]*q[0]+q[1]*q[1]
-	})
-	return points[:k]
-}
-
+// https://leetcode.cn/problems/sort-characters-by-frequency/description/
+// 451. 根据字符出现频率排序
 func frequencySort(s string) string {
 	if len(s) <= 2 {
 		return s
@@ -143,4 +100,51 @@ func frequencySortv1(s string) string {
 		}
 	}
 	return string(ans)
+}
+
+// 496. 下一个更大元素 I
+// https://leetcode.cn/problems/next-greater-element-i/description/
+func nextGreaterElement(nums1 []int, nums2 []int) []int {
+	hash := make(map[int]int)
+	stack := []int{}
+	for i := len(nums2) - 1; i >= 0; i-- {
+		num := nums2[i]
+		for len(stack) > 0 && num >= stack[len(stack)-1] {
+			stack = stack[:len(stack)-1]
+		}
+		if len(stack) > 0 {
+			hash[num] = stack[len(stack)-1]
+		} else {
+			hash[num] = -1
+		}
+
+		stack = append(stack, num)
+	}
+	for i, num := range nums1 {
+		nums1[i] = hash[num]
+	}
+	return nums1
+}
+
+func nextGreaterElementv2(nums1 []int, nums2 []int) []int {
+	hash := make(map[int]int)
+	for i := 0; i < len(nums2); i++ {
+		hash[nums2[i]] = i
+	}
+	for i, num := range nums1 {
+		index := hash[num]
+		found := false
+		for j := index + 1; j < len(nums2); j++ {
+			if nums2[j] > nums1[i] {
+				nums1[i] = nums2[j]
+				found = true
+				break
+			}
+		}
+		if !found {
+			nums1[i] = -1
+		}
+
+	}
+	return nums1
 }
