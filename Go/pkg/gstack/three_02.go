@@ -6,6 +6,42 @@ import (
 	"strings"
 )
 
+// https://leetcode.cn/problems/basic-calculator/description/?envType=study-plan-v2&envId=top-interview-150
+// 224. 基本计算器
+func calculatev0(s string) int {
+	// stack 存储数字前面的符号
+	stack := []int{1}
+	ans := 0
+	sign := 1
+	n := len(s)
+
+	for i := 0; i < n; {
+		switch s[i] {
+		case ' ':
+			i++
+		case '+':
+			sign = stack[len(stack)-1]
+			i++
+		case '-':
+			sign = -stack[len(stack)-1]
+			i++
+		case '(':
+			stack = append(stack, sign)
+			i++
+		case ')':
+			stack = stack[:len(stack)-1]
+			i++
+		default:
+			num := 0
+			for ; i < n && '0' <= s[i] && s[i] <= '9'; i++ {
+				num = num*10 + int(s[i]-'0')
+			}
+			ans += sign * num
+		}
+	}
+	return ans
+}
+
 // https://leetcode.cn/problems/basic-calculator-ii/description/
 // 227. 基本计算器 II
 func calculate(s string) int {
