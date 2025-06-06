@@ -358,31 +358,25 @@ func sumNumbers(root *TreeNode) int {
 		return root.Val
 	}
 
-	ans := []int{}
-	var traversal func(sum, level int, node *TreeNode)
-	traversal = func(sum, level int, node *TreeNode) {
-
+	ans := 0
+	var traversal func(sum int, node *TreeNode)
+	traversal = func(sum int, node *TreeNode) {
 		if node.Left == nil && node.Right == nil {
-			ans = append(ans, node.Val+sum*10)
+			ans += node.Val + sum*10
 		}
-		level++
+
 		//fmt.Println(sum, level)
 		sum = node.Val + sum*10
 		if node.Left != nil {
-			traversal(sum, level, node.Left)
+			traversal(sum, node.Left)
 		}
 		if node.Right != nil {
-			traversal(sum, level, node.Right)
+			traversal(sum, node.Right)
 		}
 
 	}
-	traversal(0, 0, root)
-	n := 0
-	for _, num := range ans {
-		n += num
-	}
-	//fmt.Println(ans)
-	return n
+	traversal(0, root)
+	return ans
 }
 
 // https://leetcode.cn/problems/binary-tree-preorder-traversal/description/

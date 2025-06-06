@@ -1,6 +1,7 @@
 package garray
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -25,6 +26,46 @@ func minSubArrayLen(target int, nums []int) int {
 		return 0
 	}
 	return ans
+}
+
+// 238. 除自身以外数组的乘积
+// https://leetcode.cn/problems/product-of-array-except-self/
+func productExceptSelf(nums []int) []int {
+	cntZero, product := 0, 0
+	for i, v := range nums {
+		if v == 0 {
+			cntZero += 1
+			if cntZero > 1 {
+				product = product * v
+			} else {
+				if product == 0 {
+					product = 1
+				}
+			}
+		} else {
+			if i == 0 {
+				product = v
+			} else {
+				product = product * v
+			}
+		}
+	}
+	fmt.Println(nums)
+	for i, v := range nums {
+		switch cntZero {
+		case 0:
+			nums[i] = product / v
+		case 1:
+			if v == 0 {
+				nums[i] = product
+			} else {
+				nums[i] = 0
+			}
+		default:
+			nums[i] = 0
+		}
+	}
+	return nums
 }
 
 // https://leetcode.cn/problems/h-index/description
