@@ -29,6 +29,49 @@ func merge(intervals [][]int) [][]int {
 	return ans
 }
 
+// 57. 插入区间
+// https://leetcode.cn/problems/insert-interval/?envType=study-plan-v2&envId=top-interview-150
+func insert(intervals [][]int, newInterval []int) [][]int {
+	n := len(intervals)
+	if n == 0 {
+		return [][]int{newInterval}
+	}
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+	ans := [][]int{}
+	start, end := newInterval[0], newInterval[1]
+	merged := false
+	for _, interval := range intervals {
+		if interval[0] > end {
+			// 在插入区间的右侧且无交集
+			if !merged {
+				ans = append(ans, []int{start, end})
+				merged = true
+			}
+			ans = append(ans, interval)
+		} else if interval[1] < start {
+			// 在插入区间的左侧且无交集
+			ans = append(ans, interval)
+		} else {
+			// 与插入区间有交集，计算它们的并集
+			if interval[0] < start {
+				start = interval[0]
+			}
+			if interval[1] > end {
+				end = interval[1]
+			}
+		}
+
+	}
+
+	if !merged {
+		ans = append(ans, []int{start, end})
+	}
+	return ans
+
+}
+
 // https://leetcode.cn/problems/sqrtx/description
 // 69. x 的平方根
 func mySqrt(x int) int {
