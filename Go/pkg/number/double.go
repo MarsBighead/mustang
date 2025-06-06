@@ -28,3 +28,23 @@ func merge(intervals [][]int) [][]int {
 	}
 	return ans
 }
+
+// https://leetcode.cn/problems/sqrtx/description
+// 69. x 的平方根
+func mySqrt(x int) int {
+	if x <= 1 {
+		return x
+	}
+	left, right := 0, x
+	ans := -1
+	for left <= right {
+		mid := left + (right-left)/2
+		if mid*mid <= x {
+			ans = mid
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return ans
+}
