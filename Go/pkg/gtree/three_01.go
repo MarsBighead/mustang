@@ -1,6 +1,8 @@
 package gtree
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // https://leetcode.cn/problems/same-tree/
 // 100. 相同的树
@@ -344,6 +346,43 @@ func maxPathSum(root *TreeNode) int {
 	maxGain(root)
 	return maxSum
 
+}
+
+// https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/?envType=study-plan-v2&envId=top-interview-150
+// 129. 求根节点到叶节点数字之和
+func sumNumbers(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	if root.Left == nil && root.Right == nil {
+		return root.Val
+	}
+
+	ans := []int{}
+	var traversal func(sum, level int, node *TreeNode)
+	traversal = func(sum, level int, node *TreeNode) {
+
+		if node.Left == nil && node.Right == nil {
+			ans = append(ans, node.Val+sum*10)
+		}
+		level++
+		//fmt.Println(sum, level)
+		sum = node.Val + sum*10
+		if node.Left != nil {
+			traversal(sum, level, node.Left)
+		}
+		if node.Right != nil {
+			traversal(sum, level, node.Right)
+		}
+
+	}
+	traversal(0, 0, root)
+	n := 0
+	for _, num := range ans {
+		n += num
+	}
+	//fmt.Println(ans)
+	return n
 }
 
 // https://leetcode.cn/problems/binary-tree-preorder-traversal/description/
