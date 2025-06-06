@@ -10,6 +10,38 @@ func invertTree(root *TreeNode) *TreeNode {
 	return root
 }
 
+// 230. 二叉搜索树中第 K 小的元素
+//https://leetcode.cn/problems/kth-smallest-element-in-a-bst/description/
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+// 中序遍历变形
+func kthSmallest(root *TreeNode, k int) int {
+	if root.Left == nil && root.Right == nil {
+		return root.Val
+	}
+	ans := 0
+	var traversal func(node *TreeNode)
+	traversal = func(node *TreeNode) {
+		if node == nil || k == 0 {
+			return
+		}
+		traversal(node.Left)
+		k--
+		if k == 0 {
+			ans = node.Val // 根
+		}
+		traversal(node.Right)
+	}
+	traversal(root)
+	return ans
+}
+
 // 236. 二叉树的最近公共祖先
 // https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/description/
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
