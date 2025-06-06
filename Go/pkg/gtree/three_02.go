@@ -1,5 +1,27 @@
 package gtree
 
+// 222. 完全二叉树的节点个数
+// https://leetcode.cn/problems/count-complete-tree-nodes/description/?envType=study-plan-v2&envId=top-interview-150
+func countNodes(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	ans := 0
+	var traversal func(node *TreeNode)
+	traversal = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		traversal(node.Right)
+		if node.Val > ans {
+			ans = node.Val
+		}
+		traversal(node.Left)
+	}
+	traversal(root)
+	return ans
+}
+
 // https://leetcode.cn/problems/invert-binary-tree/description/
 // 226. 翻转二叉树
 func invertTree(root *TreeNode) *TreeNode {
