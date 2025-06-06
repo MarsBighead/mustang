@@ -1,6 +1,6 @@
 package gstring
 
-// https://leetcode.cn/problems/is-subsequence/description
+// https://leetcode.cn/problems/is_subsequence/description
 // 392. 判断子序列
 func isSubsequence(s string, t string) bool {
 	m, n := len(s), len(t)

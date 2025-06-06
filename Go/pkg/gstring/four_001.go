@@ -1,7 +1,7 @@
 package gstring
 
 // 1668. 最大重复子字符串
-// https://leetcode.cn/problems/maximum-repeating-substring/description/
+// https://leetcode.cn/problems/maximum_repeating_substring/description/
 func maxRepeating(sequence string, word string) int {
 	m, n := len(sequence), len(word)
 	if n > m {

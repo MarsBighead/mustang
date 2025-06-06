@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string
+// https://leetcode.cn/problems/find_the_index_of_the_first_occurrence_in_a_string
 // 28. 找出字符串中第一个匹配项的下标
 func strStr(haystack string, needle string) int {
 	if len(needle) > len(haystack) {
@@ -40,7 +40,7 @@ func strStrv1(haystack string, needle string) int {
 	return -1
 }
 
-// https://leetcode.cn/problems/valid-anagram/description/?envType=study-plan-v2&envId=top-interview-150
+// https://leetcode.cn/problems/valid_anagram/description/?envType=study_plan_v2&envId=top_interview_150
 // 42. 有效的字母异位词
 func isAnagram(s string, t string) bool {
 	if len(s) != len(t) {
@@ -61,7 +61,7 @@ func isAnagram(s string, t string) bool {
 	return true
 }
 
-// https://leetcode.cn/problems/length-of-last-word
+// https://leetcode.cn/problems/length_of_last_word
 // 58. 最后一个单词的长度
 func lengthOfLastWord(s string) int {
 	s = strings.TrimSpace(s)

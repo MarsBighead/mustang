@@ -3,7 +3,7 @@ package gstring
 import "fmt"
 
 // 459. 重复的子字符串
-// https://leetcode.cn/problems/repeated-substring-pattern/description/
+// https://leetcode.cn/problems/repeated_substring_pattern/description/
 func repeatedSubstringPattern(s string) bool {
 	n := len(s)
 	if n <= 1 {

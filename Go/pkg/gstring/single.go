@@ -1,7 +1,7 @@
 package gstring
 
 // 6. Z 字形变换
-// https://leetcode.cn/problems/zigzag-conversion/description
+// https://leetcode.cn/problems/zigzag_conversion/description
 /*
 方法三：直接构造
 我们来研究方法一中矩阵的每个非空字符会对应到 s 的哪个下标（记作 idx），从而直接构造出答案。
