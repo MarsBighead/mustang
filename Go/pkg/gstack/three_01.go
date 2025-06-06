@@ -1,6 +1,9 @@
 package gstack
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 // 125. 验证回文串
 // https://leetcode.cn/problems/valid-palindrome/description/
@@ -63,6 +66,36 @@ func toLower(r byte) byte {
 
 func isAlphanumeric(r byte) bool {
 	return (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') || (r >= '0' && r <= '9')
+}
+
+// https://leetcode.cn/problems/evaluate-reverse-polish-notation/?envType=study-plan-v2&envId=top-interview-150
+// 150. 逆波兰表达式求值
+func evalRPN(tokens []string) int {
+	operator := func(a, b int, signal string) int {
+		switch signal {
+		case "*":
+			return a * b
+		case "/":
+			return a / b
+		case "+":
+			return a + b
+		default:
+			//singal "-"
+			return a - b
+		}
+	}
+	stack := []int{}
+	for _, token := range tokens {
+		if token != "*" && token != "/" && token != "+" && token != "-" {
+			num, _ := strconv.Atoi(token)
+			stack = append(stack, num)
+		} else {
+			n := len(stack)
+			stack[n-2] = operator(stack[n-2], stack[n-1], token)
+			stack = stack[:n-1]
+		}
+	}
+	return stack[0]
 }
 
 type MinStack struct {
