@@ -1,5 +1,32 @@
 package garray
 
+import (
+	"math"
+)
+
+// 209. 长度最小的子数组
+// https://leetcode.cn/problems/minimum-size-subarray-sum/description/?envType=study-plan-v2&envId=top-interview-150
+// 滑动窗口方法(sliding window)，是对暴力法的优化，保证运算不超时
+func minSubArrayLen(target int, nums []int) int {
+	ans, n := math.MaxInt, len(nums)
+	start, end, x := 0, 0, 0
+	for ; end < n; end++ {
+		x += nums[end]
+		for x >= target {
+			if ans > end-start+1 {
+				ans = end - start + 1
+			}
+			x -= nums[start]
+			start++
+		}
+
+	}
+	if ans == math.MaxInt {
+		return 0
+	}
+	return ans
+}
+
 // https://leetcode.cn/problems/h-index/description
 // 274. H 指数
 func hIndex(citations []int) int {

@@ -5,6 +5,18 @@ import (
 	"testing"
 )
 
+func TestMinSubArrayLen(t *testing.T) {
+	sequences := [][]int{
+		{2, 3, 1, 2, 4, 3},
+		{1, 4, 4},
+		{1, 1, 1, 1, 1, 1, 1, 1},
+	}
+	targets := []int{7, 4, 11}
+	for i, nums := range sequences {
+		n := minSubArrayLen(targets[i], nums)
+		fmt.Println("result=", n)
+	}
+}
 func TestLifeOfGame(t *testing.T) {
 	board := [][]int{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}}
 	GameOfLife(board)
