@@ -2,6 +2,38 @@ package linked
 
 import "fmt"
 
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func ArrayToList(nums []int) *ListNode {
+	if len(nums) == 0 {
+		return nil
+	}
+	head := &ListNode{Val: nums[0]}
+	tail := head
+	for i := 1; i < len(nums); i++ {
+		tail.Next = &ListNode{Val: nums[i]}
+		tail = tail.Next
+	}
+	return head
+
+}
+
+func PrintList(head *ListNode) {
+	if head == nil {
+		fmt.Println()
+		return
+	}
+	fmt.Print(head.Val, " ")
+	for head.Next != nil {
+		head = head.Next
+		fmt.Print(head.Val, " ")
+	}
+	fmt.Println()
+}
+
 type Node struct {
 	value int
 	next  *Node

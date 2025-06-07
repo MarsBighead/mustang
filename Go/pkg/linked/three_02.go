@@ -1,50 +1,58 @@
 package linked
 
-// https://leetcode.cn/problems/odd-even-linked-list/
-func oddEvenList(head *ListNode) *ListNode {
-	// 偶数
-	var (
-		even = new(ListNode)
-		i    int
-	)
-	prev := head
-	current := head
-	next := even
-	for current != nil {
-		i += 1
-		if i%2 == 0 {
-			prev.Next = current.Next
-			next.Next = &ListNode{Val: current.Val}
-			next = next.Next
+// 203. 移除链表元素
+// https://leetcode.cn/problems/remove-linked-list-elements/
+func removeElements(head *ListNode, val int) *ListNode {
+	dummy := &ListNode{Next: head}
+	prev := dummy
+	for prev.Next != nil {
+		if prev.Next.Val == val {
+			prev.Next = prev.Next.Next
 		} else {
-			prev = current
+			prev = prev.Next
 		}
-		current = current.Next
 	}
-	if even.Next != nil {
-		prev.Next = even.Next
-	}
-	return head
+	return dummy.Next
 }
 
-func oddEvenList2(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
+// 206. 反转链表
+// https://leetcode.cn/problems/reverse-linked-list/description/
+func reverseList(head *ListNode) *ListNode {
+	var cur *ListNode
+	return reverse(cur, head)
+}
+
+func reverseList2(head *ListNode) *ListNode {
+	var prev *ListNode
+	current := head
+	for current != nil {
+		// 真正列表的next内容
+		next := current.Next
+
+		// 反转next指向prev
+		current.Next = prev
+		// prev反转增加current节点
+		prev = current
+
+		// current指向下一个节点
+		current = next
 	}
-	evenHead := head.Next
-	odd := head
-	even := evenHead
-	for even != nil && even.Next != nil {
-		odd.Next = even.Next
-		odd = odd.Next
-		even.Next = odd.Next
-		even = even.Next
+	return prev
+}
+
+func reverse(prev, cur *ListNode) *ListNode {
+	if cur == nil {
+		return prev
+	} else {
+		node := cur.Next
+		cur.Next = prev
+		return reverse(cur, node)
 	}
-	odd.Next = evenHead
-	return head
+
 }
 
 // https://leetcode.cn/problems/palindrome-linked-list/
+// 234. 回文链表
 func isPalindrome(head *ListNode) bool {
 	if head == nil || head.Next == nil {
 		return true
@@ -128,40 +136,4 @@ func isPalindrome3(head *ListNode) bool {
 		prev = prev.Next
 	}
 	return true
-}
-
-func rotateRight(head *ListNode, k int) *ListNode {
-	if k == 0 || head == nil || head.Next == nil {
-		return head
-	}
-	var (
-		length, i int
-		current   = head
-		rotate    *ListNode
-		tail      *ListNode
-	)
-	for current != nil {
-		length += 1
-		if current.Next == nil {
-			tail = current
-		}
-		current = current.Next
-	}
-	//tail = current
-	r := k % length
-	if r == 0 {
-		return head
-	}
-	current = head
-	for current != nil {
-		i += 1
-		if i == length-r {
-			rotate = current.Next
-			current.Next = nil
-			break
-		}
-		current = current.Next
-	}
-	tail.Next = head
-	return rotate
 }

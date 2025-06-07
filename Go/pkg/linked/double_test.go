@@ -16,5 +16,41 @@ func TestReverseKGroup(t *testing.T) {
 	head = reverseKGroup(head, 1)
 	fmt.Printf("result: ")
 	PrintList(head)
+}
 
+func TestRotateRight(t *testing.T) {
+	nums := []int{1, 2, 3, 4, 5}
+	head := ArrayToList(nums)
+	PrintList(head)
+	head = rotateRight(head, 2)
+	PrintList(head)
+
+}
+func TestDeleteAllDuplicates(t *testing.T) {
+
+	//nums := []int{1, 1, 2, 3, 4, 5}
+	nums := []int{1, 2, 3, 3, 4, 4, 5}
+	head := ArrayToList(nums)
+	fmt.Printf("before: %d\n", head.Val)
+	PrintList(head)
+	head = deleteAllDuplicates(head)
+	fmt.Printf("after: %d\n", head.Val)
+	PrintList(head)
+}
+func TestDeleteDuplicates(t *testing.T) {
+
+	nums := []int{1, 1, 2, 3, 4, 5}
+	nums = []int{1, 1, 1}
+	head := ArrayToList(nums)
+	PrintList(head)
+	deleteDuplicates(head)
+	PrintList(head)
+}
+
+func TestReverseBetween(t *testing.T) {
+	nums := []int{3, 5}
+	head := ArrayToList(nums)
+	PrintList(head)
+	head = reverseBetween(head, 1, 2)
+	PrintList(head)
 }
