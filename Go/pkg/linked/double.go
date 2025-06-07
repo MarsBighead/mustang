@@ -164,6 +164,66 @@ func deleteDuplicates(head *ListNode) *ListNode {
 	return head
 }
 
+// 86. 分隔链表
+// https://leetcode.cn/problems/partition-list/description/?envType=study-plan-v2&envId=top-interview-150
+func partition(head *ListNode, x int) *ListNode {
+	root := head
+	right, left := []*ListNode{}, []*ListNode{}
+
+	for head != nil {
+		if head.Val < x {
+			right = append(right, head)
+		} else {
+			left = append(left, head)
+		}
+		head = head.Next
+	}
+	if len(left) == 0 || len(right) == 0 {
+		return root
+	}
+	prev := &ListNode{}
+
+	if len(right) > 0 {
+		head = right[0]
+		prev = head
+		for i, node := range right {
+			if i > 0 {
+				prev.Next = node
+				prev = node
+			}
+		}
+	}
+	if len(left) > 0 {
+		for _, node := range left {
+			prev.Next = node
+			prev = node
+		}
+	}
+	prev.Next = nil
+	return head
+}
+
+func partitionv1(head *ListNode, x int) *ListNode {
+
+	right, left := &ListNode{}, &ListNode{}
+	root := []*ListNode{left, right}
+
+	for head != nil {
+		if head.Val >= x {
+			right.Next = head
+			right = right.Next
+		} else {
+			left.Next = head
+			left = left.Next
+		}
+		head = head.Next
+	}
+	fmt.Println(x, "left: right", left.Val, right.Val)
+	left.Next = root[1].Next
+	right.Next = nil
+	return root[0].Next
+}
+
 // https://leetcode.cn/problems/reverse-linked-list-ii/description/
 // 92. 反转链表 II
 func reverseBetween(head *ListNode, left int, right int) *ListNode {

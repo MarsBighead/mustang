@@ -47,6 +47,21 @@ func TestDeleteDuplicates(t *testing.T) {
 	PrintList(head)
 }
 
+func TestPartition(t *testing.T) {
+	numbers := []int{1, 4, 3, 2, 5, 2}
+	x := 3
+	head := ArrayToList(numbers)
+	ans := partition(head, x)
+	PrintList(ans)
+}
+
+func TestPartitionv1(t *testing.T) {
+	numbers := []int{1, 4, 3, 2, 5, 2}
+	x := 3
+	head := ArrayToList(numbers)
+	ans := partitionv1(head, x)
+	PrintList(ans)
+}
 func TestReverseBetween(t *testing.T) {
 	nums := []int{3, 5}
 	head := ArrayToList(nums)
