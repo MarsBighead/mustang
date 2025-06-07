@@ -32,3 +32,46 @@ func numIslands(grid [][]byte) int {
 	}
 	return ans
 }
+
+// https://leetcode.cn/problems/course-schedule/description/?envType=study-plan-v2&envId=top-interview-150
+// 207. 课程表
+func canFinish(numCourses int, prerequisites [][]int) bool {
+	var (
+		edges   = make([][]int, numCourses)
+		visited = make([]int, numCourses)
+		result  []int
+		ok      = true
+		dfs     func(u int)
+	)
+	for _, info := range prerequisites {
+		edges[info[1]] = append(edges[info[1]], info[0])
+	}
+	// 未搜索: 0，搜索中: 1, 搜索完成:2
+	dfs = func(x int) {
+		visited[x] = 1
+		for _, y := range edges[x] {
+			if visited[y] == 0 {
+				dfs(y)
+				if !ok {
+					return
+				}
+			} else if visited[y] == 1 {
+				ok = false
+				return
+			}
+		}
+		visited[x] = 2
+		result = append(result, x)
+	}
+
+	for i := 0; i < numCourses && ok; i++ {
+		if visited[i] == 0 {
+			dfs(i)
+		}
+		if !ok {
+			return ok
+		}
+	}
+	return ok
+
+}
