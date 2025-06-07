@@ -32,3 +32,14 @@ func longestConsecutive(nums []int) int {
 	}
 	return ans
 }
+
+// 172. 阶乘后的零
+// https://leetcode.cn/problems/factorial-trailing-zeroes/description/?envType=study-plan-v2&envId=top-interview-150
+func trailingZeroes(n int) int {
+	ans := 0
+	for n > 0 {
+		n /= 5
+		ans += n
+	}
+	return ans
+}
