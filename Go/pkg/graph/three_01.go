@@ -1,6 +1,5 @@
 package graph
 
-
 // 130. 被围绕的区域
 // https://leetcode.cn/problems/surrounded-regions/description/?envType=study-plan-v2&envId=top-interview-150
 func solve(board [][]byte) {
@@ -38,4 +37,28 @@ func solve(board [][]byte) {
 			}
 		}
 	}
+}
+
+// https://leetcode.cn/problems/clone-graph/description/?envType=study-plan-v2&envId=top-interview-150
+// 133. 克隆图
+// 哈希表存储所有已被访问和克隆的节点
+func cloneGraph(node *Node) *Node {
+	visited := make(map[*Node]*Node)
+	var deepClone func(node *Node) *Node
+	deepClone = func(node *Node) *Node {
+		if node == nil {
+			return node
+		}
+		if _, ok := visited[node]; ok {
+			return visited[node]
+		}
+		clonedNode := &Node{node.Val, []*Node{}}
+		visited[node] = clonedNode
+		for _, n := range node.Neighbors {
+			clonedNode.Neighbors = append(clonedNode.Neighbors, deepClone(n))
+		}
+		return clonedNode
+	}
+
+	return deepClone(node)
 }
