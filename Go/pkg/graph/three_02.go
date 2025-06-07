@@ -75,3 +75,47 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	return ok
 
 }
+
+// https://leetcode.cn/problems/course-schedule-ii/description/?envType=study-plan-v2&envId=top-interview-150
+// 210. 课程表 II
+func findOrder(numCourses int, prerequisites [][]int) []int {
+	var (
+		edges   = make([][]int, numCourses)
+		visited = make([]int, numCourses)
+		result  []int
+		ok      = true
+		dfs     func(u int)
+	)
+	for _, info := range prerequisites {
+		// edges: 存储前置课程列表
+		edges[info[0]] = append(edges[info[0]], info[1])
+	}
+	// 未搜索: 0，搜索中: 1, 搜索完成:2
+	dfs = func(x int) {
+		visited[x] = 1
+		for _, y := range edges[x] {
+			if visited[y] == 0 {
+				dfs(y)
+				if !ok {
+					return
+				}
+			} else if visited[y] == 1 {
+				ok = false
+				return
+			}
+		}
+		visited[x] = 2
+		result = append(result, x)
+	}
+
+	for i := 0; i < numCourses && ok; i++ {
+		if visited[i] == 0 {
+			dfs(i)
+		}
+		if !ok {
+			return []int{}
+		}
+	}
+	return result
+
+}
