@@ -55,6 +55,24 @@ func reverse(a []int) {
 	}
 }
 
+// https://leetcode.cn/problems/search-insert-position/description/?envType=study-plan-v2&envId=top-interview-150
+// 35. 搜索插入位置
+func searchInsert(nums []int, target int) int {
+	n := len(nums)
+	start, end := 0, n-1
+	//排序数组，才可以这样
+	for start <= end {
+		mid := (end-start)>>1 + start
+		if nums[mid] >= target {
+			n = mid
+			end = mid - 1
+		} else {
+			start = mid + 1
+		}
+	}
+	return n
+}
+
 // https://leetcode.cn/problems/combination-sum/
 // 39. Combination Sum(组合总和)
 func CombinationSum(candidates []int, target int) (ans [][]int) {
