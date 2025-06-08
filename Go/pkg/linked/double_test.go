@@ -5,6 +5,14 @@ import (
 	"testing"
 )
 
+func TestSwapPairs(t *testing.T) {
+
+	//nums := []int{1, 2, 3, 4, 5}
+	nums := []int{1, 2, 3, 4}
+	head := ArrayToList(nums)
+	head = swapPairsv1(head)
+	PrintList(head)
+}
 func TestReverseKGroup(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5}
 	head := ArrayToList(nums)

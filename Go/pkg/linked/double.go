@@ -2,6 +2,33 @@ package linked
 
 import "fmt"
 
+// https://leetcode.cn/problems/swap-nodes-in-pairs/description/?envType=study-plan-v2&envId=top-100-liked
+// 24. 两两交换链表中的节点
+func swapPairs(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	follow := head.Next
+	head.Next = swapPairs(follow.Next)
+	follow.Next = head
+	return follow
+}
+
+func swapPairsv1(head *ListNode) *ListNode {
+	dummy := &ListNode{0, head}
+	current := dummy
+	for current.Next != nil && current.Next.Next != nil {
+		swap := []*ListNode{
+			current.Next,
+			current.Next.Next,
+		}
+		current.Next = swap[1]
+		swap[0].Next, swap[1].Next = swap[1].Next, swap[0]
+		current = swap[0]
+	}
+	return dummy.Next
+}
+
 // 25. K 个一组翻转链表
 // https://leetcode.cn/problems/reverse-nodes-in-k-group/description/?envType=study-plan-v2&envId=top-interview-150
 /**

@@ -1,6 +1,9 @@
 package gdp
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 //https://leetcode.cn/problems/min-cost-climbing-stairs/description/?envType=study-plan-v2&envId=dynamic-programming
 //746. 使用最小花费爬楼梯
@@ -24,4 +27,24 @@ func minCostClimbingStairs(cost []int) int {
 	}
 	return s2
 
+}
+
+// https://leetcode.cn/problems/delete-and-earn/description/?envType=study-plan-v2&envId=dynamic-programming
+// 740. 删除并获得点数
+func deleteAndEarn(nums []int) int {
+	sort.Ints(nums)
+	ans := 0
+	sum := []int{nums[0]}
+	for i := 1; i < len(nums); i++ {
+		if val := nums[i]; val == nums[i-1] {
+			sum[len(sum)-1] += val
+		} else if val == nums[i+1] {
+			sum = append(sum, val)
+		} else {
+			ans += rob(sum)
+			sum = []int{val}
+		}
+	}
+	ans += rob(sum)
+	return ans
 }
