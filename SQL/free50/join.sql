@@ -125,3 +125,15 @@ where id in (
     where managerId is not Null
     group by managerId
     having count(managerId)>=5) 
+
+-- https://leetcode.cn/problems/the-number-of-employees-which-report-to-each-employee/description/?envType=study-plan-v2&envId=sql-free-50
+-- 1731. 每位经理的下属员工数量
+select b.employee_id, b.name,
+        count(b.employee_id) reports_count, 
+        round(avg(a.age)::numeric, 0) average_age
+from Employees a left join Employees b
+    on a.reports_to is not null and
+    a.reports_to =b.employee_id
+where b.employee_id is not null
+group by 1,2
+order by 1
