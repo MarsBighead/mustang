@@ -7,6 +7,30 @@ type ListNode struct {
 	Next *ListNode
 }
 
+/*
+交叉链表
+*/
+// https://leetcode.cn/problems/3u1WK4/description/
+// LCR 023. 相交链表
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	a, b := headA, headB
+	// 链表拼接，最后一段肯定是相同的
+	for a != b {
+		if a != nil {
+			a = a.Next
+		} else {
+			a = headB
+		}
+		if b != nil {
+			b = b.Next
+		} else {
+			b = headA
+		}
+
+	}
+	return a
+}
+
 func ArrayToList(nums []int) *ListNode {
 	if len(nums) == 0 {
 		return nil
