@@ -140,3 +140,16 @@ group by 1
 order by 2 desc
 limit 1
     
+-- 585. 2016年的投资
+-- https://leetcode.cn/problems/investments-in-2016/description/?envType=study-plan-v2&envId=sql-free-50
+-- in条件查询效率低，建议尽量优化为其他条件
+select round(sum(tiv_2016)::numeric,2) tiv_2016 from Insurance
+where (lat,lon) in(
+    select lat,lon from Insurance 
+    group by lat,lon having count(tiv_2015)=1
+) and tiv_2015 in (
+    select tiv_2015
+    from Insurance
+    group by tiv_2015
+    having count(tiv_2015)>1
+)
