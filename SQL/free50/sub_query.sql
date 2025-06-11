@@ -153,3 +153,19 @@ where (lat,lon) in(
     group by tiv_2015
     having count(tiv_2015)>1
 )
+
+-- https://leetcode.cn/problems/department-top-three-salaries/description/
+-- 185. 部门工资前三高的所有员工
+/*
+DENSE_RANK将重复数值排序记为相同值，如8500为第二，有两人，7000位第三名，那么前三将会知道第三名7000。
+*/
+select d.name Department, 
+    e.name Employee, 
+    e.salary Salary
+from Department d join (
+    select departmentId, name, salary, 
+        DENSE_RANK() over (PARTITION BY departmentId 
+        order by salary desc) rn
+    from Employee) e 
+    on d.id=e.departmentId
+where e.rn<=3
