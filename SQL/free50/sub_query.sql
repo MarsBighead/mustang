@@ -86,3 +86,47 @@ where t.avg_rating=t.max_rating
 order by 1 asc
 limit 1)
 
+-- https://leetcode.cn/problems/restaurant-growth/description/?envType=study-plan-v2&envId=sql-free-50
+-- 1321. 餐馆营业额变化增长
+-- CTE表达式版本
+WITH daily_summary AS (
+  SELECT 
+    visited_on,
+    SUM(amount) AS amount
+  FROM Customer
+  GROUP BY visited_on
+)
+SELECT
+  visited_on,
+  amount,
+  ROUND(amount / 7.0, 2) AS average_amount
+  
+FROM (
+  SELECT
+    visited_on,
+    SUM(amount) OVER (
+      ORDER BY visited_on 
+      ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ) AS amount,
+    COUNT(*) OVER (
+      ORDER BY visited_on 
+      ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ) AS cnt
+  FROM daily_summary
+) t
+WHERE cnt=7
+ORDER BY visited_on;
+
+-- 纯窗口函数+偏移量方法
+SELECT
+    visited_on,
+    SUM(SUM(amount)) OVER (
+      ORDER BY visited_on 
+      ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ) AS amount,
+    ROUND(AVG(SUM(amount)) OVER (ORDER BY visited_on ROWS BETWEEN 6 PRECEDING AND CURRENT ROW), 2) AS average_amount
+from Customer
+group by 1
+order by 1
+
+    
