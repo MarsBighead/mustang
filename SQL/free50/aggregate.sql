@@ -65,3 +65,54 @@ select contest_id,
 from Register 
 group by  1
 order by 2 desc, 1 asc
+
+
+-- https://leetcode.cn/problems/queries-quality-and-percentage/description/?envType=study-plan-v2&envId=sql-free-50
+-- 1211. 查询结果的质量和占比
+-- Write your PostgreSQL query statement below
+SELECT 
+    query_name, 
+    round(avg(rating::numeric/position),2) quality,
+    ROUND(SUM(CASE WHEN rating < 3 then 100.00 else 0.00 end) / COUNT(rating), 2) poor_query_percentage
+FROM Queries
+GROUP BY query_name
+
+-- https://leetcode.cn/problems/monthly-transactions-i/submissions/635946300/?envType=study-plan-v2&envId=sql-free-50
+-- 1193. 每月交易 I
+select to_char(trans_date, 'YYYY-MM') as "month",
+country, count(id) as trans_count,
+sum(case when state='approved' then 1 else 0 end) approved_count,
+sum(amount) trans_total_amount,
+sum(case when state='approved' then amount else 0 end) approved_total_amount
+from Transactions
+group by 1,2
+
+select to_char(trans_date, 'YYYY-MM') as "month",
+country, count(id) as trans_count,
+count(id) filter (where state='approved') as approved_count,
+sum(amount) trans_total_amount,
+COALESCE(sum(amount) filter (where state='approved'), 0) approved_total_amount
+from Transactions
+group by 1,2
+
+
+-- 1174. 即时食物配送 II
+-- https://leetcode.cn/studyplan/sql-free-50/
+select round((count(customer_id) filter(where order_date=customer_pref_delivery_date))*100.0/count(delivery_id),2)
+as immediate_percentage
+from Delivery
+where (customer_id, order_date) in (
+     select customer_id, min(order_date)
+    from delivery
+    group by customer_id
+)
+
+-- 550. 游戏玩法分析 IV
+-- https://leetcode.cn/problems/game-play-analysis-iv/description/?envType=study-plan-v2&envId=sql-free-50
+select round((count(a.player_id) filter(where a.event_date is not null))::numeric
+    /(select count(distinct c.player_id) from Activity c), 2) fraction
+from (
+    select player_id, MIN(event_date)+INTERVAL '1 DAY' as event_date
+        from Activity
+    group by 1) t left join Activity a 
+using (player_id, event_date)
