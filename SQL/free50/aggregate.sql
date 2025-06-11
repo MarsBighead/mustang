@@ -5,7 +5,7 @@ from cinema
 where description!='boring' and id%2=1
 order by rating desc
 
-- mod()为聚合函数
+-- mod()为聚合函数
 select id, movie, description, rating
 from cinema
 where description!='boring' and mod(id,2)=1

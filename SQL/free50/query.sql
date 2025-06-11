@@ -202,3 +202,10 @@ limit 1
 SELECT person_name, @pre := @pre + weight AS weight
 FROM Queue, (SELECT @pre := 0) tmp
 ORDER BY turn
+
+
+-- 简单查询，dense rank排序
+-- 178. 分数排名
+-- https://leetcode.cn/problems/rank-scores/description/?envType=problem-list-v2&envId=database
+select score, dense_rank() over (order by score desc) rank
+from Scores
