@@ -129,4 +129,14 @@ from Customer
 group by 1
 order by 1
 
+-- 602. 好友申请 II ：谁有最多的好友
+-- https://leetcode.cn/problems/friend-requests-ii-who-has-the-most-friends/description/?envType=study-plan-v2&envId=sql-free-50
+select ids id, count(ids) as num
+from (
+	select requester_id as ids from RequestAccepted
+	union all
+	select accepter_id from RequestAccepted)
+group by 1
+order by 2 desc
+limit 1
     
