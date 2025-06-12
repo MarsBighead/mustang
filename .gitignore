@@ -31,3 +31,5 @@ mysql-varibles
 *.a
 C/src/books/books
 C/go2c/usego
+
+Go/cmd/conch/conch
