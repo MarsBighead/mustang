@@ -3,7 +3,30 @@ package garray
 import (
 	"fmt"
 	"regexp"
+	"sort"
 )
+
+// https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons/submissions/?envType=study-plan-v2&envId=top-interview-150
+// 452. 用最少数量的箭引爆气球
+func findMinArrowShots(points [][]int) int {
+	if len(points) <= 1 {
+		return len(points)
+	}
+	sort.Slice(points, func(i, j int) bool {
+		return points[i][1] < points[j][1]
+	})
+	right := points[0][1]
+	ans := 1
+	for _, p := range points {
+		//fmt.Println(p)
+		if p[0] > right {
+			right = p[1]
+			ans++
+		}
+	}
+	return ans
+
+}
 
 // 468.验证IP地址
 // https://leetcode.cn/problems/validate-ip-address/description/
