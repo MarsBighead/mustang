@@ -55,6 +55,30 @@ func maxProfitv2(prices []int) int {
 	return dp[n-1][0]
 }
 
+// 134. 加油站
+// https://leetcode.cn/problems/gas-station/description/?envType=study-plan-v2&envId=top-interview-150
+func canCompleteCircuit(gas []int, cost []int) int {
+	for i, n := 0, len(gas); i < n; {
+		sumOfGas, sumOfCost, cnt := 0, 0, 0
+		for cnt < n {
+			j := (i + cnt) % n
+			sumOfGas += gas[j]
+			sumOfCost += cost[j]
+			if sumOfCost > sumOfGas {
+				break
+			}
+			cnt++
+		}
+		if cnt == n {
+			return i
+		} else {
+			i += cnt + 1
+		}
+	}
+	return -1
+
+}
+
 // 165. 比较版本号
 // https://leetcode.cn/problems/compare-version-numbers/description/
 func compareVersion(version1 string, version2 string) int {
