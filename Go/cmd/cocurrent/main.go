@@ -197,4 +197,38 @@ func main() {
 
 	// 3. 打印 0 与奇偶数
 	zeroOddEvenCorrect(10)
+
+	alternatePrintWithChannel()
+
+}
+
+func alternatePrintWithChannel() {
+	ch1 := make(chan struct{})
+	ch2 := make(chan struct{})
+	fmt.Println("两个 goroutine 交替打印 1~100")
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go func() {
+		defer wg.Done()
+		for i := 1; i <= 100; i += 2 {
+			<-ch1
+			fmt.Println("奇数:", i)
+			if i < 100 {
+				ch2 <- struct{}{}
+			}
+		}
+	}()
+	go func() {
+		defer wg.Done()
+		for i := 2; i <= 100; i += 2 {
+			<-ch2
+			fmt.Println("偶数:", i)
+			if i < 100 {
+				ch1 <- struct{}{}
+			}
+		}
+	}()
+	ch1 <- struct{}{}
+	wg.Wait()
+	// time.Sleep(time.Second) // 等待打印完成（实际可用 WaitGroup）
 }

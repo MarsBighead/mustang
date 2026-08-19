@@ -33,3 +33,6 @@ C/src/books/books
 C/go2c/usego
 
 Go/cmd/conch/conch
+
+# xm build output
+bin/
